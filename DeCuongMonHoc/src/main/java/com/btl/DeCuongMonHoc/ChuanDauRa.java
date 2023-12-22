@@ -59,11 +59,13 @@ public class ChuanDauRa {
         this.tenChuanDauRa = "CLO%s.%d".formatted(mucTieuThu, ++dem);
     }
 
+    // bổ sung method 1
     public void nhapChuanDauRa() {
         System.out.printf("Nhập mô tả cho chuẩn đầu ra %s: ", this.tenChuanDauRa);
         this.moTa = CauHinh.sc.nextLine();
     }
 
+    // bổ sung method 2
     @Override
     public String toString() {
         return "%s: %s\n".formatted(this.tenChuanDauRa, this.moTa);
