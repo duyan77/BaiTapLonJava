@@ -52,6 +52,9 @@ public class ChuanDauRa {
         ChuanDauRa.dem = dem;
     }
 
+    //    ----------------------------------------------------------------------------------------
+
+
     private void taoTenChuanDauRa() {
         String tenMucTieu = this.mucTieu.getTenMucTieu();
         String mucTieuThu = tenMucTieu.substring(tenMucTieu.indexOf("O") + 1);
