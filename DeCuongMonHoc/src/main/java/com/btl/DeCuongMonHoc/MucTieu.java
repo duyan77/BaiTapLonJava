@@ -27,6 +27,7 @@ public class MucTieu {
         this.moTa = moTa;
     }
 
+    //--------------------------------getter, setter---------------------------------------
     public String getTenMucTieu() {
         return tenMucTieu;
     }
@@ -50,6 +51,7 @@ public class MucTieu {
     public void setChuanDauRaList(List<ChuanDauRa> chuanDauRaList) {
         this.chuanDauRaList = chuanDauRaList;
     }
+// -------------------------------------------------------------------------------------------------
 
     // nhập mục tiêu
     public void nhapMucTieu() {
