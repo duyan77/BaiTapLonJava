@@ -1,29 +1,30 @@
 package com.btl.DeCuongMonHoc;
 // lớp này coi như tạm ổn
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MucTieu {
+    private static int dem = 0;
 
     private String tenMucTieu;
 
     private String moTa;
 
-    private List<ChuanDauRa> boChuanDauRa;
+    private List<ChuanDauRa> chuanDauRaList = new ArrayList<>();
+
+    {
+        this.tenMucTieu = "CO%d".formatted(++dem); // CO <=> course objectives
+        ChuanDauRa.setDem(0); // reset biến dem trong class ChuanDauRa mỗi khi tạo mới đối tượng
+        // MucTieu
+    }
+
+    public MucTieu() {
+    }
 
     public MucTieu(String mucTieuMon, String moTa) {
         this.tenMucTieu = mucTieuMon;
         this.moTa = moTa;
-    }
-
-    // thêm mới chuẩn đầu ra cho mục tiêu
-    public void themChuanDauRa(int soChuanDauRa) {
-        ChuanDauRa c = new ChuanDauRa(this);
-        System.out.println("Chuẩn đầu ra " + c.getTenChuanDauRa());
-        System.out.println("Nhập mô tả: "); // nhập mô tả cho chuẩn đầu ra c
-        String des = CauHinh.sc.nextLine();
-        c.setMoTa(des);
-        this.boChuanDauRa.add(c);
     }
 
     public String getTenMucTieu() {
@@ -42,11 +43,44 @@ public class MucTieu {
         this.moTa = moTa;
     }
 
-    public List<ChuanDauRa> getBoChuanDauRa() {
-        return boChuanDauRa;
+    public List<ChuanDauRa> getChuanDauRaList() {
+        return chuanDauRaList;
     }
 
-    public void setBoChuanDauRa(List<ChuanDauRa> boChuanDauRa) {
-        this.boChuanDauRa = boChuanDauRa;
+    public void setChuanDauRaList(List<ChuanDauRa> chuanDauRaList) {
+        this.chuanDauRaList = chuanDauRaList;
+    }
+
+    // nhập mục tiêu
+    public void nhapMucTieu() {
+        System.out.println("Mục tiêu " + this.tenMucTieu);
+        System.out.printf("Nhập mô tả cho mục tiêu %s: ", this.tenMucTieu);
+        this.moTa = CauHinh.sc.nextLine();
+    }
+
+    // thêm mới chuẩn đầu ra cho mục tiêu
+    public void themChuanDauRa(int soChuanDauRa) {
+        for (int i = 0; i < soChuanDauRa; i++) {
+            ChuanDauRa tmp = new ChuanDauRa(this);
+            tmp.nhapChuanDauRa();
+            this.chuanDauRaList.add(tmp);
+        }
+    }
+
+    // xóa chuẩn đẩu ra bằng đối tượng
+    public void xoaChuanDauRa(ChuanDauRa chuanDauRa) {
+        this.chuanDauRaList.remove(chuanDauRa);
+    }
+
+    // xóa chuẩn đầu ra bằng tên
+    public void xoaChuaDauRa(String ten) {
+        this.chuanDauRaList.removeIf(chuanDauRa -> chuanDauRa.getTenChuanDauRa().equals(ten));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        this.chuanDauRaList.forEach(chuanDauRa -> sb.append(chuanDauRa.toString()));
+        return "%s\n%s".formatted(this.tenMucTieu, sb.toString());
     }
 }
