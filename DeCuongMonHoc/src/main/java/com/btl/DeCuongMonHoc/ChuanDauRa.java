@@ -14,12 +14,12 @@ public class ChuanDauRa {
         taoTenChuanDauRa();
     }
 
-    //    getter, setter
     public ChuanDauRa(MucTieu mucTieu) {
         this.mucTieu = mucTieu;
         taoTenChuanDauRa();
     }
 
+    //    getter, setter
     public String getTenChuanDauRa() {
         return tenChuanDauRa;
     }
