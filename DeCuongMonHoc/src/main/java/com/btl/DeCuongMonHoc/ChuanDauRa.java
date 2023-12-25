@@ -1,5 +1,7 @@
 package com.btl.DeCuongMonHoc;
 
+import static com.btl.DeCuongMonHoc.CauHinh.sc;
+
 // lớp này coi như tạm ổn
 public class ChuanDauRa {
     private static int dem = 0;
@@ -65,7 +67,7 @@ public class ChuanDauRa {
     // bổ sung method 1
     public void nhapChuanDauRa() {
         System.out.printf("Nhập mô tả cho chuẩn đầu ra %s: ", this.tenChuanDauRa);
-        this.moTa = CauHinh.sc.nextLine();
+        this.moTa = sc.nextLine();
     }
 
     // bổ sung method 2

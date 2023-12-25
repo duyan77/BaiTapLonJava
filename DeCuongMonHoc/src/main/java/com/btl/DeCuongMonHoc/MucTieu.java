@@ -4,6 +4,8 @@ package com.btl.DeCuongMonHoc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.btl.DeCuongMonHoc.CauHinh.sc;
+
 public class MucTieu {
     private static int dem = 0;
 
@@ -57,7 +59,7 @@ public class MucTieu {
     public void nhapMucTieu() {
         System.out.println("Mục tiêu " + this.tenMucTieu);
         System.out.printf("Nhập mô tả cho mục tiêu %s: ", this.tenMucTieu);
-        this.moTa = CauHinh.sc.nextLine();
+        this.moTa = sc.nextLine();
     }
 
     // thêm mới chuẩn đầu ra cho mục tiêu
