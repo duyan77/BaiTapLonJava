@@ -3,26 +3,54 @@ package com.btl.DeCuongMonHoc;
 import java.util.List;
 
 public class GiangVien {
+    private static int dem = 0;
 
-    private int maGV;
+    private String maGV;
 
     private String ten;
 
-    private List<DeCuongMonHoc> dc;
+    private final QuanLyDeCuong quanLyDeCuong;
 
-    public GiangVien(int maGV, String ten, List<DeCuongMonHoc> dc) {
-        this.maGV = maGV;
-        this.ten = ten;
-        this.dc = dc;
+    {
+        this.maGV = String.format("GV%03d", ++GiangVien.dem);
+        this.quanLyDeCuong = new QuanLyDeCuong();
     }
 
-    public GiangVien(int maGV, String ten) {
-        this.maGV = maGV;
+    public GiangVien() {
+    }
+
+    public GiangVien(String ten) {
         this.ten = ten;
+    }
+
+//    getter, setter
+
+    public String getMaGV() {
+        return maGV;
+    }
+
+    public void setMaGV(String maGV) {
+        this.maGV = maGV;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
+
+    //    ----------------------------------------------------------------------------------------
+
+
+    public void nhapGiangVien() {
+        System.out.println("Nhap ten giang vien: ");
+
     }
 
     public void taoDeCuong() {
-
+        this.quanLyDeCuong.themDeCuong();
     }
 
     public void themDanhGia(DeCuongMonHoc dc) {
@@ -46,39 +74,30 @@ public class GiangVien {
     }
 
     public MonHoc timMonHoc(int id) {
-        return null;
-    }
-
-    public MonHoc timMonHoc(int id, HeDaoTao he) {
-        return null;
+        return this.quanLyDeCuong.timMonHoc(id);
     }
 
     public List<MonHoc> timMonHoc(String kw) {
-        return null;
+        return this.quanLyDeCuong.timMonHoc(kw);
     }
 
     public List<MonHoc> monTruocVaTQ(int id) {
-        return null;
-    }
-
-    public List<MonHoc> monTruocVaTQ(int id, HeDaoTao he) {
-        return null;
+        return this.quanLyDeCuong.dsMonTruocVaTQ(id);
     }
 
     public void sapXepMonHoc() {
-
+        this.quanLyDeCuong.sapXep();
     }
 
     public List<DeCuongMonHoc> danhSachDeCuong() {
-        return null;
+        return this.quanLyDeCuong.danhSachDeCuong();
     }
 
     public void xuatDeCuong(DeCuongMonHoc dc) {
-
+        
     }
 
     public void thongKeDC() {
-
+        this.quanLyDeCuong.themDeCuong();
     }
-
 }
