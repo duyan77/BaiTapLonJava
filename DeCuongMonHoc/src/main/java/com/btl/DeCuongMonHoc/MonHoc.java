@@ -1,6 +1,8 @@
 package com.btl.DeCuongMonHoc;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
@@ -112,7 +114,7 @@ public class MonHoc {
         System.out.print("Nhập số tín chỉ: ");
         this.soTinChi = Integer.parseInt(sc.nextLine());
 
-        System.out.print("Nhập môn tả cho môn học: ");
+        System.out.print("Nhập mô tả cho môn học: ");
         this.moTa = sc.nextLine();
 
 //        khối kiến thức: cơ sở, cơ sở ngành, chuyên ngành
@@ -124,7 +126,7 @@ public class MonHoc {
                     2.Cơ Sở ngành
                     3.Chuyên ngành
                     Chọn:\s""");
-            k = Integer.parseInt(sc.next());
+            k = Integer.parseInt(sc.nextLine());
         } while (k < 1 || k > 3);
         this.khoiKienThuc = KhoiKienThuc.convertIntToKienThuc(k);
     }
@@ -136,7 +138,7 @@ public class MonHoc {
         // nhập thông tin môn học trước
         int soMon;
         do {
-            System.out.println("Nhập số môn học trước: ");
+            System.out.print("Nhập số môn học trước: ");
             soMon = Integer.parseInt(sc.nextLine());
             if (soMon > 3)
                 System.err.println("Số môn học trước tối đa là 3!");
@@ -145,17 +147,33 @@ public class MonHoc {
         } while (soMon < 0 || soMon > 3);
 
         this.monHocTruoc = new MonHoc[soMon];
-        Arrays.stream(this.monHocTruoc).forEach(MonHoc::nhapThongTinChung);
+        for (int i = 0; i < soMon; i++) {
+            monHocTruoc[i] = new MonHoc();
+            monHocTruoc[i].nhapMonHoc();
+        }
 
         // nhập thông tin môn học tiên quyết
+    }
+
+    public List<MonHoc> dsMonTienQuyet() {
+        return Arrays.stream(this.monTienQuyet).toList();
+    }
+
+    public List<MonHoc> dsMonHocTruoc() {
+        return Arrays.stream(this.monHocTruoc).toList();
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        Arrays.stream(monHocTruoc).forEach(monHoc -> sb.append(monHoc.ten).append(" "));
-        String mHTStr = sb.toString().trim();
-        sb.delete(0, sb.length());
+        Arrays.stream(monHocTruoc).forEach(monHoc -> sb.append(monHoc.ten).append(", "));
+        String mHTStr;
+        try {
+            mHTStr = sb.delete(sb.lastIndexOf(","), sb.length() - 1).toString();
+            sb.delete(0, sb.length());
+        } catch (StringIndexOutOfBoundsException e) { // error because index of ", " is -1
+            mHTStr = "Không";
+        }
 
         return """
                 Mã môn học: %d
@@ -164,5 +182,18 @@ public class MonHoc {
                 Mô tả: %s
                 Khối kiến thức: %s
                 """.formatted(this.ma, this.ten, mHTStr, this.moTa, this.khoiKienThuc.toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MonHoc monHoc = (MonHoc) o;
+        return Objects.equals(ten, monHoc.ten);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ten);
     }
 }
