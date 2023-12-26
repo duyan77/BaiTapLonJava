@@ -4,23 +4,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class QuanLyDeCuong {
-    Set<DeCuongMonHoc> set = new HashSet<>(); // set cac de cuong mon hoc
+    private Set<DeCuongMonHoc> set = new LimitedSet<>(CauHinh.soLuongDeCuong); // set cac de cuong mon
+    // hoc
 
-    public void themDeCuong(DeCuongMonHoc deCuongMonHoc) {
-        if (this.checkDuplicate(deCuongMonHoc))
-            System.err.println("De cuong cho mon hoc nay da ton tai !!!");
-        else
-            this.set.add(deCuongMonHoc);
+    public void themDeCuong(DeCuongMonHoc... deCuongMonHoc) {
+        Arrays.stream(deCuongMonHoc).forEach(dc -> {
+            if (this.checkDuplicate(dc))
+                throw new IllegalArgumentException("De cuong cho mon hoc nay da ton tai!");
+            else
+                this.set.add(dc);
+        });
     }
 
     // them de cuong bang cach tu nhap
     public void themDeCuong() {
         DeCuongMonHoc tmp = new DeCuongMonHoc();
         tmp.nhapDeCuong();
-        if (this.checkDuplicate(tmp))
-            System.err.println("De cuong cho mon hoc nay da ton tai !!!");
-        else
-            this.set.add(tmp);
+        this.themDeCuong(tmp);
     }
 
     private boolean checkDuplicate(DeCuongMonHoc deCuongMonHoc) {
@@ -49,11 +49,11 @@ public class QuanLyDeCuong {
     public List<MonHoc> dsMonTruocVaTQ(int id) {
         List<MonHoc> ds = new ArrayList<>();
         MonHoc m = this.timMonHoc(id);
-        
+
         if (m != null) {
             ds.addAll(m.dsMonHocTruoc()); // them vao danh sach mon hoc truoc
             ds.addAll(m.dsMonTienQuyet()); // them vao danh sach mon hoc tien quyet
-        } else System.err.println("Ma mon hoc khong ton tai!");
+        } else throw new IllegalArgumentException("Ma mon hoc khong ton tai");
 
         return ds;
     }
@@ -65,21 +65,16 @@ public class QuanLyDeCuong {
 
     public void sapXep() {
         List<DeCuongMonHoc> sortedArray = new ArrayList<>(this.set);
-        sortedArray.sort((o1, o2) -> {
-            int tc1 = o1.getMonHoc().getSoTinChi();
-            int tc2 = o2.getMonHoc().getSoTinChi();
-
-            if (tc1 == tc2)
-                return o1.getMonHoc().getMa() - o2.getMonHoc().getMa();
-            return tc2 - tc1; // sap xep theo tin chi giam dan
-        });
+        sortedArray.sort(new DeCuongComparator());
 
         this.set = new LinkedHashSet<>(sortedArray);
     }
 
+    // thong ke de cuong theo tin chi
     public void thongKeTheoTinChi() {
-        // thong ke de cuong theo tin chi
-        Map<Integer, List<DeCuongMonHoc>> thongKeDeCuong = new HashMap<>();
+        // tree map sap xep tang dan theo key
+        Map<Integer, List<DeCuongMonHoc>> thongKeDeCuong = new TreeMap<>();
+
         for (DeCuongMonHoc deCuongMonHoc : set) {
             int soTinChi = deCuongMonHoc.getMonHoc().getSoTinChi();
             if (!thongKeDeCuong.containsKey(soTinChi))
@@ -87,19 +82,12 @@ public class QuanLyDeCuong {
             thongKeDeCuong.get(soTinChi).add(deCuongMonHoc);
         }
 
-        // ket qua thong ke
-        for (Integer soTinChi : thongKeDeCuong.keySet()) {
-            StringBuilder sb = new StringBuilder();
-            thongKeDeCuong
-                    .get(soTinChi)
-                    .forEach(deCuongMonHoc -> sb
-                            .append(deCuongMonHoc.getMonHoc().toString())
-                            .append(", ")
-                    );
-            // danh sach cac mon hoc dang chuoi
-            String courseList = sb.delete(sb.lastIndexOf(","), sb.length() - 1).toString();
-
-            System.out.printf("%d - %s\n", soTinChi, courseList);
+        // ket qua thong ke theo so tin chi tang dan
+        for (Map.Entry<Integer, List<DeCuongMonHoc>> entry : thongKeDeCuong.entrySet()) {
+            String courseList = entry.getValue().stream()
+                    .map(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getTen())
+                    .collect(Collectors.joining(", "));
+            System.out.printf("%d - %s\n", entry.getKey(), courseList);
         }
     }
 }
