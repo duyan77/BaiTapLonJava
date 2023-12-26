@@ -57,9 +57,13 @@ public class MucTieu {
 
     // nhập mục tiêu
     public void nhapMucTieu() {
-        System.out.println("Mục tiêu " + this.tenMucTieu);
+        System.out.print("Mục tiêu " + this.tenMucTieu);
         System.out.printf("Nhập mô tả cho mục tiêu %s: ", this.tenMucTieu);
         this.moTa = sc.nextLine();
+        System.out.println("Nhap chuan dau ra cho muc tieu " + this.tenMucTieu);
+        System.out.print("Nhap so chuan dau ra: ");
+        int soChuanDauRa = Integer.parseInt(sc.nextLine());
+        this.themChuanDauRa(soChuanDauRa);
     }
 
     // thêm mới chuẩn đầu ra cho mục tiêu
