@@ -1,22 +1,30 @@
 package com.btl.DeCuongMonHoc;
 
+import java.util.Objects;
+
+import static com.btl.DeCuongMonHoc.CauHinh.sc;
+
 public class DeCuongMonHoc {
 
     private MonHoc monHoc;
 
     private HeDaoTao heDaoTao;
 
-    private MucTieu mucTieu;
+    private MucTieu[] mucTieu;
 
     private DanhGia danhGia;
 
-    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, MucTieu mucTieu, DanhGia danhGia) {
+    public DeCuongMonHoc() {
+    }
+
+    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, MucTieu[] mucTieu, DanhGia danhGia) {
         this.monHoc = monHoc;
         this.heDaoTao = heDaoTao;
         this.mucTieu = mucTieu;
         this.danhGia = danhGia;
     }
 
+    //    getter, setter
     public MonHoc getMonHoc() {
         return monHoc;
     }
@@ -33,11 +41,11 @@ public class DeCuongMonHoc {
         this.heDaoTao = heDaoTao;
     }
 
-    public MucTieu getMucTieu() {
+    public MucTieu[] getMucTieu() {
         return mucTieu;
     }
 
-    public void setMucTieu(MucTieu mucTieu) {
+    public void setMucTieu(MucTieu[] mucTieu) {
         this.mucTieu = mucTieu;
     }
 
@@ -47,5 +55,47 @@ public class DeCuongMonHoc {
 
     public void setDanhGia(DanhGia danhGia) {
         this.danhGia = danhGia;
+    }
+
+//    ------------------------------------------------------------------------------------------
+
+    public void nhapDeCuong() {
+        // nhap mon hoc
+        MonHoc m = new MonHoc();
+        m.nhapMonHoc();
+
+        // nhap he dao tao
+        int k;
+        do {
+            System.out.print("""
+                    Chon he dao tao
+                    1. Chinh quy
+                    2. Lien thong
+                    Chon:\s"""); // \s <=> " "
+            k = Integer.parseInt(sc.nextLine());
+        } while (k < 1 || k > 2);
+        this.heDaoTao = HeDaoTao.convertIntToHeDaoTao(k);
+
+        System.out.println("Nhap so luong muc tieu: ");
+        int soLuong = Integer.parseInt(sc.nextLine());
+        this.mucTieu = new MucTieu[soLuong];
+
+        for (int i = 0; i < soLuong; i++)
+            mucTieu[i].nhapMucTieu();
+    }
+
+    // cach thuc so sanh 2 de cuong bang nhau
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeCuongMonHoc that = (DeCuongMonHoc) o;
+        return Objects.equals(monHoc, that.monHoc) && heDaoTao == that.heDaoTao;
+    }
+
+    // ghi de lai hash code de dam bao rang 2 doi tuong bang nhau co cung ma hash code
+    @Override
+    public int hashCode() {
+        return Objects.hash(monHoc, heDaoTao);
     }
 }
