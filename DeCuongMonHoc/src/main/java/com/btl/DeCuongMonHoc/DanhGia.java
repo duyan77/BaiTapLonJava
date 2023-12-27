@@ -16,7 +16,7 @@ public class DanhGia {
     public DanhGia(int soCotDiem) {
         this.soCotDiem = soCotDiem;
         if (soCotDiem > soCotDiemToiDa) {
-            throw new IllegalArgumentException("So cot diem toi thieu 2 va toi da 4!");
+            throw new IllegalArgumentException("Số cột điểm tối thiểu 2 và tối đa 4!");
         }
         this.cotDiem = new LinkedList<>(); // nen su dung linked list vi chuc nang can thiet chi
         // la them va xoa
@@ -38,7 +38,7 @@ public class DanhGia {
 
     public void themCotDiem() {
         CotDiem tmp = new CotDiem();
-        System.out.println("Nhap cot diem " + tmp.getTenDiem());
+        System.out.println("Nhập cột điểm " + tmp.getTenDiem());
         tmp.nhapCotDiem();
         this.themCotDiem(tmp);
     }

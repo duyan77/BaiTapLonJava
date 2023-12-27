@@ -168,7 +168,7 @@ public class MonHoc {
     public String toString() {
         String tenCacMonHocTruoc = Arrays.stream(this.monHocTruoc).map(MonHoc::getTen)
                 .collect(Collectors.joining(", "));
-        if (tenCacMonHocTruoc.isEmpty()) tenCacMonHocTruoc = "Khong";
+        if (tenCacMonHocTruoc.isEmpty()) tenCacMonHocTruoc = "Không";
 
         return """
                 Mã môn học: %d

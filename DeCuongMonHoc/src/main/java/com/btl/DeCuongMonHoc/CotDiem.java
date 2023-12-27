@@ -66,14 +66,14 @@ public class CotDiem {
     }
 
     public void nhapCotDiem() {
-        System.out.print("Nhap noi dung danh gia: ");
+        System.out.print("Nhập nội dung đánh giá: ");
         this.noiDung = sc.nextLine();
-        System.out.print("Nhap phuong phap danh gia: ");
+        System.out.print("Nhập phương pháp đánh giá: ");
         this.phuongPhap = sc.nextLine();
-        System.out.print("Nhap ti trong diem: ");
+        System.out.print("Nhập tỉ trọng điểm: ");
         double tt = Integer.parseInt(sc.nextLine());
         if (tt < 0 || tt > 100)
-            throw new IllegalArgumentException("Ti trong diem phai lon hon 0 va nho hon 100");
+            throw new IllegalArgumentException("Tỉ trọng điểm phải lớn hơn 0 và nhỏ hơn 100");
         this.tiTrong = tt;
     }
 }
