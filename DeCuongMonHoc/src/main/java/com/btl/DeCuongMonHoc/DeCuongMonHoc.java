@@ -1,5 +1,6 @@
 package com.btl.DeCuongMonHoc;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
@@ -30,7 +31,7 @@ public class DeCuongMonHoc {
     }
 
     public void setMonHoc(MonHoc monHoc) {
-        this.monHoc = monHoc;
+        this.monHoc = this.monHoc;
     }
 
     public HeDaoTao getHeDaoTao() {
@@ -60,28 +61,32 @@ public class DeCuongMonHoc {
 //    ------------------------------------------------------------------------------------------
 
     public void nhapDeCuong() {
-        // nhap mon hoc
-        MonHoc m = new MonHoc();
-        m.nhapMonHoc();
+
+        MonHoc monHoc = new MonHoc();
+        monHoc.nhapMonHoc();
+        this.monHoc=monHoc;
 
         // nhap he dao tao
         int k;
         do {
             System.out.print("""
-                    Chon he dao tao
-                    1. Chinh quy
-                    2. Lien thong
-                    Chon:\s"""); // \s <=> " "
+                    Chọn hệ đào tạo
+                    1. Chính quy
+                    2. Liên thông
+                    Chọn:\s"""); // \s <=> " "
             k = Integer.parseInt(sc.nextLine());
         } while (k < 1 || k > 2);
         this.heDaoTao = HeDaoTao.convertIntToHeDaoTao(k);
 
-        System.out.println("Nhap so luong muc tieu: ");
-        int soLuong = Integer.parseInt(sc.nextLine());
+        int soLuong;
+        System.out.print("Nhập số lượng mục tiêu: ");
+        soLuong = Integer.parseInt(sc.nextLine());
         this.mucTieu = new MucTieu[soLuong];
 
-        for (int i = 0; i < soLuong; i++)
+        for (int i = 0; i < soLuong; i++){
+            mucTieu[i] = new MucTieu();
             mucTieu[i].nhapMucTieu();
+        }
     }
 
     // cach thuc so sanh 2 de cuong bang nhau

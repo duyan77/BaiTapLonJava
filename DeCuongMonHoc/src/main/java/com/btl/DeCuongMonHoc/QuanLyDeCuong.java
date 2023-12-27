@@ -10,7 +10,7 @@ public class QuanLyDeCuong {
     public void themDeCuong(DeCuongMonHoc... deCuongMonHoc) {
         Arrays.stream(deCuongMonHoc).forEach(dc -> {
             if (this.checkDuplicate(dc))
-                throw new IllegalArgumentException("De cuong cho mon hoc nay da ton tai!");
+                throw new IllegalArgumentException("Đề cương cho môn học này đã tồn tại!");
             else
                 this.set.add(dc);
         });
@@ -53,7 +53,7 @@ public class QuanLyDeCuong {
         if (m != null) {
             ds.addAll(m.dsMonHocTruoc()); // them vao danh sach mon hoc truoc
             ds.addAll(m.dsMonTienQuyet()); // them vao danh sach mon hoc tien quyet
-        } else throw new IllegalArgumentException("Ma mon hoc khong ton tai");
+        } else throw new IllegalArgumentException("Mã môn học không tồn tại");
 
         return ds;
     }

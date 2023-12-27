@@ -1,6 +1,7 @@
 package com.btl.DeCuongMonHoc;
 
 import java.util.List;
+import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class GiangVien {
     private static int dem = 0;
@@ -45,7 +46,8 @@ public class GiangVien {
 
 
     public void nhapGiangVien() {
-        System.out.println("Nhap ten giang vien: ");
+        System.out.println("Nhập tên giảng viên: ");
+        this.ten = sc.nextLine();
 
     }
 

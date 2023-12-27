@@ -5,9 +5,9 @@ import java.util.Map;
 
 public enum HeDaoTao {
 
-    CHINH_QUY("Chinh quy"),
+    CHINH_QUY("Chính quy"),
 
-    LIEN_THONG("Lien thong");
+    LIEN_THONG("Liên thông");
 
     private final String nameOfHeDaoTao;
 
