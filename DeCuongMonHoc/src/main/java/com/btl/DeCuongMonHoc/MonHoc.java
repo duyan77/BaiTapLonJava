@@ -3,6 +3,7 @@ package com.btl.DeCuongMonHoc;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
@@ -165,15 +166,9 @@ public class MonHoc {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        Arrays.stream(monHocTruoc).forEach(monHoc -> sb.append(monHoc.ten).append(", "));
-        String mHTStr;
-        try {
-            mHTStr = sb.delete(sb.lastIndexOf(","), sb.length() - 1).toString();
-            sb.delete(0, sb.length());
-        } catch (StringIndexOutOfBoundsException e) { // error because index of ", " is -1
-            mHTStr = "Không";
-        }
+        String tenCacMonHocTruoc = Arrays.stream(this.monHocTruoc).map(MonHoc::getTen)
+                .collect(Collectors.joining(", "));
+        if (tenCacMonHocTruoc.isEmpty()) tenCacMonHocTruoc = "Khong";
 
         return """
                 Mã môn học: %d
@@ -181,7 +176,7 @@ public class MonHoc {
                 Môn học trước: %s
                 Mô tả: %s
                 Khối kiến thức: %s
-                """.formatted(this.ma, this.ten, mHTStr, this.moTa, this.khoiKienThuc.toString());
+                """.formatted(this.ma, this.ten, tenCacMonHocTruoc, this.moTa, this.khoiKienThuc.toString());
     }
 
     @Override

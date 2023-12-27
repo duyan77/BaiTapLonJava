@@ -94,10 +94,10 @@ public class GiangVien {
     }
 
     public void xuatDeCuong(DeCuongMonHoc dc) {
-        
+
     }
 
     public void thongKeDC() {
-        this.quanLyDeCuong.themDeCuong();
+        this.quanLyDeCuong.thongKeTheoTinChi();
     }
 }
