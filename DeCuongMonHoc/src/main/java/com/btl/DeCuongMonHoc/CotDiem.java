@@ -76,4 +76,10 @@ public class CotDiem {
             throw new IllegalArgumentException("Tỉ trọng điểm phải lớn hơn 0 và nhỏ hơn 100");
         this.tiTrong = tt;
     }
+
+    @Override
+    public String toString() {
+        return "Noi dung danh gia %s\nNoi dung: %s\nPhuong phap: %s\nTi trong diem: %.2f\n"
+                .formatted(this.tenDiem, this.noiDung, this.phuongPhap, this.tiTrong);
+    }
 }
