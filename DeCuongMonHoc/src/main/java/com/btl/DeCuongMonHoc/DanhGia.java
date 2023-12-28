@@ -47,6 +47,11 @@ public class DanhGia {
             throw new IllegalArgumentException("Số cột điểm tối thiểu 2 và tối đa 4!");
         }
         this.cotDiem = new LinkedList<>();
+        for (int i = 0; i < soCot; i++) {
+            CotDiem cotDiem= new CotDiem();
+            cotDiem.nhapCotDiem();
+            this.cotDiem.add(cotDiem);
+        }
     }
 
     public double tongDiem() {

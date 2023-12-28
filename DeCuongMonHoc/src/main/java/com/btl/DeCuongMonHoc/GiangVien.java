@@ -46,9 +46,16 @@ public class GiangVien {
 
 
     public void nhapGiangVien() {
-        System.out.println("Nhập tên giảng viên: ");
+        System.out.print("Nhập tên giảng viên: ");
         this.ten = sc.nextLine();
+    }
 
+    @Override
+    public String toString() {
+        return """
+                Tên giảng viên: %s
+                Mã giảng viên: %s
+                """.formatted(this.ten, this.maGV);
     }
 
     public void taoDeCuong() {

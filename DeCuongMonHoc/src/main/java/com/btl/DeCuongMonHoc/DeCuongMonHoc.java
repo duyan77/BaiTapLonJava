@@ -15,14 +15,17 @@ public class DeCuongMonHoc {
 
     private DanhGia danhGia;
 
+    private GiangVien giangVien;
+
     public DeCuongMonHoc() {
     }
 
-    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, MucTieu[] mucTieu, DanhGia danhGia) {
+    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, MucTieu[] mucTieu, DanhGia danhGia, GiangVien giangVien) {
         this.monHoc = monHoc;
         this.heDaoTao = heDaoTao;
         this.mucTieu = mucTieu;
         this.danhGia = danhGia;
+        this.giangVien = giangVien;
     }
 
     //    getter, setter
@@ -58,7 +61,15 @@ public class DeCuongMonHoc {
         this.danhGia = danhGia;
     }
 
-//    ------------------------------------------------------------------------------------------
+    public GiangVien getGiangVien() {
+        return giangVien;
+    }
+
+    public void setGiangVien(GiangVien giangVien) {
+        this.giangVien = giangVien;
+    }
+
+    //    ------------------------------------------------------------------------------------------
 
     public void nhapDeCuong() {
 
@@ -91,6 +102,10 @@ public class DeCuongMonHoc {
         DanhGia danhGia = new DanhGia();
         danhGia.nhapDanhGia();
         this.danhGia=danhGia;
+
+        GiangVien giangVien = new GiangVien();
+        giangVien.nhapGiangVien();
+        this.giangVien=giangVien;
     }
 
     @Override
@@ -104,7 +119,9 @@ public class DeCuongMonHoc {
                 %s
                 3. ĐÁNH GIÁ
                 %s
-                """.formatted(monHoc.toString(), heDaoTao.toString(), sb.toString(), danhGia.toString());
+                4. GIẢNG VIÊN PHỤ TRÁCH
+                %s
+                """.formatted(monHoc.toString(), heDaoTao.toString(), sb.toString(), danhGia.toString(), giangVien.toString());
     }
 
     // cach thuc so sanh 2 de cuong bang nhau
