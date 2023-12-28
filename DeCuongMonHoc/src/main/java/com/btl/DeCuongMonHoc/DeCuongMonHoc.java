@@ -1,6 +1,5 @@
 package com.btl.DeCuongMonHoc;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
@@ -31,7 +30,7 @@ public class DeCuongMonHoc {
     }
 
     public void setMonHoc(MonHoc monHoc) {
-        this.monHoc = this.monHoc;
+        this.monHoc = monHoc;
     }
 
     public HeDaoTao getHeDaoTao() {
@@ -64,7 +63,7 @@ public class DeCuongMonHoc {
 
         MonHoc monHoc = new MonHoc();
         monHoc.nhapMonHoc();
-        this.monHoc=monHoc;
+        this.monHoc = monHoc;
 
         // nhap he dao tao
         int k;
@@ -83,7 +82,7 @@ public class DeCuongMonHoc {
         soLuong = Integer.parseInt(sc.nextLine());
         this.mucTieu = new MucTieu[soLuong];
 
-        for (int i = 0; i < soLuong; i++){
+        for (int i = 0; i < soLuong; i++) {
             mucTieu[i] = new MucTieu();
             mucTieu[i].nhapMucTieu();
         }
