@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
-import static com.btl.DeCuongMonHoc.CauHinh.soCotDiemToiDa;
-import static com.btl.DeCuongMonHoc.CauHinh.soCotDiemToiThieu;
+import static com.btl.DeCuongMonHoc.CauHinh.*;
 
 public class DanhGia {
 
     private int soCotDiem;
 
-    private final List<CotDiem> cotDiem; // cot diem toi thieu 2 va toi da 4
+    private List<CotDiem> cotDiem; // cot diem toi thieu 2 va toi da 4
 
     public DanhGia(int soCotDiem) {
         this.soCotDiem = soCotDiem;
@@ -25,7 +24,29 @@ public class DanhGia {
     }
 
     public DanhGia() {
-        this(soCotDiemToiThieu);
+    }
+
+    // getter, setter
+    public int getSoCotDiem() {
+        return soCotDiem;
+    }
+
+    public void setSoCotDiem(int soCotDiem) {
+        this.soCotDiem = soCotDiem;
+    }
+
+    public List<CotDiem> getCotDiem() {
+        return cotDiem;
+    }
+//-------------------------------------------------------------------------------------------
+    
+    public void nhapDanhGia() {
+        System.out.print("Nhập số cột điểm: ");
+        var soCot = Integer.parseInt(sc.nextLine());
+        if (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa) {
+            throw new IllegalArgumentException("Số cột điểm tối thiểu 2 và tối đa 4!");
+        }
+        this.cotDiem = new LinkedList<>();
     }
 
     public double tongDiem() {
