@@ -1,5 +1,6 @@
 package com.btl.DeCuongMonHoc;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
@@ -86,6 +87,24 @@ public class DeCuongMonHoc {
             mucTieu[i] = new MucTieu();
             mucTieu[i].nhapMucTieu();
         }
+
+        DanhGia danhGia = new DanhGia();
+        danhGia.nhapDanhGia();
+        this.danhGia=danhGia;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
+        return """
+                1. THÔNG TIN MÔN HỌC
+                %sHệ đào tạo: %s\n
+                2. MỤC TIÊU MÔN HỌC
+                %s
+                3. ĐÁNH GIÁ
+                %s
+                """.formatted(monHoc.toString(), heDaoTao.toString(), sb.toString(), danhGia.toString());
     }
 
     // cach thuc so sanh 2 de cuong bang nhau
