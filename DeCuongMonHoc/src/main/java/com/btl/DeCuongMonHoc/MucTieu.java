@@ -92,7 +92,6 @@ public class MucTieu {
         return """
                 --Mục tiêu: %s--
                 Chuẩn đầu ra cho %s
-                %s
-                """.formatted(this.tenMucTieu, this.tenMucTieu, sb.toString());
+                %s""".formatted(this.tenMucTieu, this.tenMucTieu, sb.toString());
     }
 }
