@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class QuanLyDeCuong {
+    private static final Set<DeCuongMonHoc> DANH_SACH_DE_CUONG = new HashSet<>();
     private Set<DeCuongMonHoc> set = new LimitedSet<>(CauHinh.soLuongDeCuong); // set cac de cuong mon
     // hoc
 
@@ -13,6 +14,7 @@ public class QuanLyDeCuong {
                 throw new IllegalArgumentException("Đề cương cho môn học này đã tồn tại!");
             else
                 this.set.add(dc);
+            QuanLyDeCuong.DANH_SACH_DE_CUONG.addAll(set);
         });
     }
 
@@ -24,7 +26,7 @@ public class QuanLyDeCuong {
     }
 
     private boolean checkDuplicate(DeCuongMonHoc deCuongMonHoc) {
-        return this.set.contains(deCuongMonHoc);
+        return QuanLyDeCuong.DANH_SACH_DE_CUONG.contains(deCuongMonHoc);
     }
 
     // tim kiem mon hoc cua de cuong theo ma mon hoc
