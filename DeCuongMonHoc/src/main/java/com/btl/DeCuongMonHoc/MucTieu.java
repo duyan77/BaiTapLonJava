@@ -89,6 +89,10 @@ public class MucTieu {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         this.chuanDauRaList.forEach(chuanDauRa -> sb.append(chuanDauRa.toString()));
-        return "%s\n%s".formatted(this.tenMucTieu, sb.toString());
+        return """
+                --Mục tiêu: %s--
+                Chuẩn đầu ra cho %s
+                %s
+                """.formatted(this.tenMucTieu, this.tenMucTieu, sb.toString());
     }
 }
