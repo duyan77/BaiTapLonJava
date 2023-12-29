@@ -110,7 +110,9 @@ public class DeCuongMonHoc {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
-        Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
+        if (this.mucTieu != null)
+            Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
+        else sb.append("Khong");
         return """
                 1. THÔNG TIN MÔN HỌC
                 %sHệ đào tạo: %s
