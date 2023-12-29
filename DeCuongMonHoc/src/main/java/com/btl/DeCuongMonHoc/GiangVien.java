@@ -1,6 +1,7 @@
 package com.btl.DeCuongMonHoc;
 
 import java.util.List;
+
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class GiangVien {
@@ -46,16 +47,8 @@ public class GiangVien {
 
 
     public void nhapGiangVien() {
-        System.out.print("Nhập tên giảng viên: ");
+        System.out.println("Nhập tên giảng viên: ");
         this.ten = sc.nextLine();
-    }
-
-    @Override
-    public String toString() {
-        return """
-                Tên giảng viên: %s
-                Mã giảng viên: %s
-                """.formatted(this.ten, this.maGV);
     }
 
     public void taoDeCuong() {

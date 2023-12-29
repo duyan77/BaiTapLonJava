@@ -86,9 +86,9 @@ public class MonHoc {
         this.monTienQuyet = monTienQuyet;
     }
 
-//    public KhoiKienThuc getKhoiKienThuc() {
-//        return khoiKienThuc;
-//    }
+    public KhoiKienThuc getKhoiKienThuc() {
+        return khoiKienThuc;
+    }
 
     public void setKhoiKienThuc(KhoiKienThuc khoiKienThuc) {
         this.khoiKienThuc = khoiKienThuc;
@@ -176,7 +176,8 @@ public class MonHoc {
                 Môn học trước: %s
                 Mô tả: %s
                 Khối kiến thức: %s
-                """.formatted(this.ma, this.ten, tenCacMonHocTruoc, this.moTa, this.khoiKienThuc.toString());
+                """.formatted(this.ma, this.ten, tenCacMonHocTruoc, this.moTa,
+                this.khoiKienThuc.tenKhoiKienThuc());
     }
 
     @Override

@@ -101,27 +101,28 @@ public class DeCuongMonHoc {
 
         DanhGia danhGia = new DanhGia();
         danhGia.nhapDanhGia();
-        this.danhGia=danhGia;
+        this.danhGia = danhGia;
 
         GiangVien giangVien = new GiangVien();
         giangVien.nhapGiangVien();
-        this.giangVien=giangVien;
+        this.giangVien = giangVien;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
         Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
         return """
                 1. THÔNG TIN MÔN HỌC
-                %sHệ đào tạo: %s\n
+                %sHệ đào tạo: %s
                 2. MỤC TIÊU MÔN HỌC
                 %s
                 3. ĐÁNH GIÁ
                 %s
                 4. GIẢNG VIÊN PHỤ TRÁCH
                 %s
-                """.formatted(monHoc.toString(), heDaoTao.toString(), sb.toString(), danhGia.toString(), giangVien.toString());
+                """.formatted(monHoc.toString(), heDaoTao.tenHeDaoTao(), sb.toString(), danhGia.toString(),
+                giangVien.toString());
     }
 
     // cach thuc so sanh 2 de cuong bang nhau

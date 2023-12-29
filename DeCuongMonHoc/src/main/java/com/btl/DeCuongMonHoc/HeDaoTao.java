@@ -5,20 +5,19 @@ import java.util.Map;
 
 public enum HeDaoTao {
 
-    CHINH_QUY("Chính quy"),
+    CHINH_QUY() {
+        @Override
+        public String tenHeDaoTao() {
+            return "Chính quy";
+        }
+    },
 
-    LIEN_THONG("Liên thông");
-
-    private final String nameOfHeDaoTao;
-
-    HeDaoTao(String nameOfHeDaoTao) {
-        this.nameOfHeDaoTao = nameOfHeDaoTao;
-    }
-
-    @Override
-    public String toString() {
-        return this.nameOfHeDaoTao;
-    }
+    LIEN_THONG() {
+        @Override
+        public String tenHeDaoTao() {
+            return "Liên thong";
+        }
+    };
 
     private static final Map<Integer, HeDaoTao> map = new HashMap<>();
 
@@ -31,4 +30,6 @@ public enum HeDaoTao {
     public static HeDaoTao convertIntToHeDaoTao(int k) {
         return map.get(k);
     }
+
+    public abstract String tenHeDaoTao();
 }

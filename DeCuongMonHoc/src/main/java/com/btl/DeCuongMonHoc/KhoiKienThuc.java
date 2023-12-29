@@ -4,21 +4,21 @@ public enum KhoiKienThuc {
 
     CO_SO() {
         @Override
-        public String toString() {
+        public String tenKhoiKienThuc() {
             return "Cơ sở";
         }
     },
 
     CO_SO_NGANH() {
         @Override
-        public String toString() {
+        public String tenKhoiKienThuc() {
             return "Cơ sở ngành";
         }
     },
 
     CHUYEN_NGANH() {
         @Override
-        public String toString() {
+        public String tenKhoiKienThuc() {
             return "Chuyên ngành";
         }
     };
@@ -30,4 +30,6 @@ public enum KhoiKienThuc {
         else if (k == 3) return CHUYEN_NGANH;
         return null;
     }
+
+    public abstract String tenKhoiKienThuc();
 }
