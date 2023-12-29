@@ -52,7 +52,9 @@ public class GiangVien {
     }
 
     public void taoDeCuong() {
-        this.quanLyDeCuong.themDeCuong();
+        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(this);
+        deCuongMonHoc.nhapDeCuong();
+        this.quanLyDeCuong.themDeCuong(deCuongMonHoc);
     }
 
     public void themDanhGia(DeCuongMonHoc dc) {
