@@ -20,6 +20,10 @@ public class DeCuongMonHoc {
     public DeCuongMonHoc() {
     }
 
+    public DeCuongMonHoc(GiangVien giangVien) {
+        this.giangVien = giangVien;
+    }
+
     public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, MucTieu[] mucTieu, DanhGia danhGia, GiangVien giangVien) {
         this.monHoc = monHoc;
         this.heDaoTao = heDaoTao;
@@ -72,7 +76,6 @@ public class DeCuongMonHoc {
     //    ------------------------------------------------------------------------------------------
 
     public void nhapDeCuong() {
-
         MonHoc monHoc = new MonHoc();
         monHoc.nhapMonHoc();
         this.monHoc = monHoc;
@@ -102,10 +105,6 @@ public class DeCuongMonHoc {
         DanhGia danhGia = new DanhGia();
         danhGia.nhapDanhGia();
         this.danhGia = danhGia;
-
-        GiangVien giangVien = new GiangVien();
-        giangVien.nhapGiangVien();
-        this.giangVien = giangVien;
     }
 
     @Override
