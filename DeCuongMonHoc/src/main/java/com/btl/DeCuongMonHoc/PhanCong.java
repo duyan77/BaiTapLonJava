@@ -7,6 +7,11 @@ public class PhanCong {
 
     private final List<GiangVien> phanCongGV = new ArrayList<>();
 
+    public GiangVien timGiangVien(String maGV) {
+        return this.phanCongGV.stream().filter(giangVien -> giangVien.getMaGV().equals(maGV))
+                .findFirst().orElse(null);
+    }
+
     // danh sach de cuong cua giang vien
     public List<DeCuongMonHoc> danhSachDeCuong(String id) {
         return this.phanCongGV.stream()
