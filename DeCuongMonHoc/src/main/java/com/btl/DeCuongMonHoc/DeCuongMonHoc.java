@@ -110,9 +110,8 @@ public class DeCuongMonHoc {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
-        if (this.mucTieu != null)
-            Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
-        else sb.append("Khong");
+        Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
+        if (sb.isEmpty()) sb.append("Khong");
         return """
                 1. THÔNG TIN MÔN HỌC
                 %sHệ đào tạo: %s
@@ -123,7 +122,7 @@ public class DeCuongMonHoc {
                 4. GIẢNG VIÊN PHỤ TRÁCH
                 %s
                 """.formatted(monHoc.toString(), heDaoTao.tenHeDaoTao(), sb.toString(), danhGia.toString(),
-                giangVien.toString());
+                this.giangVien.toString());
     }
 
     // cach thuc so sanh 2 de cuong bang nhau
