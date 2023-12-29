@@ -15,7 +15,7 @@ public enum HeDaoTao {
     LIEN_THONG() {
         @Override
         public String tenHeDaoTao() {
-            return "Liên thong";
+            return "Liên thông";
         }
     };
 

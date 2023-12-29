@@ -8,8 +8,14 @@ public class PhanCong {
 
     private final List<GiangVien> phanCongGV = new ArrayList<>();
 
-    public void themGiangVien(GiangVien... giangVien) {
-        this.phanCongGV.addAll(Arrays.asList(giangVien));
+    public void themGiangVien(GiangVien giangVien) {
+        this.phanCongGV.add(giangVien);
+    }
+
+    public void themGiangVien(){
+        GiangVien giangVien = new GiangVien();
+        giangVien.nhapGiangVien();
+        this.themGiangVien(giangVien);
     }
 
     public GiangVien timGiangVien(String maGV) {
@@ -24,3 +30,4 @@ public class PhanCong {
                 .findFirst().orElseThrow().danhSachDeCuong();
     }
 }
+

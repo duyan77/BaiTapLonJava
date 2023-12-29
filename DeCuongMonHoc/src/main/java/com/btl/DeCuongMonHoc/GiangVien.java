@@ -47,7 +47,7 @@ public class GiangVien {
 
 
     public void nhapGiangVien() {
-        System.out.println("Nhập tên giảng viên: ");
+        System.out.print("Nhập tên giảng viên: ");
         this.ten = sc.nextLine();
     }
 
