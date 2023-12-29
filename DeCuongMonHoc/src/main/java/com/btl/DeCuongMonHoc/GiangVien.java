@@ -104,4 +104,9 @@ public class GiangVien {
     public void thongKeDC() {
         this.quanLyDeCuong.thongKeTheoTinChi();
     }
+
+    @Override
+    public String toString() {
+        return this.ten;
+    }
 }

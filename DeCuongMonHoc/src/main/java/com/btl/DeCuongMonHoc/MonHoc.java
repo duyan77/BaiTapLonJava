@@ -167,10 +167,8 @@ public class MonHoc {
     @Override
     public String toString() {
         String tenCacMonHocTruoc = "";
-        if(this.monHocTruoc!=null) {
-            tenCacMonHocTruoc = Arrays.stream(this.monHocTruoc).map(MonHoc::getTen)
-                    .collect(Collectors.joining(", "));
-        }
+        tenCacMonHocTruoc = Arrays.stream(this.monHocTruoc).map(MonHoc::getTen)
+                .collect(Collectors.joining(", "));
         if (tenCacMonHocTruoc.isEmpty()) tenCacMonHocTruoc = "Không";
 
         return """

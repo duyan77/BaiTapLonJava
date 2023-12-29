@@ -1,8 +1,9 @@
 package com.btl.DeCuongMonHoc;
 
-import static com.btl.DeCuongMonHoc.CauHinh.*;
+import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class Main {
+
     public static void main(String[] args) {
         int choose;
         PhanCong pc = new PhanCong();
@@ -11,45 +12,42 @@ public class Main {
         do {
             System.out.print("Nhap ma giang vien: ");
             gv = pc.timGiangVien(sc.nextLine());
-            if(gv == null)
+            if (gv == null)
                 System.out.println("Mã giảng viên không tồn tại!! Nhập lại ");
         } while (gv == null);
         do {
             menu();
-            choose=Integer.parseInt(sc.nextLine());
-            switch (choose){
+            choose = Integer.parseInt(sc.nextLine());
+            switch (choose) {
                 case 1 -> {
-                    MonHoc monHoc = new MonHoc();
-                    DeCuongMonHoc dc = new DeCuongMonHoc();
-                    dc.nhapDeCuong();
-                    dc.setMonHoc(monHoc);
-                    System.out.println(dc.toString());
+                    gv.taoDeCuong();
                 }
                 case 2 -> {
-
+                    System.out.println("Case 2");
                 }
                 case 3 -> {
-
+                    System.out.println("Case 3");
                 }
                 case 4 -> {
-
+                    System.out.println("Case 4");
                 }
                 case 5 -> {
-
+                    System.out.println("Case 5");
                 }
                 case 6 -> {
-
+                    System.out.println("Case 6");
                 }
                 case 7 -> {
-
+                    System.out.println("Case 7");
                 }
                 default -> System.out.println("Lua chon khong ton tai!! Nhap lai.");
                 case 0 -> {
-
+                    System.out.println("Case 0");
                 }
             }
-        }while (choose!=0);
+        } while (choose != 0);
     }
+
     private static void menu() {
         System.out.print("""
                 1. Tao de cuong cho mon hoc
