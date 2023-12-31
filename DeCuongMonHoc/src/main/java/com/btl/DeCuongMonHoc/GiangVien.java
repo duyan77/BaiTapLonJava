@@ -51,10 +51,14 @@ public class GiangVien {
         this.ten = sc.nextLine();
     }
 
-    public void taoDeCuong() {
+    public void themDeCuong(DeCuongMonHoc... deCuongMonHocs) {
+        this.quanLyDeCuong.themDeCuong(deCuongMonHocs);
+    }
+
+    public void themDeCuong() {
         DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(this);
         deCuongMonHoc.nhapDeCuong();
-        this.quanLyDeCuong.themDeCuong(deCuongMonHoc);
+        this.themDeCuong(deCuongMonHoc);
     }
 
     public void themDanhGia(DeCuongMonHoc dc) {
@@ -85,8 +89,11 @@ public class GiangVien {
         return this.quanLyDeCuong.timMonHoc(kw);
     }
 
-    public List<MonHoc> monTruocVaTQ(int id) {
-        return this.quanLyDeCuong.dsMonTruocVaTQ(id);
+    public List<MonHoc> dsMonLienQuan(int id) {
+        return this.quanLyDeCuong.getRelatedCoures(id);
+    }
+
+    public void themMonHocTruoc(int id) {
     }
 
     public void sapXepMonHoc() {
@@ -97,8 +104,8 @@ public class GiangVien {
         return this.quanLyDeCuong.danhSachDeCuong();
     }
 
-    public void xuatDeCuong(DeCuongMonHoc dc) {
-
+    public void xuatDeCuong(int id) {
+        this.quanLyDeCuong.xuatDeCuong(id);
     }
 
     public void thongKeDC() {

@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 public class QuanLyDeCuong {
     private static final Set<DeCuongMonHoc> DANH_SACH_DE_CUONG = new HashSet<>();
-    private Set<DeCuongMonHoc> set = new LimitedSet<>(CauHinh.soLuongDeCuong); // set cac de cuong mon
-    // hoc
+    // set cac de cuong mon hoc cua rieng giao vien
+    private Set<DeCuongMonHoc> set = new LimitedSet<>(CauHinh.soLuongDeCuong);
 
     public void themDeCuong(DeCuongMonHoc... deCuongMonHoc) {
         Arrays.stream(deCuongMonHoc).forEach(dc -> {
@@ -31,7 +31,7 @@ public class QuanLyDeCuong {
 
     // tim kiem mon hoc cua de cuong theo ma mon hoc
     public MonHoc timMonHoc(int id) {
-        return this.set.stream()
+        return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.getMa() == id)
                 // if a value is present, returns the value otherwise return null
@@ -40,15 +40,22 @@ public class QuanLyDeCuong {
 
     // tim kiem mon hoc cua de cuong theo ten mon hoc
     public List<MonHoc> timMonHoc(String kw) {
-        return this.set.stream()
+        return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.getTen().contains(kw))
                 .collect(Collectors.toList());
     }
 
+    // tim kiem chinh xac mon hoc
+    private static MonHoc findCourseByName(String name) {
+        return DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
+                .filter(monHoc -> monHoc.getTen().equalsIgnoreCase(name))
+                .findFirst().orElse(null);
+    }
+
     // tim kiem mon hoc truoc hoac mon tien quyet khi biet ma mon hoc
     //    TQ = Tien Quyet
-    public List<MonHoc> dsMonTruocVaTQ(int id) {
+    public List<MonHoc> getRequiredCourese(int id) {
         List<MonHoc> ds = new ArrayList<>();
         MonHoc m = this.timMonHoc(id);
 
@@ -58,6 +65,25 @@ public class QuanLyDeCuong {
         } else throw new IllegalArgumentException("Mã môn học không tồn tại");
 
         return ds;
+    }
+
+    public List<MonHoc> getRelatedCoures(int id) {
+        MonHoc m = this.timMonHoc(id);
+        return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
+                .filter(monHoc -> monHoc.dsMonHocTruoc().contains(m) ||
+                                  monHoc.dsMonTienQuyet().contains(m))
+                .collect(Collectors.toList());
+    }
+
+    public List<MonHoc> getRelatedCoures(String nameOfCourse) {
+        MonHoc m = QuanLyDeCuong.findCourseByName(nameOfCourse);
+        if (m == null) {
+            throw new IllegalArgumentException("Ten mon hoc khong dung");
+        }
+        return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
+                .filter(monHoc -> monHoc.dsMonHocTruoc().contains(m) ||
+                                  monHoc.dsMonTienQuyet().contains(m))
+                .collect(Collectors.toList());
     }
 
     // tra ve danh sach cac de cuong
@@ -70,6 +96,14 @@ public class QuanLyDeCuong {
         sortedArray.sort(new DeCuongComparator());
 
         this.set = new LinkedHashSet<>(sortedArray);
+    }
+
+    public void xuatDeCuong(int id) {
+        DeCuongMonHoc dc = this.set.stream()
+                .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
+                .findFirst().orElse(null);
+
+        System.out.println(dc);
     }
 
     // thong ke de cuong theo tin chi
