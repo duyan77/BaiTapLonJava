@@ -8,4 +8,8 @@ public class CauHinh {
     public static final int soLuongMonDieuKien = 3;
     public static final int soCotDiemToiThieu = 2;
     public static final int soCotDiemToiDa = 4;
+
+    public static int getInt() {
+        return Integer.parseInt(sc.nextLine());
+    }
 }
