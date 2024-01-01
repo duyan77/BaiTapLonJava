@@ -45,7 +45,6 @@ public class GiangVien {
 
     //    ----------------------------------------------------------------------------------------
 
-
     public void nhapGiangVien() {
         System.out.print("Nhập tên giảng viên: ");
         this.ten = sc.nextLine();
@@ -59,6 +58,38 @@ public class GiangVien {
         DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(this);
         deCuongMonHoc.nhapDeCuong();
         this.themDeCuong(deCuongMonHoc);
+    }
+
+    public void themMonHocTienQuyet(MonHoc monCanBoSung)
+            throws IllegalArgumentException {
+        MonHoc monTienQuyet = new MonHoc();
+        monTienQuyet.nhapMonHoc();
+        this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monTienQuyet, MonDieuKien.MON_TIEN_QUYET);
+    }
+
+    public void xoaMonHocTienQuyet(MonHoc m, MonHoc monTienQuyet) {
+        this.quanLyDeCuong.xoaMonDieuKien(m, monTienQuyet, MonDieuKien.MON_TIEN_QUYET);
+    }
+
+    public void xoaMonHocTienQuyet(MonHoc m, int id)
+            throws IllegalArgumentException {
+        this.quanLyDeCuong.xoaMonDieuKien(m, id, MonDieuKien.MON_TIEN_QUYET);
+    }
+
+    public void themMonHocTruoc(MonHoc monCanBoSung)
+            throws IllegalArgumentException {
+        MonHoc monHocTruoc = new MonHoc();
+        monHocTruoc.nhapMonHoc();
+        this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monHocTruoc, MonDieuKien.MON_HOC_TRUOC);
+    }
+
+    public void xoaMonHocTruoc(MonHoc m, MonHoc monTienQuyet) {
+        this.quanLyDeCuong.xoaMonDieuKien(m, monTienQuyet, MonDieuKien.MON_HOC_TRUOC);
+    }
+
+    public void xoaMonHocTruoc(MonHoc m, int id)
+            throws IllegalArgumentException {
+        this.quanLyDeCuong.xoaMonDieuKien(m, id, MonDieuKien.MON_HOC_TRUOC);
     }
 
     public void themDanhGia(DeCuongMonHoc dc) {
@@ -89,7 +120,7 @@ public class GiangVien {
         return this.quanLyDeCuong.timMonHoc(kw);
     }
 
-    public List<MonHoc> dsMonLienQuan(int id) {
+    public List<MonHoc> dsMonLienQuan(int id) throws IllegalArgumentException {
         return this.quanLyDeCuong.getRelatedCoures(id);
     }
 
@@ -104,7 +135,7 @@ public class GiangVien {
         return this.quanLyDeCuong.danhSachDeCuong();
     }
 
-    public void xuatDeCuong(int id) {
+    public void xuatDeCuong(int id) throws IllegalArgumentException {
         this.quanLyDeCuong.xuatDeCuong(id);
     }
 

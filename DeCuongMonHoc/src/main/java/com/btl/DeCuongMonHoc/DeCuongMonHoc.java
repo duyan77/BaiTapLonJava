@@ -19,11 +19,13 @@ public class DeCuongMonHoc {
 
     public DeCuongMonHoc(GiangVien giangVien) {
         this.giangVien = giangVien;
+        giangVien.themDeCuong(this);
     }
 
     public DeCuongMonHoc(MonHoc monHoc, GiangVien giangVien) {
         this.monHoc = monHoc;
         this.giangVien = giangVien;
+        giangVien.themDeCuong(this);
     }
 
     public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, MucTieu[] mucTieu, DanhGia danhGia, GiangVien giangVien) {
@@ -32,6 +34,7 @@ public class DeCuongMonHoc {
         this.mucTieu = mucTieu;
         this.danhGia = danhGia;
         this.giangVien = giangVien;
+        giangVien.themDeCuong(this);
     }
 
     //    getter, setter

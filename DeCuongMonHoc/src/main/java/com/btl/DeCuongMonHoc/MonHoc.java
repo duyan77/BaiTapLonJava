@@ -1,6 +1,5 @@
 package com.btl.DeCuongMonHoc;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -17,29 +16,25 @@ public class MonHoc {
 
     private String moTa;
 
-    private MonHoc[] monHocTruoc;
+    private List<MonHoc> monHocTruoc;
 
-    private MonHoc[] monTienQuyet;
+    private List<MonHoc> monTienQuyet;
 
     private KhoiKienThuc khoiKienThuc;
+
+    {
+        this.monTienQuyet = new LimitedList<>(CauHinh.soLuongMonDieuKien);
+        this.monHocTruoc = new LimitedList<>(CauHinh.soLuongMonDieuKien);
+    }
 
     public MonHoc() {
     }
 
-    public MonHoc(int ma, String ten, int soTinChi, String moTa, MonHoc[] monHocTruoc, MonHoc[] monTienQuyet, KhoiKienThuc khoiKienThuc) {
+    public MonHoc(int ma, String ten, int soTinChi, String moTa, List<MonHoc> monHocTruoc, List<MonHoc> monTienQuyet, KhoiKienThuc khoiKienThuc) {
         this.ma = ma;
         this.ten = ten;
         this.soTinChi = soTinChi;
         this.moTa = moTa;
-        this.monHocTruoc = monHocTruoc;
-        this.monTienQuyet = monTienQuyet;
-        this.khoiKienThuc = khoiKienThuc;
-    }
-
-    public MonHoc(int ma, String ten, int soTinChi, MonHoc[] monHocTruoc, MonHoc[] monTienQuyet, KhoiKienThuc khoiKienThuc) {
-        this.ma = ma;
-        this.ten = ten;
-        this.soTinChi = soTinChi;
         this.monHocTruoc = monHocTruoc;
         this.monTienQuyet = monTienQuyet;
         this.khoiKienThuc = khoiKienThuc;
@@ -70,36 +65,8 @@ public class MonHoc {
         this.moTa = moTa;
     }
 
-    public MonHoc[] getMonHocTruoc() {
-        return monHocTruoc;
-    }
-
-    public void setMonHocTruoc(MonHoc[] monHocTruoc) {
-        this.monHocTruoc = monHocTruoc;
-    }
-
-    public MonHoc[] getMonTienQuyet() {
-        return monTienQuyet;
-    }
-
-    public void setMonTienQuyet(MonHoc[] monTienQuyet) {
-        this.monTienQuyet = monTienQuyet;
-    }
-
-    public KhoiKienThuc getKhoiKienThuc() {
-        return khoiKienThuc;
-    }
-
-    public void setKhoiKienThuc(KhoiKienThuc khoiKienThuc) {
-        this.khoiKienThuc = khoiKienThuc;
-    }
-
     public String getTen() {
         return ten;
-    }
-
-    public void setTen(String ten) {
-        this.ten = ten;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -146,28 +113,26 @@ public class MonHoc {
             else if (soMon < 0)
                 System.err.println("Lựa chọn không hợp lệ!");
         } while (soMon < 0 || soMon > 3);
-
-        this.monHocTruoc = new MonHoc[soMon];
         for (int i = 0; i < soMon; i++) {
-            monHocTruoc[i] = new MonHoc();
-            monHocTruoc[i].nhapMonHoc();
+            MonHoc m = new MonHoc();
+            m.nhapMonHoc();
+            this.monHocTruoc.add(m);
         }
-
         // nhập thông tin môn học tiên quyết
     }
 
     public List<MonHoc> dsMonTienQuyet() {
-        return Arrays.stream(this.monTienQuyet).toList();
+        return this.monTienQuyet;
     }
 
     public List<MonHoc> dsMonHocTruoc() {
-        return Arrays.stream(this.monHocTruoc).toList();
+        return this.monHocTruoc;
     }
 
     @Override
     public String toString() {
-        String tenCacMonHocTruoc = "";
-        tenCacMonHocTruoc = Arrays.stream(this.monHocTruoc).map(MonHoc::getTen)
+        String tenCacMonHocTruoc;
+        tenCacMonHocTruoc = this.monHocTruoc.stream().map(MonHoc::getTen)
                 .collect(Collectors.joining(", "));
         if (tenCacMonHocTruoc.isEmpty()) tenCacMonHocTruoc = "Không";
 
