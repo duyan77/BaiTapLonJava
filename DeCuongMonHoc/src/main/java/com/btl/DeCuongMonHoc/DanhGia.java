@@ -39,16 +39,20 @@ public class DanhGia {
         return cotDiem;
     }
 //-------------------------------------------------------------------------------------------
-    
+
     public void nhapDanhGia() {
-        System.out.print("Nhập số cột điểm: ");
-        var soCot = Integer.parseInt(sc.nextLine());
-        if (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa) {
-            throw new IllegalArgumentException("Số cột điểm tối thiểu 2 và tối đa 4!");
-        }
+        int soCot;
+        do {
+            System.out.print("Nhập số cột điểm: ");
+            soCot = Integer.parseInt(sc.nextLine());
+            if (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa) {
+                System.out.println("Số cột điểm tối thiểu 2 và tối đa 4!\nVui long nhap lai");
+            }
+        } while (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa);
+
         this.cotDiem = new LinkedList<>();
         for (int i = 0; i < soCot; i++) {
-            CotDiem cotDiem= new CotDiem();
+            CotDiem cotDiem = new CotDiem();
             cotDiem.nhapCotDiem();
             this.cotDiem.add(cotDiem);
         }

@@ -3,10 +3,12 @@ package com.btl.DeCuongMonHoc;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.btl.DeCuongMonHoc.CauHinh.soLuongDeCuong;
+
 public class QuanLyDeCuong {
     private static final Set<DeCuongMonHoc> DANH_SACH_DE_CUONG = new HashSet<>();
     // set cac de cuong mon hoc cua rieng giao vien
-    private Set<DeCuongMonHoc> deCuongCuaGV = new LimitedSet<>(CauHinh.soLuongDeCuong);
+    private Set<DeCuongMonHoc> deCuongCuaGV = new LimitedSet<>(soLuongDeCuong);
 
     public void themDeCuong(DeCuongMonHoc... deCuongMonHoc) {
         Arrays.stream(deCuongMonHoc).forEach(dc -> {
@@ -28,11 +30,13 @@ public class QuanLyDeCuong {
 
     // tim kiem mon hoc cua de cuong theo ma mon hoc
     public MonHoc timMonHoc(int id) {
-        return this.deCuongCuaGV.stream()
+        MonHoc m = this.deCuongCuaGV.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.getMa() == id)
                 // if a value is present, returns the value otherwise return null
                 .findFirst().orElse(null);
+        if (m == null) throw new IllegalArgumentException("Ma mon hoc khong dung");
+        return m;
     }
 
     // tim kiem mon hoc cua de cuong theo ten mon hoc
@@ -95,11 +99,8 @@ public class QuanLyDeCuong {
         var courseList = this.deCuongCuaGV.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .toList();
-        if (courseList.contains(m)) {
-            monDieuKien.themMonDieuKien(m, monTienQuyet);
-        } else {
-            throw new IllegalArgumentException("Ma mon hoc khong dung");
-        }
+        if (courseList.contains(m)) monDieuKien.themMonDieuKien(m, monTienQuyet);
+        else throw new IllegalArgumentException("Ma mon hoc khong dung");
     }
 
     public void xoaMonDieuKien(MonHoc m, MonHoc monTienQuyet, MonDieuKien monDieuKien) {
@@ -107,11 +108,13 @@ public class QuanLyDeCuong {
     }
 
     public void xoaMonDieuKien(MonHoc m, int id, MonDieuKien monDieuKien) {
-        var requiredCourse = m.dsMonTienQuyet().stream().filter(monHoc -> monHoc.getMa() == id)
+        // lay mon hoc can xoa
+        var requiredCourse = m.dsMonTienQuyet().stream()
+                .filter(monHoc -> monHoc.getMa() == id)
                 .findFirst().orElse(null);
-        if (requiredCourse == null) {
+
+        if (requiredCourse == null)
             throw new IllegalArgumentException("Ma mon hoc khong dung");
-        }
         this.xoaMonDieuKien(m, requiredCourse, monDieuKien);
     }
 
@@ -158,5 +161,3 @@ public class QuanLyDeCuong {
         }
     }
 }
-
-

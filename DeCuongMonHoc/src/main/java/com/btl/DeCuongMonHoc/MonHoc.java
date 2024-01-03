@@ -69,6 +69,9 @@ public class MonHoc {
         return ten;
     }
 
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
     //---------------------------------------------------------------------------------------------
 
     //    nhập các thông tin chung

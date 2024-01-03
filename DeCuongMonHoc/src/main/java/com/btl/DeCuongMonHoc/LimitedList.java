@@ -3,7 +3,7 @@ package com.btl.DeCuongMonHoc;
 import java.util.ArrayList;
 
 public class LimitedList<T> extends ArrayList<T> {
-    private int maxSize;
+    private final int maxSize;
 
     public LimitedList(int maxSize) {
         this.maxSize = maxSize;
