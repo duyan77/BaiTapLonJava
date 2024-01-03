@@ -116,7 +116,7 @@ public class DeCuongMonHoc {
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
         Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
-        if (sb.isEmpty()) sb.append("Khong");
+        if (sb.isEmpty()) sb.append("Không");
         return """
                 1. THÔNG TIN MÔN HỌC
                 %sHệ đào tạo: %s

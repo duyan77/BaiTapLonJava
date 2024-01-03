@@ -6,6 +6,7 @@ import java.util.function.Function;
 import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 import static com.btl.DeCuongMonHoc.MonDieuKien.MON_TIEN_QUYET;
+import static com.btl.DeCuongMonHoc.MonDieuKien.MON_HOC_TRUOC;
 
 public class Main {
 
@@ -27,21 +28,20 @@ public class Main {
                         try {
                             gv.themDeCuong();
                             isRepeated = false;
-                            System.out.println("Tao de cuong thanh cong");
+                            System.out.println("Tạo đề cương thành công");
                         } catch (IllegalArgumentException e) {
-                            System.out.println("Mon hoc da ton tai!");
+                            System.out.println("Môn học đã tồn tại!");
                             System.out.print("""
-                                    Ban co muon nhap lai?
-                                    1. Co
-                                    2. Khong
-                                    Chon:\s""");
+                                    Bạn có muốn nhập lại?
+                                    1. Có
+                                    2. Không
+                                    Chọn:\s""");
                             int isRetyped = getInt();
                             switch (isRetyped) {
                                 case 1 -> System.out.println(
-                                        "Vui long nhap lai chinh xac ma mon hoc");
+                                        "Vui lòng nhập lại chính xác mã môn học");
                                 case 2 -> {
-                                    System.out.println("Thoat chuc nang tim kiem mon hoc lien " +
-                                            "quan");
+                                    System.out.println("Thoát chức năng tạo đề cương môn học");
                                     isRepeated = false;
                                 }
                                 default -> announceInvalidValue();
@@ -52,55 +52,112 @@ public class Main {
                 // cap nhat mon tien quyet
                 case 2 -> {
                     // kiem tra ma mon hoc co hop le khong
-                    MonHoc m = handleInput(gv::timMonHoc, "mon hoc can chinh sua thong tin",
-                            "cap nhat mon tien quyet");
+                    MonHoc m = handleInput(gv::timMonHoc, "môn học cần chỉnh sửa thông tin",
+                            "cập nhật môn học tiên quyết");
 
                     // thuc hien cac chuc nang cua case 2
                     if (m != null) {
                         System.out.print("""
-                                1. Them mon hoc tien quyet
-                                2. Xoa mon hoc tien quyet
-                                3. Thoat
-                                Chon:\s""");
+                                1. Thêm môn học tiên quyết
+                                2. Xóa môn học tiên quyết
+                                3. Thoát
+                                Chọn:\s""");
                         int choiceInCase2 = getInt();
                         switch (choiceInCase2) {
                             case 1 -> {
-                                System.out.println("Nhap thong tin mon hoc tien quyet can them");
+                                System.out.println("Nhập thông tin môn học tiên quyết cần thêm");
                                 gv.themMonHocDieuKien(m, MON_TIEN_QUYET);
                             }
                             case 2 -> {
                                 // xuat danh sach mon tien quyet hien tai cua mon hoc can xoa mon
                                 // tien quyet
-                                System.out.println("Danh sach mon hoc tien quyet cua mon hoc " +
+                                System.out.println("Danh sách môn học tiên quyết của môn học " +
                                         m.getTen());
                                 m.dsMonTienQuyet().forEach(monHoc -> System.out.printf("""
-                                        Ma mon hoc: %s
-                                        Ten mon hoc: %s
+                                        Mã môn học: %s
+                                        Tên môn học: %s
                                         """, monHoc.getMa(), monHoc.getTen()));
 
                                 // Nhap ma mon hoc tien quyet can xoa
                                 boolean isRepeated = true;
                                 do {
                                     try {
-                                        System.out.print("Nhap ma mon hoc can xoa: ");
+                                        System.out.print("Nhập mã môn học cần xóa: ");
                                         int requiredCourseId = getInt();
                                         gv.xoaMonHocDieuKien(m, requiredCourseId, MON_TIEN_QUYET);
                                         isRepeated = false;
                                     } catch (IllegalArgumentException e) {
-                                        System.out.println("Ma mon hoc khong dung! Vui long nhap lai");
+                                        System.out.println("Mã môn học không đúng! Vui lòng nhập lại");
+                                        System.out.print("""
+                                            Bạn có muốn nhập lại?
+                                            1. Có
+                                            2. Không
+                                            Chọn:\s""");
+                                        int isRetyped = getInt();
+                                        switch (isRetyped) {
+                                            case 1 -> System.out.println(
+                                                    "Vui lòng nhập lại chính xác mã môn học");
+                                            case 2 -> {
+                                                System.out.println("Thoát chức năng xóa môn học tiên quyết");
+                                                isRepeated = false;
+                                            }
+                                            default -> announceInvalidValue();
+                                        }
                                     }
                                 } while (isRepeated);
                             }
-                            case 0 ->
-                                    System.out.println("Thoat chuc nang chinh sua mon tien quyet!");
+                            case 3 ->
+                                    System.out.println("Thoát chức năng chỉnh sửa môn tiên quyết!");
                             default -> announceInvalidValue();
                         }
                     }
                 }
                 // lam tuong tu case 2 -> Ban Nhi lam
                 case 3 -> {
-                    System.out.println("Nhap ma de cuong");
-                    System.out.println("Nhap ma de cuong");
+                    MonHoc m = handleInput(gv::timMonHoc, "môn học cần chỉnh sửa thông tin",
+                            "cập nhật môn học trước");
+
+                    // thuc hien cac chuc nang cua case 2
+                    if (m != null) {
+                        System.out.print("""
+                                1. Thêm môn học trước
+                                2. Xóa môn học trước
+                                3. Thoát
+                                Chọn:\s""");
+                        int choiceInCase2 = getInt();
+                        switch (choiceInCase2) {
+                            case 1 -> {
+                                System.out.println("Nhập thông tin môn học trước cần thêm");
+                                gv.themMonHocDieuKien(m, MON_HOC_TRUOC);
+                            }
+                            case 2 -> {
+                                // xuat danh sach mon truoc hien tai cua mon hoc can xoa mon
+                                // truoc
+                                System.out.println("Danh sách môn học trước của môn học " +
+                                        m.getTen());
+                                m.dsMonHocTruoc().forEach(monHoc -> System.out.printf("""
+                                        Mã môn học: %s
+                                        Tên môn học: %s
+                                        """, monHoc.getMa(), monHoc.getTen()));
+
+                                // Nhap ma mon hoc truoc can xoa
+                                boolean isRepeated = true;
+                                do {
+                                    try {
+                                        System.out.print("Nhập mã môn học cần xóa: ");
+                                        int requiredCourseId = getInt();
+                                        gv.xoaMonHocDieuKien(m, requiredCourseId, MON_HOC_TRUOC);
+                                        isRepeated = false;
+                                    } catch (IllegalArgumentException e) {
+                                        System.out.println("Mã môn học không đúng! Vui lòng nhập lại");
+                                    }
+                                } while (isRepeated);
+                            }
+                            case 3 ->
+                                    System.out.println("Thoát chức năng chỉnh sửa môn học trước!");
+                            default -> announceInvalidValue();
+                        }
+                    }
                 }
                 case 4 -> {
                     System.out.println("Case 4");
@@ -111,39 +168,39 @@ public class Main {
                     int choiceInCase5;
                     do {
                         System.out.print("""
-                                1. Tim kiem theo ma
-                                2. Tim kiem theo ten
-                                0. Thoat
-                                Chon:\s""");
+                                1. Tìm kiếm theo mã
+                                2. Tìm kiếm theo tên
+                                0. Thoát
+                                Chọn:\s""");
                         choiceInCase5 = getInt();
                         switch (choiceInCase5) {
                             // tim kiem mon hoc theo ma mon hoc
                             case 1 -> {
                                 MonHoc monCanTim = handleInput(gv::timMonHoc,
-                                        "mon hoc",
-                                        "tim kiem mon hoc theo ma");
+                                        "môn học",
+                                        "tìm kiếm môn học theo mã");
 
                                 if (monCanTim != null) {
-                                    System.out.println("Thong tin mon hoc can tim");
+                                    System.out.println("Thông tin môn học cần tìm");
                                     System.out.println(monCanTim);
                                 }
                             }
 
                             // tim kiem mon hoc theo ten -> co the co nhieu mon hoc cung ten
                             case 2 -> {
-                                System.out.print("Nhap ten mon hoc: ");
+                                System.out.print("Nhập tên môn học: ");
                                 String kw = sc.nextLine();
                                 var monHocs = gv.timMonHoc(kw);
 
                                 if (monHocs.isEmpty()) {
-                                    System.out.println("Khong co mon hoc chua chua ten " + kw);
+                                    System.out.println("Không có môn học chứa từ khóa " + kw);
                                 } else {
-                                    System.out.println("Thong tin nhung mon hoc can tim");
+                                    System.out.println("Thông tin những môn học cần tìm");
                                     monHocs.forEach(System.out::println);
                                 }
                             }
 
-                            case 0 -> System.out.println("Thoat chuc nang tim kiem mon hoc!");
+                            case 0 -> System.out.println("Thoát chức năng tìm kiếm môn học!");
 
                             default -> announceInvalidValue();
                         }
@@ -151,49 +208,49 @@ public class Main {
                 }
                 // Sap xep mon hoc theo tin chi giam dan -> done
                 case 6 -> {
-                    System.out.println("Danh sach mon hoc theo tin chi giam dan");
+                    System.out.println("Danh sách môn học theo tín chỉ giảm dần");
                     gv.sapXepMonHoc();
                     gv.danhSachDeCuong().forEach(System.out::println);
                 }
                 // danh sach de cuong ma giang vien chiu trach nhiem -> done
                 case 7 -> {
-                    System.out.println("Danh sach de cuong cua giang vien " + gv.getTen());
+                    System.out.println("Danh sách đề cương của giảng viên " + gv.getTen());
                     gv.danhSachDeCuong().forEach(deCuongMonHoc ->
-                            System.out.printf("Ma mon hoc: %s\nTen Mon Hoc: %s\n",
+                            System.out.printf("Mã môn học: %s\nTên môn học: %s\n",
                                     deCuongMonHoc.getMonHoc().getMa(),
                                     deCuongMonHoc.getMonHoc().getTen()
                             ));
                 }
-                case 8 -> handleInputWithoutReturn(gv::xuatDeCuong, "de cuong can xuat",
-                        "tim kiem theo xuat de cuong");
+                case 8 -> handleInputWithoutReturn(gv::xuatDeCuong, "đề cương cần xuất",
+                        "tìm kiếm theo xuất đề cương");
                 case 9 -> { //Thong ke so luong de cuong theo so tin chi
-                    System.out.println("Thong ke de cuong cua " + gv.getTen() + " theo so tin chi");
+                    System.out.println("Thống kê đề cương của " + gv.getTen() + " theo số tín chỉ");
                     gv.thongKeDC();
                 }
                 case 10 -> {
-                    var dsMonLienQuan = handleInput(gv::dsMonLienQuan, "mon hoc",
-                            "tim kiem mon hoc lien quan");
+                    var dsMonLienQuan = handleInput(gv::dsMonLienQuan, "môn học",
+                            "tìm kiếm môn học liên quan");
                     dsMonLienQuan.forEach(monHoc ->
-                            System.out.printf("Ma mon hoc: %s\nTen mon hoc: %s\n",
+                            System.out.printf("Mã môn học: %s\nTên môn học: %s\n",
                                     monHoc.getMa(), monHoc.getTen()));
                 }
                 case 0 -> {
                     int isRepeated;
                     do {
-                        System.out.println("Ket thuc quan li de cuong cua giang vien " +
+                        System.out.println("Kết thúc quản lý đề cương của giảng viên " +
                                 gv.getTen());
 
                         System.out.println("""
-                                Ban co muon tiep tuc
-                                1.Co
-                                2.Khong
-                                Chon:\s""");
+                                Bạn có muốn tiếp tục
+                                1.Có
+                                2.Không
+                                Chọn:\s""");
                         isRepeated = getInt();
                         switch (isRepeated) {
                             case 1 -> gv = loginAccount(pc);
 
                             case 2 -> {
-                                System.out.println("Chuong trinh ket thuc");
+                                System.out.println("Chương trình kết thúc");
                                 return;
                             }
 
@@ -209,28 +266,28 @@ public class Main {
     // method
     public static void menu() {
         System.out.print("""
-                1. Tao de cuong cho mon hoc
-                2. Cap nhat mon tien quyet
-                3. Cap nhap mon hoc truoc
-                4. Cap nhat hinh thuc danh gia
-                5. Tim kiem mon hoc
-                6. Sap xep mon hoc theo tin chi giam dan
-                7. Danh sach de cuong ma giang vien chiu trach nhiem
-                8. Xuat mot de cuong hoan chinh
-                9. Thong ke so luong de cuong theo so tin chi
-                10. Danh sach nhung mon hoc lien quan
-                0. Thoat
-                Nhap lua chon:\s""");
+                1. Tạo đề cương cho môn học
+                2. Cập nhật môn học tiên quyết
+                3. Cập nhật môn học trước
+                4. Cập nhật hình thức đánh giá
+                5. Tìm kiếm môn học
+                6. Sắp xếp môn học theo tín chỉ giảm dần
+                7. Danh sách đề cương mà giảng viên chịu trách nhiệm 
+                8. Xuất một đề cương hoàn chỉnh 
+                9. Thống kê số lượng đề cương theo tín chỉ
+                10. Danh sách những môn học liên quan
+                0. Thoát
+                Nhập lựa chọn:\s""");
     }
 
     public static void announceInvalidValue() {
-        System.out.println("Lua chon khong ton tai!\nNhap lai!");
+        System.out.println("Lựa chọn không tồn tại!\nNhập lại!");
     }
 
     public static GiangVien loginAccount(PhanCong pc) {
         GiangVien gv;
         do {
-            System.out.print("Nhap ma giang vien: ");
+            System.out.print("Nhập mã giảng viên: ");
             gv = pc.timGiangVien(sc.nextLine());
             if (gv == null)
                 System.out.println("Mã giảng viên không tồn tại!! Nhập lại");
@@ -240,16 +297,16 @@ public class Main {
 
     public static boolean handleRetype(int choice, String tenChucNang) {
         System.out.println("""
-                Ma mon hoc khong dung!
-                Ban co muon nhap lai?
-                1. Co
-                2. Khong
-                Chon:\s""");
+                Mã môn học không đúng!
+                Bạn có muốn nhập lại?
+                1. Có
+                2. Không
+                Chọn:\s""");
         switch (choice) {
             case 1 -> System.out.println(
-                    "Vui long nhap lai chinh xac ma mon hoc");
+                    "Vui lòng nhập lại chính xác mã môn học");
             case 2 -> {
-                System.out.println("Thoat chuc nang " + tenChucNang);
+                System.out.println("Thoát chức năng " + tenChucNang);
                 return false;
             }
             default -> announceInvalidValue();
@@ -264,7 +321,7 @@ public class Main {
         T monHoc = null;
         do {
             try {
-                System.out.printf("Nhap ma %s: ", tenMa);
+                System.out.printf("Nhập mã %s: ", tenMa);
                 int id = getInt();
                 monHoc = function.apply(id); // loi khi khong ton tai de cuong
                 isRepeated = false;
@@ -281,7 +338,7 @@ public class Main {
         boolean isRepeated;
         do {
             try {
-                System.out.printf("Nhap ma %s: ", tenMa);
+                System.out.printf("Nhập mã %s: ", tenMa);
                 int id = getInt();
                 function.accept(id); // neu loi thuc hien khoi lenh catch
                 isRepeated = false;
