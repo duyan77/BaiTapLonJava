@@ -50,21 +50,29 @@ public class GiangVien {
         this.ten = sc.nextLine();
     }
 
-    public void themDeCuong(DeCuongMonHoc... deCuongMonHocs) {
+    public void themDeCuong(DeCuongMonHoc... deCuongMonHocs) throws IllegalArgumentException {
         this.quanLyDeCuong.themDeCuong(deCuongMonHocs);
     }
 
-    public void themDeCuong() {
+    public void themDeCuong() throws IllegalArgumentException {
         DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(this);
         deCuongMonHoc.nhapDeCuong();
         this.themDeCuong(deCuongMonHoc);
     }
 
-    public void themMonHocTienQuyet(MonHoc monCanBoSung)
-            throws IllegalArgumentException {
+    public void themMonHocDieuKien(MonHoc monCanBoSung, MonDieuKien monDieuKien) throws IllegalArgumentException {
         MonHoc monTienQuyet = new MonHoc();
         monTienQuyet.nhapMonHoc();
-        this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monTienQuyet, MonDieuKien.MON_TIEN_QUYET);
+        this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monTienQuyet, monDieuKien);
+    }
+
+    public void xoaMonHocDieuKien(MonHoc m, MonHoc monTienQuyet, MonDieuKien monDieuKien) {
+        this.quanLyDeCuong.xoaMonDieuKien(m, monTienQuyet, monDieuKien);
+    }
+
+    public void xoaMonHocDieuKien(MonHoc m, int id, MonDieuKien monDieuKien)
+            throws IllegalArgumentException {
+        this.quanLyDeCuong.xoaMonDieuKien(m, id, monDieuKien);
     }
 
     public void xoaMonHocTienQuyet(MonHoc m, MonHoc monTienQuyet) {
@@ -112,7 +120,7 @@ public class GiangVien {
 
     }
 
-    public MonHoc timMonHoc(int id) {
+    public MonHoc timMonHoc(int id) throws IllegalArgumentException {
         return this.quanLyDeCuong.timMonHoc(id);
     }
 

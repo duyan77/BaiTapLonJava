@@ -1,7 +1,11 @@
 package com.btl.DeCuongMonHoc;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
+import static com.btl.DeCuongMonHoc.MonDieuKien.MON_TIEN_QUYET;
 
 public class Main {
 
@@ -47,7 +51,7 @@ public class Main {
                     switch (choiceInCase2) {
                         case 1 -> {
                             System.out.println("Nhap thong tin mon hoc tien quyet can them");
-                            gv.themMonHocTienQuyet(m);
+                            gv.themMonHocDieuKien(m, MON_TIEN_QUYET);
                         }
                         case 2 -> {
                             // xuat danh sach mon tien quyet hien tai cua mon hoc can xoa mon
@@ -84,6 +88,7 @@ public class Main {
                 case 4 -> {
                     System.out.println("Case 4");
                 }
+                // tim kiem mon hoc theo ma hoac theo ten -> done
                 case 5 -> {
                     int choiceInCase5;
                     do {
@@ -96,15 +101,13 @@ public class Main {
                         switch (choiceInCase5) {
                             // tim kiem mon hoc theo ma mon hoc
                             case 1 -> {
-                                try {
-                                    System.out.print("Nhap ma mon hoc: ");
-                                    int id = getInt();
-                                    MonHoc monHoc = gv.timMonHoc(id);
+                                MonHoc monCanTim = handleInput(gv::timMonHoc,
+                                        "mon hoc",
+                                        "tim kiem mon hoc theo ma");
+
+                                if (monCanTim != null) {
                                     System.out.println("Thong tin mon hoc can tim");
-                                    System.out.println(monHoc);
-                                } catch (IllegalArgumentException e) {
-                                    System.out.println("Ma mon hoc khong ton tai! " +
-                                            "Vui long nhap lai");
+                                    System.out.println(monCanTim);
                                 }
                             }
 
@@ -128,12 +131,14 @@ public class Main {
                         }
                     } while (choiceInCase5 != 0);
                 }
-                case 6 -> { // Sap xep mon hoc theo tin chi giam dan
+                // Sap xep mon hoc theo tin chi giam dan -> done
+                case 6 -> {
                     System.out.println("Danh sach mon hoc theo tin chi giam dan");
                     gv.sapXepMonHoc();
                     gv.danhSachDeCuong().forEach(System.out::println);
                 }
-                case 7 -> {  //Danh sach de cuong ma giang vien chiu trach nhiem
+                // danh sach de cuong ma giang vien chiu trach nhiem -> done
+                case 7 -> {
                     System.out.println("Danh sach de cuong cua giang vien " + gv.getTen());
                     gv.danhSachDeCuong().forEach(deCuongMonHoc ->
                             System.out.printf("Ma mon hoc: %s\nTen Mon Hoc: %s\n",
@@ -141,41 +146,32 @@ public class Main {
                                     deCuongMonHoc.getMonHoc().getTen()
                             ));
                 }
-                case 8 -> {
-                    try {
-                        System.out.print("Nhap ma de cuong can xuat: ");
-                        gv.xuatDeCuong(getInt());
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Ma khong dung vui long nhap lai");
-                    }
-                }
+                case 8 -> handleInputWithoutReturn(gv::xuatDeCuong, "de cuong can xuat",
+                        "tim kiem theo xuat de cuong");
                 case 9 -> { //Thong ke so luong de cuong theo so tin chi
                     System.out.println("Thong ke de cuong cua " + gv.getTen() + " theo so tin chi");
                     gv.thongKeDC();
                 }
                 case 10 -> {
-                    try {
-                        System.out.print("Nhap ma mon hoc: ");
-                        System.out.println("Danh sach nhung mon hoc lien quan cua mon nay");
-                        gv.dsMonLienQuan(getInt()).forEach(monHoc ->
-                                System.out.printf("Ma mon hoc: %s\nTen mon hoc: %s\n",
-                                        monHoc.getMa(), monHoc.getTen()));
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Ma mon hoc khong dung hoac khong ton tai trong danh " +
-                                "sach de cuong giang vien chiu trach nhiem");
-                    }
+                    var dsMonLienQuan = handleInput(gv::dsMonLienQuan, "mon hoc",
+                            "tim kiem mon hoc lien quan");
+                    dsMonLienQuan.forEach(monHoc ->
+                            System.out.printf("Ma mon hoc: %s\nTen mon hoc: %s\n",
+                                    monHoc.getMa(), monHoc.getTen()));
                 }
                 case 0 -> {
-                    int chooseToContinue;
+                    int isRepeated;
                     do {
-                        System.out.println("Ket thuc quan li de cuong cua giang vien " + gv.getTen());
+                        System.out.println("Ket thuc quan li de cuong cua giang vien " +
+                                gv.getTen());
+
                         System.out.println("""
                                 Ban co muon tiep tuc
                                 1.Co
                                 2.Khong
                                 Chon:\s""");
-                        chooseToContinue = getInt();
-                        switch (chooseToContinue) {
+                        isRepeated = getInt();
+                        switch (isRepeated) {
                             case 1 -> gv = loginAccount(pc);
 
                             case 2 -> {
@@ -185,7 +181,7 @@ public class Main {
 
                             default -> announceInvalidValue();
                         }
-                    } while (chooseToContinue != 1);
+                    } while (isRepeated != 1);
                 }
                 default -> announceInvalidValue();
             }
@@ -223,4 +219,58 @@ public class Main {
         } while (gv == null);
         return gv;
     }
+
+    public static boolean handleRetype(int choice, String tenChucNang) {
+        System.out.println("""
+                Ma mon hoc khong dung!
+                Ban co muon nhap lai?
+                1. Co
+                2. Khong
+                Chon:\s""");
+        switch (choice) {
+            case 1 -> System.out.println(
+                    "Vui long nhap lai chinh xac ma mon hoc");
+            case 2 -> {
+                System.out.println("Thoat chuc nang " + tenChucNang);
+                return false;
+            }
+            default -> announceInvalidValue();
+        }
+        return true;
+    }
+
+    public static <T> T handleInput(Function<Integer, T> function,
+                                    String tenMa,
+                                    String tenChucNang) {
+        boolean isRepeated;
+        T monHoc = null;
+        do {
+            try {
+                System.out.printf("Nhap ma %s: ", tenMa);
+                int id = getInt();
+                monHoc = function.apply(id); // loi khi khong ton tai de cuong
+                isRepeated = false;
+            } catch (IllegalArgumentException e) {
+                isRepeated = handleRetype(getInt(), tenChucNang);
+            }
+        } while (isRepeated);
+        return monHoc;
+    }
+
+    public static void handleInputWithoutReturn(Consumer<Integer> function,
+                                                String tenMa,
+                                                String tenChucNang) {
+        boolean isRepeated;
+        do {
+            try {
+                System.out.printf("Nhap ma %s: ", tenMa);
+                int id = getInt();
+                function.accept(id); // neu loi thuc hien khoi lenh catch
+                isRepeated = false;
+            } catch (IllegalArgumentException e) {
+                isRepeated = handleRetype(getInt(), tenChucNang);
+            }
+        } while (isRepeated);
+    }
 }
+
