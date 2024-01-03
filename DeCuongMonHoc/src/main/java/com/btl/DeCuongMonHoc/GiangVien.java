@@ -75,31 +75,6 @@ public class GiangVien {
         this.quanLyDeCuong.xoaMonDieuKien(m, id, monDieuKien);
     }
 
-    public void xoaMonHocTienQuyet(MonHoc m, MonHoc monTienQuyet) {
-        this.quanLyDeCuong.xoaMonDieuKien(m, monTienQuyet, MonDieuKien.MON_TIEN_QUYET);
-    }
-
-    public void xoaMonHocTienQuyet(MonHoc m, int id)
-            throws IllegalArgumentException {
-        this.quanLyDeCuong.xoaMonDieuKien(m, id, MonDieuKien.MON_TIEN_QUYET);
-    }
-
-    public void themMonHocTruoc(MonHoc monCanBoSung)
-            throws IllegalArgumentException {
-        MonHoc monHocTruoc = new MonHoc();
-        monHocTruoc.nhapMonHoc();
-        this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monHocTruoc, MonDieuKien.MON_HOC_TRUOC);
-    }
-
-    public void xoaMonHocTruoc(MonHoc m, MonHoc monTienQuyet) {
-        this.quanLyDeCuong.xoaMonDieuKien(m, monTienQuyet, MonDieuKien.MON_HOC_TRUOC);
-    }
-
-    public void xoaMonHocTruoc(MonHoc m, int id)
-            throws IllegalArgumentException {
-        this.quanLyDeCuong.xoaMonDieuKien(m, id, MonDieuKien.MON_HOC_TRUOC);
-    }
-
     public void themDanhGia(DeCuongMonHoc dc) {
 
     }
