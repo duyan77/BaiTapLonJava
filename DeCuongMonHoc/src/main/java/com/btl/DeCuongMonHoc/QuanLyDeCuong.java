@@ -95,7 +95,9 @@ public class QuanLyDeCuong {
                 .collect(Collectors.toList());
     }
 
-    public void themMonHocDieuKien(MonHoc m, MonHoc monTienQuyet, MonDieuKien monDieuKien) {
+    public void themMonHocDieuKien(MonHoc m,
+                                   MonHoc monTienQuyet, MonDieuKien monDieuKien) {
+        // danh sach mon hoc cua giao vien
         var courseList = this.deCuongCuaGV.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .toList();
