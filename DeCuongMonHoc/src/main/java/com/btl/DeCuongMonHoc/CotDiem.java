@@ -79,7 +79,7 @@ public class CotDiem {
 
     @Override
     public String toString() {
-        return "Noi dung danh gia %s\nNoi dung: %s\nPhuong phap: %s\nTi trong diem: %.2f\n"
+        return "Nội dung đánh giá %s\nNội dung: %s\nPhương pháp: %s\nTỉ trọng điểm: %.2f\n"
                 .formatted(this.tenDiem, this.noiDung, this.phuongPhap, this.tiTrong);
     }
 }

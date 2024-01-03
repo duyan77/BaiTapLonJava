@@ -35,7 +35,7 @@ public class QuanLyDeCuong {
                 .filter(monHoc -> monHoc.getMa() == id)
                 // if a value is present, returns the value otherwise return null
                 .findFirst().orElse(null);
-        if (m == null) throw new IllegalArgumentException("Ma mon hoc khong dung");
+        if (m == null) throw new IllegalArgumentException("Mã môn học không đúng");
         return m;
     }
 
@@ -77,7 +77,7 @@ public class QuanLyDeCuong {
     public List<MonHoc> getRelatedCoures(int id) {
         MonHoc m = this.timMonHoc(id);
         if (m == null) {
-            throw new IllegalArgumentException("Ma mon hoc sai");
+            throw new IllegalArgumentException("Mã môn học sai");
         }
         return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.dsMonHocTruoc().contains(m) ||
@@ -87,7 +87,7 @@ public class QuanLyDeCuong {
 
     public List<MonHoc> getRelatedCoures(String nameOfCourse) {
         MonHoc m = QuanLyDeCuong.findCourse(nameOfCourse);
-        if (m == null) throw new IllegalArgumentException("Ten mon hoc khong dung");
+        if (m == null) throw new IllegalArgumentException("Tên môn học không đúng");
 
         return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.dsMonHocTruoc().contains(m) ||
@@ -102,7 +102,7 @@ public class QuanLyDeCuong {
                 .map(DeCuongMonHoc::getMonHoc)
                 .toList();
         if (courseList.contains(m)) monDieuKien.themMonDieuKien(m, monTienQuyet);
-        else throw new IllegalArgumentException("Ma mon hoc khong dung");
+        else throw new IllegalArgumentException("Mã môn học không đúng");
     }
 
     public void xoaMonDieuKien(MonHoc m, MonHoc monTienQuyet, MonDieuKien monDieuKien) {
@@ -116,7 +116,7 @@ public class QuanLyDeCuong {
                 .findFirst().orElse(null);
 
         if (requiredCourse == null)
-            throw new IllegalArgumentException("Ma mon hoc khong dung");
+            throw new IllegalArgumentException("Mã môn học không đúng");
         this.xoaMonDieuKien(m, requiredCourse, monDieuKien);
     }
 
@@ -137,7 +137,7 @@ public class QuanLyDeCuong {
                 .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
                 .findFirst().orElse(null);
         if (dc == null) {
-            throw new IllegalArgumentException("Ma khong dung");
+            throw new IllegalArgumentException("Mã không đúng");
         }
         System.out.println(dc);
     }

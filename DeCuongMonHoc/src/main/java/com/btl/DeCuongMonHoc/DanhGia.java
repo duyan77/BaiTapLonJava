@@ -46,7 +46,7 @@ public class DanhGia {
             System.out.print("Nhập số cột điểm: ");
             soCot = Integer.parseInt(sc.nextLine());
             if (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa) {
-                System.out.println("Số cột điểm tối thiểu 2 và tối đa 4!\nVui long nhap lai");
+                System.out.println("Số cột điểm tối thiểu 2 và tối đa 4!\nVui lòng nhập lại");
             }
         } while (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa);
 
