@@ -108,7 +108,7 @@ public class DanhGia {
 
         retypeWeight(); // nhap lai nhung cot diem truoc
         handleWeightInput();
-        
+
         boolean isRepeated = true;
         do {
             try {
