@@ -1,7 +1,6 @@
 package com.btl.DeCuongMonHoc;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -10,52 +9,82 @@ import static com.btl.DeCuongMonHoc.CauHinh.*;
 
 public class DanhGia {
 
-    private int soCotDiem;
-
-    private List<CotDiem> cotDiem; // cot diem toi thieu 2 va toi da 4
-
-    public DanhGia(int soCotDiem) {
-        this.soCotDiem = soCotDiem;
-        if (soCotDiem > soCotDiemToiDa) {
-            throw new IllegalArgumentException("Số cột điểm tối thiểu 2 và tối đa 4!");
-        }
-        this.cotDiem = new LinkedList<>(); // nen su dung linked list vi chuc nang can thiet chi
-        // la them va xoa
-    }
+    private List<CotDiem> cotDiem = new LimitedList<>(soCotDiemToiThieu, soCotDiemToiDa); // cot diem toi thieu
+    // 2 va toi da 4
 
     public DanhGia() {
     }
 
+    public DanhGia(List<CotDiem> cotDiem) {
+        this.cotDiem = cotDiem;
+        CotDiem.setDem(this.cotDiem.size());
+    }
+
     // getter, setter
-    public int getSoCotDiem() {
-        return soCotDiem;
-    }
-
-    public void setSoCotDiem(int soCotDiem) {
-        this.soCotDiem = soCotDiem;
-    }
-
     public List<CotDiem> getCotDiem() {
         return cotDiem;
     }
+
 //-------------------------------------------------------------------------------------------
 
+    public int soCotDiemHienTai() {
+        return this.cotDiem.size();
+    }
+
     public void nhapDanhGia() {
+        int soCot = getInt();
+        this.handleWeightInput();
+
+        while (this.tongDiem() != 100) {
+            System.out.println("Tong ti trong phai la 100!");
+            System.out.println("Vui long nhap lai ti trong phu hop cho cac cot diem");
+            this.retypeWeight();
+        }
+    }
+
+    private void handleWeightInput() {
         int soCot;
         do {
-            System.out.print("Nhập số cột điểm: ");
-            soCot = Integer.parseInt(sc.nextLine());
-            if (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa) {
-                System.out.println("Số cột điểm tối thiểu 2 và tối đa 4!\nVui lòng nhập lại");
-            }
-        } while (soCot < soCotDiemToiThieu || soCot > soCotDiemToiDa);
+            System.out.print("Nhập số cột điểm muon them moi: ");
+            soCot = getInt();
+            if (soCot + this.soCotDiemHienTai() < soCotDiemToiThieu ||
+                    soCot + this.soCotDiemHienTai() > soCotDiemToiDa)
+                System.out.printf("""
+                        Số cột điểm tối thiểu %d và tối đa %d!
+                        Vui lòng nhập lại
+                        So cot diem hien tai la: %d
+                        """, soCotDiemToiThieu, soCotDiemToiDa, this.soCotDiemHienTai());
+        } while (soCot + this.soCotDiemHienTai() < soCotDiemToiThieu ||
+                soCot + this.soCotDiemHienTai() > soCotDiemToiDa);
 
-        this.cotDiem = new LinkedList<>();
         for (int i = 0; i < soCot; i++) {
+            boolean isRepeated = true;
             CotDiem cotDiem = new CotDiem();
-            cotDiem.nhapCotDiem();
-            this.cotDiem.add(cotDiem);
+            do {
+                try {
+                    cotDiem.nhapCotDiem();
+                    isRepeated = false;
+                    this.themCotDiem(cotDiem);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Tỉ trọng điểm phải lớn hơn 0 và nhỏ hơn 100");
+                    System.out.println("Vui long nhap lai gia tri phu hop!");
+                }
+            } while (isRepeated);
         }
+    }
+
+    private void retypeWeight() {
+        this.cotDiem.forEach(cotDiem1 -> {
+            System.out.printf("""
+                            Nội dung cột điểm %s
+                            Nội dung: %s
+                            Phương pháp: %s
+                            Tỉ trọng điểm:\s""",
+                    cotDiem1.getTenDiem(), cotDiem1.getNoiDung(),
+                    cotDiem1.getPhuongPhap());
+            cotDiem1.setTiTrong(getDouble());
+        });
+
     }
 
     public double tongDiem() {
@@ -64,34 +93,44 @@ public class DanhGia {
                 .sum();
     }
 
-    public void themCotDiem(CotDiem... cotDiems) {
-        Arrays.stream(cotDiems).forEach(cotDiem1 -> {
-            if (this.cotDiem.size() >= soCotDiemToiDa)
-                throw new IllegalArgumentException("Số cột điểm tối thiểu 2 và tối đa 4!");
-            else this.cotDiem.add(cotDiem1);
-        });
-        this.soCotDiem = this.cotDiem.size();
+    public void themCotDiem(CotDiem... cotDiems)
+            throws MaxSizeExceededException, IllegalArgumentException {
+        this.cotDiem.addAll(Arrays.asList(cotDiems));
+        CotDiem.setDem(this.cotDiem.size());
     }
 
-    public void themCotDiem() {
-        CotDiem tmp = new CotDiem();
-        System.out.println("Nhập cột điểm " + tmp.getTenDiem());
-        tmp.nhapCotDiem();
-        this.themCotDiem(tmp);
+    private void checkWeight() {
+        if (this.tongDiem() != 100)
+            throw new InvalidWeightException("Ti trong chua dat du 100!");
+    }
+
+    public void themCotDiem() throws
+            MaxSizeExceededException, IllegalArgumentException, InvalidWeightException {
+
+        retypeWeight(); // nhap lai nhung cot diem truoc
+        handleWeightInput();
+        
+        boolean isRepeated = true;
+        do {
+            try {
+                checkWeight(); // kiem tra ti trong tong == 100 chua, neu chua -> throw InvalidWeightException
+                isRepeated = false;
+            } catch (InvalidWeightException e) {
+                System.out.println("Tong ti trong phai la 100!");
+                System.out.println("Vui long nhap lai");
+                retypeWeight();
+            }
+        } while (isRepeated);
     }
 
     // xoa hinh thuc danh gia
-    public void xoaCotDiem(CotDiem cotDiem) {
+    public void xoaCotDiem(CotDiem cotDiem) throws
+            MinSizeExceededException {
         this.cotDiem.remove(cotDiem);
-        this.soCotDiem = this.cotDiem.size();
     }
 
-    public void xoaCotDiem(int index) {
-        CotDiem cd = this.cotDiem.get(index);
-        if (cd == null) {
-            throw new IllegalArgumentException("Chi so de xoa diem khong dung!");
-        }
-        this.xoaCotDiem(cd);
+    public void xoaCotDiem(int index) throws MinSizeExceededException {
+        this.cotDiem.remove(index);
     }
 
     @Override

@@ -12,4 +12,8 @@ public class CauHinh {
     public static int getInt() {
         return Integer.parseInt(sc.nextLine());
     }
+
+    public static double getDouble() {
+        return Double.parseDouble(sc.nextLine());
+    }
 }

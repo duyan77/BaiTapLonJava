@@ -120,6 +120,18 @@ public class QuanLyDeCuong {
         this.xoaMonDieuKien(m, requiredCourse, monDieuKien);
     }
 
+    public void themDanhGia(int id) {
+        var modifiedOutlineCourse = this.deCuongCuaGV.stream()
+                .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
+                .findFirst().orElse(null);
+        if (modifiedOutlineCourse == null) {
+            throw new IllegalArgumentException("Ma mon hoc khong dung hoac khong nam trong de " +
+                    "cuong cua giang vien");
+        } else {
+
+        }
+    }
+
     // tra ve danh sach cac de cuong
     public List<DeCuongMonHoc> danhSachDeCuong() {
         return this.deCuongCuaGV.stream().toList();
