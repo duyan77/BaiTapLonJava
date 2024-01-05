@@ -93,8 +93,8 @@ public class GiangVien {
 
     }
 
-    public void xoaDanhGia(DeCuongMonHoc dc, String mucDanhGia) {
-
+    public void xoaDanhGia(DeCuongMonHoc dc) {
+        this.quanLyDeCuong.xoaDanhGia(dc);
     }
 
     public void suaNoiDung(String tenMonHoc) {

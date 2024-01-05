@@ -140,9 +140,8 @@ public class QuanLyDeCuong {
         dc.themDanhGia();
     }
 
-    public void xoaDanhGia(int id) {
-        var modifiedOutlineCourse = this.timDeCuong(id);
-        modifiedOutlineCourse.xoaDanhGia();
+    public void xoaDanhGia(DeCuongMonHoc dc) {
+        dc.xoaDanhGia();
     }
 
     // tra ve danh sach cac de cuong

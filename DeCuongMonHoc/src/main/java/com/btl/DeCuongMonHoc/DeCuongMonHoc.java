@@ -19,6 +19,10 @@ public class DeCuongMonHoc {
 
     private GiangVien giangVien;
 
+    public DeCuongMonHoc(MonHoc monHoc) {
+        this.monHoc = monHoc;
+    }
+
     public DeCuongMonHoc(GiangVien giangVien) {
         this.giangVien = giangVien;
         giangVien.themDeCuong(this);

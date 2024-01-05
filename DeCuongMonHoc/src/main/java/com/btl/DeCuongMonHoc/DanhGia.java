@@ -32,7 +32,6 @@ public class DanhGia {
     }
 
     public void nhapDanhGia() {
-        int soCot = getInt();
         this.handleWeightInput();
 
         while (this.tongDiem() != 100) {
@@ -136,7 +135,7 @@ public class DanhGia {
             throws MinSizeExceededException, IllegalArgumentException {
         System.out.println("Danh sach cot diem hien tai");
         this.cotDiem.forEach(System.out::println);
-        System.out.println("Nhap ten cot diem can xoa: ");
+        System.out.print("Nhap ten cot diem can xoa: ");
         String tenCotDiem = sc.nextLine();
         var cotDiemCanXoa = this.cotDiem.stream().filter(cotDiem1 ->
                         cotDiem1.getTenDiem().equalsIgnoreCase(tenCotDiem))
