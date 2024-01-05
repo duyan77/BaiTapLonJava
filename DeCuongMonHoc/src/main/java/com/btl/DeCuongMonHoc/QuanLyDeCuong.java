@@ -28,6 +28,15 @@ public class QuanLyDeCuong {
         return this.deCuongCuaGV.contains(deCuongMonHoc);
     }
 
+    public DeCuongMonHoc timDeCuong(int id) {
+        var m = this.deCuongCuaGV.stream()
+                .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
+                // if a value is present, returns the value otherwise return null
+                .findFirst().orElse(null);
+        if (m == null) throw new IllegalArgumentException("Mã môn học không đúng");
+        return m;
+    }
+
     // tim kiem mon hoc cua de cuong theo ma mon hoc
     public MonHoc timMonHoc(int id) {
         MonHoc m = this.deCuongCuaGV.stream()
@@ -120,16 +129,20 @@ public class QuanLyDeCuong {
         this.xoaMonDieuKien(m, requiredCourse, monDieuKien);
     }
 
-    public void themDanhGia(int id) {
-        var modifiedOutlineCourse = this.deCuongCuaGV.stream()
-                .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
-                .findFirst().orElse(null);
-        if (modifiedOutlineCourse == null) {
-            throw new IllegalArgumentException("Ma mon hoc khong dung hoac khong nam trong de " +
-                    "cuong cua giang vien");
-        } else {
+    public void themDanhGia(int id)
+            throws MaxSizeExceededException, IllegalArgumentException {
+        var modifiedOutlineCourse = this.timDeCuong(id);
+        modifiedOutlineCourse.themDanhGia();
+    }
 
-        }
+    public void themDanhGia(DeCuongMonHoc dc)
+            throws MaxSizeExceededException {
+        dc.themDanhGia();
+    }
+
+    public void xoaDanhGia(int id) {
+        var modifiedOutlineCourse = this.timDeCuong(id);
+        modifiedOutlineCourse.xoaDanhGia();
     }
 
     // tra ve danh sach cac de cuong

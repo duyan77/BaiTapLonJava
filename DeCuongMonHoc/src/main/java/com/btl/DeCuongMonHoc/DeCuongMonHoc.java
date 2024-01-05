@@ -121,6 +121,21 @@ public class DeCuongMonHoc {
         this.danhGia.themCotDiem();
     }
 
+    public void xoaDanhGia() {
+        boolean isRepeated = true;
+        do {
+            try {
+                this.danhGia.xoaCotDiem();
+                isRepeated = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ten cot diem khong dung");
+            } catch (MinSizeExceededException e) {
+                System.out.println("Xoa cot diem khong thanh cong vi so cot diem toi thieu la ");
+                isRepeated = false;
+            }
+        } while (isRepeated);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc

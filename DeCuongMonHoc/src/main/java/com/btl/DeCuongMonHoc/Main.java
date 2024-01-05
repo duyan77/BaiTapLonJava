@@ -77,8 +77,8 @@ public class Main {
                                                         "ly cua giang vien %s",
                                                 m.getTen(), gv.getTen());
                                         // tra ve true neu muon nhap lai
-                                        boolean isRetype = handleRetype(getInt(),
-                                                " them mon hoc tien quyet");
+                                        boolean isRetype = handleRetype(
+                                                "them mon hoc tien quyet");
                                         if (!isRetype) isRepeated = false;
                                     }
                                 } while (isRepeated);
@@ -102,7 +102,7 @@ public class Main {
                                         gv.xoaMonHocDieuKien(m, requiredCourseId, MON_TIEN_QUYET);
                                         isRepeated = false;
                                     } catch (IllegalArgumentException e) {
-                                        boolean isRetype = handleRetype(getInt(),
+                                        boolean isRetype = handleRetype(
                                                 "xóa môn học tiên quyết");
                                         if (!isRetype) isRepeated = false;
                                     }
@@ -114,7 +114,7 @@ public class Main {
                         }
                     }
                 }
-                // lam tuong tu case 2 -> Ban Nhi lam
+                // lam tuong tu case 2
                 case 3 -> {
                     MonHoc m = handleInput(gv::timMonHoc, "môn học cần chỉnh sửa thông tin",
                             "cập nhật môn học trước");
@@ -141,7 +141,7 @@ public class Main {
                                                         "ly cua giang vien %s",
                                                 m.getTen(), gv.getTen());
                                         // tra ve true neu muon nhap lai
-                                        boolean isRetype = handleRetype(getInt(),
+                                        boolean isRetype = handleRetype(
                                                 " them mon hoc truoc");
                                         if (!isRetype) isRepeated = false;
                                     }
@@ -166,7 +166,7 @@ public class Main {
                                         gv.xoaMonHocDieuKien(m, requiredCourseId, MON_HOC_TRUOC);
                                         isRepeated = false;
                                     } catch (IllegalArgumentException e) {
-                                        boolean isRetype = handleRetype(getInt(),
+                                        boolean isRetype = handleRetype(
                                                 "xóa môn học trước");
                                         if (!isRetype) isRepeated = false;
                                     }
@@ -179,8 +179,29 @@ public class Main {
                     }
                 }
                 case 4 -> {
-                    System.out.println("Case 4");
-                    System.out.println("Case 4");
+                    var dc = handleInput(gv::timDeCuong,
+                            "môn học cần chỉnh sửa hinh thuc danh gia",
+                            "cập nhật hinh thuc danh gia");
+
+                    // thuc hien cac chuc nang cua case 2
+                    if (dc != null) {
+                        System.out.print("""
+                                1. Thêm hinh thuc danh gia
+                                2. Xóa hinh thuc danh gia
+                                3. Thoát
+                                Chọn:\s""");
+                        int choiceInCase2 = getInt();
+                        switch (choiceInCase2) {
+                            case 1 -> gv.themDanhGia(dc);
+                            case 2 -> {
+                                System.out.println("c2");
+                                System.out.println("c2");
+                            }
+                            case 3 ->
+                                    System.out.println("Thoát chức năng chỉnh sửa môn học trước!");
+                            default -> announceInvalidValue();
+                        }
+                    }
                 }
                 // tim kiem mon hoc theo ma hoac theo ten -> done
                 case 5 -> {
@@ -263,7 +284,7 @@ public class Main {
                         System.out.println("Kết thúc quản lý đề cương của giảng viên " +
                                 gv.getTen());
 
-                        System.out.println("""
+                        System.out.print("""
                                 Bạn có muốn tiếp tục
                                 1.Có
                                 2.Không
@@ -319,13 +340,14 @@ public class Main {
     }
 
     // return true if continue to retype and return false when the retype is done
-    public static boolean handleRetype(int choice, String tenChucNang) {
-        System.out.println("""
+    public static boolean handleRetype(String tenChucNang) {
+        System.out.print("""
                 Mã môn học không đúng!
                 Bạn có muốn nhập lại?
                 1. Có
                 2. Không
                 Chọn:\s""");
+        int choice = getInt();
         switch (choice) {
             case 1 -> System.out.println(
                     "Vui lòng nhập lại chính xác mã môn học");
@@ -339,8 +361,7 @@ public class Main {
     }
 
     public static <T> T handleInput(Function<Integer, T> function,
-                                    String tenMa,
-                                    String tenChucNang) {
+                                    String tenMa, String tenChucNang) {
         boolean isRepeated;
         T monHoc = null;
         do {
@@ -350,15 +371,14 @@ public class Main {
                 monHoc = function.apply(id); // loi khi khong ton tai de cuong
                 isRepeated = false;
             } catch (IllegalArgumentException e) {
-                isRepeated = handleRetype(getInt(), tenChucNang);
+                isRepeated = handleRetype(tenChucNang);
             }
         } while (isRepeated);
         return monHoc;
     }
 
     public static void handleInputWithoutReturn(Consumer<Integer> function,
-                                                String tenMa,
-                                                String tenChucNang) {
+                                                String tenMa, String tenChucNang) {
         boolean isRepeated;
         do {
             try {
@@ -367,7 +387,7 @@ public class Main {
                 function.accept(id); // neu loi thuc hien khoi lenh catch
                 isRepeated = false;
             } catch (IllegalArgumentException e) {
-                isRepeated = handleRetype(getInt(), tenChucNang);
+                isRepeated = handleRetype(tenChucNang);
             }
         } while (isRepeated);
     }

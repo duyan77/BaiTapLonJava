@@ -84,7 +84,6 @@ public class DanhGia {
                     cotDiem1.getPhuongPhap());
             cotDiem1.setTiTrong(getDouble());
         });
-
     }
 
     public double tongDiem() {
@@ -131,6 +130,22 @@ public class DanhGia {
 
     public void xoaCotDiem(int index) throws MinSizeExceededException {
         this.cotDiem.remove(index);
+    }
+
+    public void xoaCotDiem()
+            throws MinSizeExceededException, IllegalArgumentException {
+        System.out.println("Danh sach cot diem hien tai");
+        this.cotDiem.forEach(System.out::println);
+        System.out.println("Nhap ten cot diem can xoa: ");
+        String tenCotDiem = sc.nextLine();
+        var cotDiemCanXoa = this.cotDiem.stream().filter(cotDiem1 ->
+                        cotDiem1.getTenDiem().equalsIgnoreCase(tenCotDiem))
+                .findFirst().orElse(null);
+        if (cotDiemCanXoa == null) {
+            throw new IllegalArgumentException("Ten cot diem khong dung");
+        } else {
+            this.xoaCotDiem(cotDiemCanXoa);
+        }
     }
 
     @Override

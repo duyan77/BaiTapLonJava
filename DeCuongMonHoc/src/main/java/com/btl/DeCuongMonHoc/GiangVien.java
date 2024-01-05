@@ -82,7 +82,11 @@ public class GiangVien {
     }
 
     public void themDanhGia(int id) {
-        
+        this.quanLyDeCuong.themDanhGia(id);
+    }
+
+    public void themDanhGia(DeCuongMonHoc dc) {
+        this.quanLyDeCuong.themDanhGia(dc);
     }
 
     public void themDanhGia(String tenMonHoc) {
@@ -99,6 +103,10 @@ public class GiangVien {
 
     public void suaNoiDung(DeCuongMonHoc dc) {
 
+    }
+
+    public DeCuongMonHoc timDeCuong(int id) throws IllegalArgumentException {
+        return this.quanLyDeCuong.timDeCuong(id);
     }
 
     public MonHoc timMonHoc(int id) throws IllegalArgumentException {
