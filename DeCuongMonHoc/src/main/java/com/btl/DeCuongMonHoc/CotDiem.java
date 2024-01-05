@@ -1,5 +1,6 @@
 package com.btl.DeCuongMonHoc;
 
+import static com.btl.DeCuongMonHoc.CauHinh.getDouble;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class CotDiem {
@@ -21,16 +22,23 @@ public class CotDiem {
     public CotDiem() {
     }
 
-    public CotDiem(String tenThanhPhan, double tiTrong) {
-        this.tenDiem = tenThanhPhan;
+    public CotDiem(double tiTrong) {
         this.tiTrong = tiTrong;
     }
 
-    public CotDiem(String tenThanhPhan, double tiTrong, String noiDung, String phuongPhap) {
-        this.tenDiem = tenThanhPhan;
+    public CotDiem(double tiTrong,
+                   String noiDung, String phuongPhap) {
         this.tiTrong = tiTrong;
         this.noiDung = noiDung;
         this.phuongPhap = phuongPhap;
+    }
+
+    public static int getDem() {
+        return dem;
+    }
+
+    public static void setDem(int dem) {
+        CotDiem.dem = dem;
     }
 
     public String getTenDiem() {
@@ -65,13 +73,14 @@ public class CotDiem {
         this.phuongPhap = phuongPhap;
     }
 
-    public void nhapCotDiem() {
+    public void nhapCotDiem() throws IllegalArgumentException {
+        System.out.println("Nhap cot diem " + this.getTenDiem());
         System.out.print("Nhập nội dung đánh giá: ");
         this.noiDung = sc.nextLine();
         System.out.print("Nhập phương pháp đánh giá: ");
         this.phuongPhap = sc.nextLine();
         System.out.print("Nhập tỉ trọng điểm: ");
-        double tt = Integer.parseInt(sc.nextLine());
+        double tt = getDouble();
         if (tt < 0 || tt > 100)
             throw new IllegalArgumentException("Tỉ trọng điểm phải lớn hơn 0 và nhỏ hơn 100");
         this.tiTrong = tt;
@@ -79,7 +88,7 @@ public class CotDiem {
 
     @Override
     public String toString() {
-        return "Nội dung đánh giá %s\nNội dung: %s\nPhương pháp: %s\nTỉ trọng điểm: %.2f\n"
+        return "Nội dung cột điểm %s\nNội dung: %s\nPhương pháp: %s\nTỉ trọng điểm: %.2f\n"
                 .formatted(this.tenDiem, this.noiDung, this.phuongPhap, this.tiTrong);
     }
 }

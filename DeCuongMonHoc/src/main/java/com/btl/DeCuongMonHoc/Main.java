@@ -5,8 +5,8 @@ import java.util.function.Function;
 
 import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
-import static com.btl.DeCuongMonHoc.MonDieuKien.MON_TIEN_QUYET;
 import static com.btl.DeCuongMonHoc.MonDieuKien.MON_HOC_TRUOC;
+import static com.btl.DeCuongMonHoc.MonDieuKien.MON_TIEN_QUYET;
 
 public class Main {
 
@@ -65,8 +65,23 @@ public class Main {
                         int choiceInCase2 = getInt();
                         switch (choiceInCase2) {
                             case 1 -> {
-                                System.out.println("Nhập thông tin môn học tiên quyết cần thêm");
-                                gv.themMonHocDieuKien(m, MON_TIEN_QUYET);
+                                boolean isRepeated = true;
+                                do {
+                                    try {
+                                        System.out.println("Nhập thông tin môn học trước cần thêm");
+                                        gv.themMonHocDieuKien(m, MON_TIEN_QUYET);
+                                        isRepeated = false;
+                                    } catch (IllegalArgumentException e) {
+                                        System.out.printf(
+                                                "De cuong cua mon hoc %s khong thuoc quan " +
+                                                        "ly cua giang vien %s",
+                                                m.getTen(), gv.getTen());
+                                        // tra ve true neu muon nhap lai
+                                        boolean isRetype = handleRetype(
+                                                "them mon hoc tien quyet");
+                                        if (!isRetype) isRepeated = false;
+                                    }
+                                } while (isRepeated);
                             }
                             case 2 -> {
                                 // xuat danh sach mon tien quyet hien tai cua mon hoc can xoa mon
@@ -87,22 +102,9 @@ public class Main {
                                         gv.xoaMonHocDieuKien(m, requiredCourseId, MON_TIEN_QUYET);
                                         isRepeated = false;
                                     } catch (IllegalArgumentException e) {
-                                        System.out.println("Mã môn học không đúng! Vui lòng nhập lại");
-                                        System.out.print("""
-                                            Bạn có muốn nhập lại?
-                                            1. Có
-                                            2. Không
-                                            Chọn:\s""");
-                                        int isRetyped = getInt();
-                                        switch (isRetyped) {
-                                            case 1 -> System.out.println(
-                                                    "Vui lòng nhập lại chính xác mã môn học");
-                                            case 2 -> {
-                                                System.out.println("Thoát chức năng xóa môn học tiên quyết");
-                                                isRepeated = false;
-                                            }
-                                            default -> announceInvalidValue();
-                                        }
+                                        boolean isRetype = handleRetype(
+                                                "xóa môn học tiên quyết");
+                                        if (!isRetype) isRepeated = false;
                                     }
                                 } while (isRepeated);
                             }
@@ -112,7 +114,7 @@ public class Main {
                         }
                     }
                 }
-                // lam tuong tu case 2 -> Ban Nhi lam
+                // lam tuong tu case 2
                 case 3 -> {
                     MonHoc m = handleInput(gv::timMonHoc, "môn học cần chỉnh sửa thông tin",
                             "cập nhật môn học trước");
@@ -127,8 +129,23 @@ public class Main {
                         int choiceInCase2 = getInt();
                         switch (choiceInCase2) {
                             case 1 -> {
-                                System.out.println("Nhập thông tin môn học trước cần thêm");
-                                gv.themMonHocDieuKien(m, MON_HOC_TRUOC);
+                                boolean isRepeated = true;
+                                do {
+                                    try {
+                                        System.out.println("Nhập thông tin môn học trước cần thêm");
+                                        gv.themMonHocDieuKien(m, MON_HOC_TRUOC);
+                                        isRepeated = false;
+                                    } catch (IllegalArgumentException e) {
+                                        System.out.printf(
+                                                "De cuong cua mon hoc %s khong thuoc quan " +
+                                                        "ly cua giang vien %s",
+                                                m.getTen(), gv.getTen());
+                                        // tra ve true neu muon nhap lai
+                                        boolean isRetype = handleRetype(
+                                                " them mon hoc truoc");
+                                        if (!isRetype) isRepeated = false;
+                                    }
+                                } while (isRepeated);
                             }
                             case 2 -> {
                                 // xuat danh sach mon truoc hien tai cua mon hoc can xoa mon
@@ -149,7 +166,9 @@ public class Main {
                                         gv.xoaMonHocDieuKien(m, requiredCourseId, MON_HOC_TRUOC);
                                         isRepeated = false;
                                     } catch (IllegalArgumentException e) {
-                                        System.out.println("Mã môn học không đúng! Vui lòng nhập lại");
+                                        boolean isRetype = handleRetype(
+                                                "xóa môn học trước");
+                                        if (!isRetype) isRepeated = false;
                                     }
                                 } while (isRepeated);
                             }
@@ -160,8 +179,29 @@ public class Main {
                     }
                 }
                 case 4 -> {
-                    System.out.println("Case 4");
-                    System.out.println("Case 4");
+                    var dc = handleInput(gv::timDeCuong,
+                            "môn học cần chỉnh sửa hinh thuc danh gia",
+                            "cập nhật hinh thuc danh gia");
+
+                    // thuc hien cac chuc nang cua case 2
+                    if (dc != null) {
+                        System.out.print("""
+                                1. Thêm hinh thuc danh gia
+                                2. Xóa hinh thuc danh gia
+                                3. Thoát
+                                Chọn:\s""");
+                        int choiceInCase2 = getInt();
+                        switch (choiceInCase2) {
+                            case 1 -> gv.themDanhGia(dc);
+                            case 2 -> {
+                                System.out.println("c2");
+                                System.out.println("c2");
+                            }
+                            case 3 ->
+                                    System.out.println("Thoát chức năng chỉnh sửa môn học trước!");
+                            default -> announceInvalidValue();
+                        }
+                    }
                 }
                 // tim kiem mon hoc theo ma hoac theo ten -> done
                 case 5 -> {
@@ -224,15 +264,19 @@ public class Main {
                 case 8 -> handleInputWithoutReturn(gv::xuatDeCuong, "đề cương cần xuất",
                         "tìm kiếm theo xuất đề cương");
                 case 9 -> { //Thong ke so luong de cuong theo so tin chi
-                    System.out.println("Thống kê đề cương của " + gv.getTen() + " theo số tín chỉ");
+                    System.out.println("Thống kê đề cương của giảng viên" + gv.getTen() + " theo " +
+                            "số " +
+                            "tín chỉ");
                     gv.thongKeDC();
                 }
                 case 10 -> {
                     var dsMonLienQuan = handleInput(gv::dsMonLienQuan, "môn học",
                             "tìm kiếm môn học liên quan");
-                    dsMonLienQuan.forEach(monHoc ->
-                            System.out.printf("Mã môn học: %s\nTên môn học: %s\n",
-                                    monHoc.getMa(), monHoc.getTen()));
+                    dsMonLienQuan.forEach(monHoc -> System.out.printf("""
+                                    Mã môn học: %s
+                                    Tên môn học: %s
+                                    """,
+                            monHoc.getMa(), monHoc.getTen()));
                 }
                 case 0 -> {
                     int isRepeated;
@@ -240,7 +284,7 @@ public class Main {
                         System.out.println("Kết thúc quản lý đề cương của giảng viên " +
                                 gv.getTen());
 
-                        System.out.println("""
+                        System.out.print("""
                                 Bạn có muốn tiếp tục
                                 1.Có
                                 2.Không
@@ -272,8 +316,8 @@ public class Main {
                 4. Cập nhật hình thức đánh giá
                 5. Tìm kiếm môn học
                 6. Sắp xếp môn học theo tín chỉ giảm dần
-                7. Danh sách đề cương mà giảng viên chịu trách nhiệm 
-                8. Xuất một đề cương hoàn chỉnh 
+                7. Danh sách đề cương mà giảng viên chịu trách nhiệm
+                8. Xuất một đề cương hoàn chỉnh
                 9. Thống kê số lượng đề cương theo tín chỉ
                 10. Danh sách những môn học liên quan
                 0. Thoát
@@ -295,13 +339,15 @@ public class Main {
         return gv;
     }
 
-    public static boolean handleRetype(int choice, String tenChucNang) {
-        System.out.println("""
+    // return true if continue to retype and return false when the retype is done
+    public static boolean handleRetype(String tenChucNang) {
+        System.out.print("""
                 Mã môn học không đúng!
                 Bạn có muốn nhập lại?
                 1. Có
                 2. Không
                 Chọn:\s""");
+        int choice = getInt();
         switch (choice) {
             case 1 -> System.out.println(
                     "Vui lòng nhập lại chính xác mã môn học");
@@ -315,8 +361,7 @@ public class Main {
     }
 
     public static <T> T handleInput(Function<Integer, T> function,
-                                    String tenMa,
-                                    String tenChucNang) {
+                                    String tenMa, String tenChucNang) {
         boolean isRepeated;
         T monHoc = null;
         do {
@@ -326,15 +371,14 @@ public class Main {
                 monHoc = function.apply(id); // loi khi khong ton tai de cuong
                 isRepeated = false;
             } catch (IllegalArgumentException e) {
-                isRepeated = handleRetype(getInt(), tenChucNang);
+                isRepeated = handleRetype(tenChucNang);
             }
         } while (isRepeated);
         return monHoc;
     }
 
     public static void handleInputWithoutReturn(Consumer<Integer> function,
-                                                String tenMa,
-                                                String tenChucNang) {
+                                                String tenMa, String tenChucNang) {
         boolean isRepeated;
         do {
             try {
@@ -343,9 +387,8 @@ public class Main {
                 function.accept(id); // neu loi thuc hien khoi lenh catch
                 isRepeated = false;
             } catch (IllegalArgumentException e) {
-                isRepeated = handleRetype(getInt(), tenChucNang);
+                isRepeated = handleRetype(tenChucNang);
             }
         } while (isRepeated);
     }
 }
-

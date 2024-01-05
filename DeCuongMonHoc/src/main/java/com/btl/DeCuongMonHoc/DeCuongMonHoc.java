@@ -1,8 +1,10 @@
 package com.btl.DeCuongMonHoc;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class DeCuongMonHoc {
@@ -11,11 +13,15 @@ public class DeCuongMonHoc {
 
     private HeDaoTao heDaoTao;
 
-    private MucTieu[] mucTieu;
+    private List<MucTieu> mucTieu = new ArrayList<>();
 
     private DanhGia danhGia;
 
     private GiangVien giangVien;
+
+    public DeCuongMonHoc(MonHoc monHoc) {
+        this.monHoc = monHoc;
+    }
 
     public DeCuongMonHoc(GiangVien giangVien) {
         this.giangVien = giangVien;
@@ -28,7 +34,7 @@ public class DeCuongMonHoc {
         giangVien.themDeCuong(this);
     }
 
-    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, MucTieu[] mucTieu, DanhGia danhGia, GiangVien giangVien) {
+    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu, DanhGia danhGia, GiangVien giangVien) {
         this.monHoc = monHoc;
         this.heDaoTao = heDaoTao;
         this.mucTieu = mucTieu;
@@ -54,11 +60,11 @@ public class DeCuongMonHoc {
         this.heDaoTao = heDaoTao;
     }
 
-    public MucTieu[] getMucTieu() {
+    public List<MucTieu> getMucTieu() {
         return mucTieu;
     }
 
-    public void setMucTieu(MucTieu[] mucTieu) {
+    public void setMucTieu(List<MucTieu> mucTieu) {
         this.mucTieu = mucTieu;
     }
 
@@ -81,9 +87,12 @@ public class DeCuongMonHoc {
     //    ------------------------------------------------------------------------------------------
 
     public void nhapDeCuong() {
-        MonHoc monHoc = new MonHoc();
-        monHoc.nhapMonHoc();
-        this.monHoc = monHoc;
+
+        if (this.monHoc == null) {
+            MonHoc monHoc = new MonHoc();
+            monHoc.nhapMonHoc();
+            this.monHoc = monHoc;
+        }
 
         // nhap he dao tao
         int k;
@@ -99,12 +108,12 @@ public class DeCuongMonHoc {
 
         int soLuong;
         System.out.print("Nhập số lượng mục tiêu: ");
-        soLuong = Integer.parseInt(sc.nextLine());
-        this.mucTieu = new MucTieu[soLuong];
+        soLuong = getInt();
 
         for (int i = 0; i < soLuong; i++) {
-            mucTieu[i] = new MucTieu();
-            mucTieu[i].nhapMucTieu();
+            MucTieu tmp = new MucTieu();
+            tmp.nhapMucTieu();
+            this.mucTieu.add(tmp);
         }
 
         DanhGia danhGia = new DanhGia();
@@ -112,10 +121,29 @@ public class DeCuongMonHoc {
         this.danhGia = danhGia;
     }
 
+    public void themDanhGia() {
+        this.danhGia.themCotDiem();
+    }
+
+    public void xoaDanhGia() {
+        boolean isRepeated = true;
+        do {
+            try {
+                this.danhGia.xoaCotDiem();
+                isRepeated = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ten cot diem khong dung");
+            } catch (MinSizeExceededException e) {
+                System.out.println("Xoa cot diem khong thanh cong vi so cot diem toi thieu la ");
+                isRepeated = false;
+            }
+        } while (isRepeated);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
-        Arrays.stream(mucTieu).forEach(mucTieu -> sb.append(mucTieu.toString()));
+        this.mucTieu.forEach(mucTieu -> sb.append(mucTieu.toString()));
         if (sb.isEmpty()) sb.append("Không");
         return """
                 1. THÔNG TIN MÔN HỌC
