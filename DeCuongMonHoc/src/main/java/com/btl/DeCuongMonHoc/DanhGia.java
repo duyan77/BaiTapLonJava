@@ -37,7 +37,7 @@ public class DanhGia {
         while (this.tongDiem() != 100) {
             System.out.println("Tong ti trong phai la 100!");
             System.out.println("Vui long nhap lai ti trong phu hop cho cac cot diem");
-            this.retypeWeight();
+            this.retypeOldWeight();
         }
     }
 
@@ -72,7 +72,7 @@ public class DanhGia {
         }
     }
 
-    private void retypeWeight() {
+    private void retypeOldWeight() {
         this.cotDiem.forEach(cotDiem1 -> {
             System.out.printf("""
                             Nội dung cột điểm %s
@@ -105,9 +105,12 @@ public class DanhGia {
     public void themCotDiem() throws
             MaxSizeExceededException, IllegalArgumentException, InvalidWeightException {
 
-        retypeWeight(); // nhap lai nhung cot diem truoc
+        retypeOldWeight(); // nhap lai nhung cot diem truoc
         handleWeightInput();
+        retypeUntilMatch100();
+    }
 
+    private void retypeUntilMatch100() {
         boolean isRepeated = true;
         do {
             try {
@@ -116,7 +119,7 @@ public class DanhGia {
             } catch (InvalidWeightException e) {
                 System.out.println("Tong ti trong phai la 100!");
                 System.out.println("Vui long nhap lai");
-                retypeWeight();
+                retypeOldWeight();
             }
         } while (isRepeated);
     }
@@ -137,13 +140,15 @@ public class DanhGia {
         this.cotDiem.forEach(System.out::println);
         System.out.print("Nhap ten cot diem can xoa: ");
         String tenCotDiem = sc.nextLine();
-        var cotDiemCanXoa = this.cotDiem.stream().filter(cotDiem1 ->
-                        cotDiem1.getTenDiem().equalsIgnoreCase(tenCotDiem))
+        var cotDiemCanXoa = this.cotDiem.stream()
+                .filter(cotDiem1 -> cotDiem1.getTenDiem().equalsIgnoreCase(tenCotDiem))
                 .findFirst().orElse(null);
-        if (cotDiemCanXoa == null) {
-            throw new IllegalArgumentException("Ten cot diem khong dung");
-        } else {
+
+        if (cotDiemCanXoa == null) throw new IllegalArgumentException("Ten cot diem khong dung");
+        else {
             this.xoaCotDiem(cotDiemCanXoa);
+            retypeOldWeight();
+            retypeUntilMatch100();
         }
     }
 

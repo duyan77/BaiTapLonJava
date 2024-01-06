@@ -10,13 +10,17 @@ public class QuanLyDeCuong {
     // set cac de cuong mon hoc cua rieng giao vien
     private Set<DeCuongMonHoc> deCuongCuaGV = new LimitedSet<>(soLuongDeCuong);
 
+    public static void themDeCuongTong(DeCuongMonHoc... deCuongMonHocs) {
+        QuanLyDeCuong.DANH_SACH_DE_CUONG.addAll(Arrays.asList(deCuongMonHocs));
+    }
+
     public void themDeCuong(DeCuongMonHoc... deCuongMonHoc) {
         Arrays.stream(deCuongMonHoc).forEach(dc -> {
             if (this.checkDuplicate(dc))
                 throw new IllegalArgumentException("Đề cương cho môn học này đã tồn tại!");
             else
                 this.deCuongCuaGV.add(dc);
-            QuanLyDeCuong.DANH_SACH_DE_CUONG.addAll(deCuongCuaGV);
+            QuanLyDeCuong.themDeCuongTong(deCuongMonHoc);
         });
     }
 
@@ -63,10 +67,9 @@ public class QuanLyDeCuong {
                 .findFirst().orElse(null);
     }
 
-    public static MonHoc findCourse(int id) {
-        return DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
-                .filter(monHoc -> monHoc.getMa() == id)
-                .findFirst().orElse(null);
+    public static DeCuongMonHoc findCourseOutline(int id) {
+        return DANH_SACH_DE_CUONG.stream().filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc()
+                .getMa() == id).findFirst().orElse(null);
     }
 
     // tim kiem mon hoc truoc hoac mon tien quyet khi biet ma mon hoc

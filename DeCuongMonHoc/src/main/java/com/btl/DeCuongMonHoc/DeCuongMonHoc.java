@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.btl.DeCuongMonHoc.CauHinh.getInt;
-import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class DeCuongMonHoc {
 
@@ -21,6 +20,20 @@ public class DeCuongMonHoc {
 
     public DeCuongMonHoc(MonHoc monHoc) {
         this.monHoc = monHoc;
+    }
+
+    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu, DanhGia danhGia) {
+        this.monHoc = monHoc;
+        this.heDaoTao = heDaoTao;
+        this.mucTieu = mucTieu;
+        this.danhGia = danhGia;
+    }
+
+    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu, GiangVien giangVien) {
+        this.monHoc = monHoc;
+        this.heDaoTao = heDaoTao;
+        this.mucTieu = mucTieu;
+        this.giangVien = giangVien;
     }
 
     public DeCuongMonHoc(GiangVien giangVien) {
@@ -102,7 +115,7 @@ public class DeCuongMonHoc {
                     1. Chính quy
                     2. Liên thông
                     Chọn:\s"""); // \s <=> " "
-            k = Integer.parseInt(sc.nextLine());
+            k = getInt();
         } while (k < 1 || k > 2);
         this.heDaoTao = HeDaoTao.convertIntToHeDaoTao(k);
 

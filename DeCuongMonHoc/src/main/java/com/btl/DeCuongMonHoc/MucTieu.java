@@ -2,8 +2,10 @@ package com.btl.DeCuongMonHoc;
 // lớp này coi như tạm ổn
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class MucTieu {
@@ -24,8 +26,7 @@ public class MucTieu {
     public MucTieu() {
     }
 
-    public MucTieu(String mucTieuMon, String moTa) {
-        this.tenMucTieu = mucTieuMon;
+    public MucTieu(String moTa) {
         this.moTa = moTa;
     }
 
@@ -62,7 +63,7 @@ public class MucTieu {
         this.moTa = sc.nextLine();
         System.out.println("Nhập chuẩn đầu ra cho mục tiêu " + this.tenMucTieu);
         System.out.print("Nhập số chuẩn đầu ra: ");
-        int soChuanDauRa = Integer.parseInt(sc.nextLine());
+        int soChuanDauRa = getInt();
         this.themChuanDauRa(soChuanDauRa);
     }
 
@@ -73,6 +74,10 @@ public class MucTieu {
             tmp.nhapChuanDauRa();
             this.chuanDauRaList.add(tmp);
         }
+    }
+
+    public void themChuanDauRa(ChuanDauRa... chuanDauRas) {
+        this.chuanDauRaList.addAll(Arrays.asList(chuanDauRas));
     }
 
     // xóa chuẩn đẩu ra bằng đối tượng

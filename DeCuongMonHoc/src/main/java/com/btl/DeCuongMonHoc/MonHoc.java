@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
 
 public class MonHoc {
@@ -16,18 +17,21 @@ public class MonHoc {
 
     private String moTa;
 
-    private List<MonHoc> monHocTruoc;
+    private List<MonHoc> monHocTruoc = new LimitedList<>(CauHinh.soLuongMonDieuKien);
 
-    private List<MonHoc> monTienQuyet;
+    private List<MonHoc> monTienQuyet = new LimitedList<>(CauHinh.soLuongMonDieuKien);
 
     private KhoiKienThuc khoiKienThuc;
 
-    {
-        this.monTienQuyet = new LimitedList<>(CauHinh.soLuongMonDieuKien);
-        this.monHocTruoc = new LimitedList<>(CauHinh.soLuongMonDieuKien);
+    public MonHoc() {
     }
 
-    public MonHoc() {
+    public MonHoc(int ma, String ten, int soTinChi, String moTa, KhoiKienThuc khoiKienThuc) {
+        this.ma = ma;
+        this.ten = ten;
+        this.soTinChi = soTinChi;
+        this.moTa = moTa;
+        this.khoiKienThuc = khoiKienThuc;
     }
 
     public MonHoc(int ma, String ten, int soTinChi, String moTa, List<MonHoc> monHocTruoc, List<MonHoc> monTienQuyet, KhoiKienThuc khoiKienThuc) {
@@ -77,13 +81,13 @@ public class MonHoc {
     //    nhập các thông tin chung
     private void nhapThongTinChung() {
         System.out.print("Nhập mã môn học: ");
-        this.ma = Integer.parseInt(sc.nextLine());
+        this.ma = getInt();
 
         System.out.print("Nhập tên môn học: ");
         this.ten = sc.nextLine();
 
         System.out.print("Nhập số tín chỉ: ");
-        this.soTinChi = Integer.parseInt(sc.nextLine());
+        this.soTinChi = getInt();
 
         System.out.print("Nhập mô tả cho môn học: ");
         this.moTa = sc.nextLine();
@@ -97,7 +101,7 @@ public class MonHoc {
                     2.Cơ Sở ngành
                     3.Chuyên ngành
                     Chọn:\s""");
-            k = Integer.parseInt(sc.nextLine());
+            k = getInt();
         } while (k < 1 || k > 3);
         this.khoiKienThuc = KhoiKienThuc.convertIntToKienThuc(k);
     }
@@ -110,7 +114,7 @@ public class MonHoc {
         int soMon;
         do {
             System.out.print("Nhập số môn học trước: ");
-            soMon = Integer.parseInt(sc.nextLine());
+            soMon = getInt();
             if (soMon > 3)
                 System.err.println("Số môn học trước tối đa là 3!");
             else if (soMon < 0)

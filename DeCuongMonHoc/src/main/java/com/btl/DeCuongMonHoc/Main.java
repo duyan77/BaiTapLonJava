@@ -12,9 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
         PhanCong pc = new PhanCong();
-        GiangVien gv;
-        pc.themGiangVien();
-        gv = loginAccount(pc);
+
+        GiangVien gv = loginAccount(pc);
 
         // thuc hien chuc nang
         int chooseCase;
@@ -193,10 +192,7 @@ public class Main {
                         int choiceInCase2 = getInt();
                         switch (choiceInCase2) {
                             case 1 -> gv.themDanhGia(dc);
-                            case 2 -> {
-                                System.out.println("c2");
-                                System.out.println("c2");
-                            }
+                            case 2 -> gv.xoaDanhGia(dc);
                             case 3 ->
                                     System.out.println("Thoát chức năng chỉnh sửa môn học trước!");
                             default -> announceInvalidValue();
