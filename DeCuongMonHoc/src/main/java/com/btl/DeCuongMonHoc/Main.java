@@ -268,11 +268,13 @@ public class Main {
                 case 10 -> {
                     var dsMonLienQuan = handleInput(gv::dsMonLienQuan, "môn học",
                             "tìm kiếm môn học liên quan");
+
+                    System.out.println("Danh sach nhung mon hoc lien quan");
                     dsMonLienQuan.forEach(monHoc -> System.out.printf("""
-                                    Mã môn học: %s
-                                    Tên môn học: %s
-                                    """,
-                            monHoc.getMa(), monHoc.getTen()));
+                            Mã môn học: %s
+                            Tên môn học: %s
+                                                        
+                            """, monHoc.getMa(), monHoc.getTen()));
                 }
                 case 0 -> {
                     int isRepeated;

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static com.btl.DeCuongMonHoc.CauHinh.monHocPath;
 import static com.btl.DeCuongMonHoc.HeDaoTao.CHINH_QUY;
@@ -13,13 +14,11 @@ import static java.lang.Integer.parseInt;
 
 public class PhanCong {
 
-    private final List<GiangVien> phanCongGV = new ArrayList<>();
-    private final QuanLyDeCuong quanLyDeCuong = new QuanLyDeCuong();
+    public final List<GiangVien> phanCongGV = new ArrayList<>();
 
     {
+        new QuanLyDeCuong();
         this.docThongTinGiangVien();
-        this.docThongTinDeCuong();
-        this.phanCongDeCuong();
     }
 
     public void themGiangVien(GiangVien giangVien) {
@@ -33,7 +32,8 @@ public class PhanCong {
     }
 
     public GiangVien timGiangVien(String maGV) {
-        return this.phanCongGV.stream().filter(giangVien -> giangVien.getMaGV().equals(maGV))
+        return this.phanCongGV.stream()
+                .filter(giangVien -> giangVien.getMaGV().equalsIgnoreCase(maGV))
                 .findFirst().orElse(null);
     }
 
@@ -61,19 +61,14 @@ public class PhanCong {
         return null;
     }
 
-    public Map<GiangVien, List<Integer>> docThongTinGiangVien() {
+    public static Map<Integer, String> bangPhanCong() {
         File f = new File(CauHinh.giangVienPath);
         try (Scanner scanner = new Scanner(f)) {
-            Map<GiangVien, List<Integer>> map = new HashMap<>();
+            Map<Integer, String> map = new HashMap<>();
             while (scanner.hasNextLine()) {
-                List<Integer> maDeCuong = new ArrayList<>();
                 var dataOfGiangVien = scanner.nextLine().split(" \\| ");
-                GiangVien gv = new GiangVien(dataOfGiangVien[1]);
-                this.themGiangVien(gv);
-
                 for (int i = 2; i < dataOfGiangVien.length; i++)
-                    maDeCuong.add(parseInt(dataOfGiangVien[i]));
-                map.put(gv, maDeCuong);
+                    map.put(parseInt(dataOfGiangVien[i]), dataOfGiangVien[0]);
             }
             return map;
         } catch (FileNotFoundException e) {
@@ -81,22 +76,79 @@ public class PhanCong {
         }
     }
 
-    public List<DeCuongMonHoc> docThongTinDeCuong() {
+    public void docThongTinGiangVien() {
+        File f = new File(CauHinh.giangVienPath);
+        try (Scanner scanner = new Scanner(f)) {
+            while (scanner.hasNextLine()) {
+                var dataOfGiangVien = scanner.nextLine().split(" \\| ");
+                GiangVien giangVien = new GiangVien(dataOfGiangVien[1]);
+                for (int i = 2; i < dataOfGiangVien.length; i++) {
+                    int maDeCuong = parseInt(dataOfGiangVien[i]);
+                    DeCuongMonHoc dc = docThongTinDeCuong().stream()
+                            .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc()
+                                    .getMa() == maDeCuong)
+                            .findFirst().orElse(null);
+                    giangVien.themDeCuong(dc);
+                }
+                this.themGiangVien(giangVien);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static MonHoc getCourseById(int id, List<MonHoc> list) {
+        return list.stream().filter(monHoc -> monHoc.getMa() == id)
+                .findFirst().orElse(null);
+    }
+
+    public static void docThongTinMonHocDieuKien(List<MonHoc> monHocs) {
+        File f = new File(CauHinh.monDieuKienPath);
+        try (Scanner sc = new Scanner(f)) {
+            while (sc.hasNextLine()) {
+                var data = sc.nextLine().split(" \\| ");
+                MonHoc monHocChinhSua = getCourseById(parseInt(data[0]), monHocs);
+                if (monHocChinhSua != null) {
+                    // them mon hoc truoc
+                    int soMonTruoc = parseInt(data[1]);
+                    int idx = 1;
+                    if (soMonTruoc == 0) idx++;
+                    for (int i = 0; i < soMonTruoc; i++) {
+                        MonHoc monHocTruoc = getCourseById(parseInt(data[++idx]), monHocs);
+                        monHocChinhSua.dsMonHocTruoc().add(monHocTruoc);
+                    }
+
+                    // them mon hoc tien quyet
+                    int soMonTienQuyet = parseInt(data[++idx]);
+                    for (int i = 0; i < soMonTienQuyet; i++) {
+                        MonHoc monHocTruoc = getCourseById(parseInt(data[++idx]), monHocs);
+                        monHocChinhSua.dsMonTienQuyet().add(monHocTruoc);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<DeCuongMonHoc> docThongTinDeCuong() {
         File courseDataFile = new File(monHocPath);
         try (Scanner sc = new Scanner(courseDataFile)) {
             List<DeCuongMonHoc> list = new ArrayList<>();
             while (sc.hasNextLine()) {
                 var data = sc.nextLine().split(" \\| ");
+
+                // lay thong tin mon hoc
                 int id = parseInt(data[0]);
                 String nameCourse = data[1];
                 int soTinChi = parseInt(data[2]);
                 String moTa = data[3];
                 KhoiKienThuc k = parseStringToKKT(data[4]);
                 MonHoc monHoc = new MonHoc(id, nameCourse, soTinChi, moTa, k);
+
+                // lay thong tin cua de cuong
                 HeDaoTao h = parseStringToHDT(data[5]);
-
                 List<MucTieu> mucTieuList = getMucTieu(data);
-
                 Function<Integer, DanhGia> getDanhGiaById = (courseId) -> {
                     File fileDanhGia = new File(CauHinh.danhGiaPath);
                     try (Scanner scanner = new Scanner(fileDanhGia)) {
@@ -121,27 +173,19 @@ public class PhanCong {
                     }
                 };
 
-                DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(monHoc, h, mucTieuList,
-                        getDanhGiaById.apply(id));
-                list.add(deCuongMonHoc);
+                list.add(new DeCuongMonHoc(monHoc, h, mucTieuList, getDanhGiaById.apply(id)));
             }
+            // them thong tin mon hoc tien quyet, mon hoc truoc
+            var courseList = list.stream().map(DeCuongMonHoc::getMonHoc)
+                    .collect(Collectors.toList());
+            docThongTinMonHocDieuKien(courseList);
+
             return list;
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void phanCongDeCuong() {
-        var pc = this.docThongTinGiangVien();
-        var dsDeCuong = this.docThongTinDeCuong();
-        pc.forEach((giangVien, integers) -> pc.get(giangVien)
-                .forEach(id -> {
-                    DeCuongMonHoc dc = dsDeCuong.stream().filter(deCuongMonHoc -> deCuongMonHoc
-                            .getMonHoc().getMa() == id).findFirst().orElse(null);
-                    giangVien.themDeCuong(dc);
-                })
-        );
-    }
 
     private static List<MucTieu> getMucTieu(String[] data) {
         List<MucTieu> mucTieuList = new ArrayList<>();
@@ -151,7 +195,7 @@ public class PhanCong {
             MucTieu mucTieu = new MucTieu(data[++idx]);
             int soChuanDauRa = parseInt(data[++idx]);
             for (int j = 0; j < soChuanDauRa; j++) {
-                ChuanDauRa cd = new ChuanDauRa(mucTieu, data[++idx]);
+                new ChuanDauRa(mucTieu, data[++idx]);
             }
             mucTieuList.add(mucTieu);
         }

@@ -50,18 +50,19 @@ public class GiangVien {
         this.ten = sc.nextLine();
     }
 
-    public void themDeCuong(DeCuongMonHoc... deCuongMonHocs) throws IllegalArgumentException {
+    public void themDeCuong(DeCuongMonHoc... deCuongMonHocs)
+            throws IllegalArgumentException {
         this.quanLyDeCuong.themDeCuong(deCuongMonHocs);
     }
 
     public void themDeCuong() throws IllegalArgumentException {
-        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(this);
+        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc();
         deCuongMonHoc.nhapDeCuong();
         this.themDeCuong(deCuongMonHoc);
     }
 
     public void themDeCuong(MonHoc monHoc) throws IllegalArgumentException {
-        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(monHoc, this);
+        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(monHoc);
         deCuongMonHoc.nhapDeCuong();
         this.themDeCuong(deCuongMonHoc);
     }
@@ -133,7 +134,8 @@ public class GiangVien {
     }
 
     public void xuatDeCuong(int id) throws IllegalArgumentException {
-        this.quanLyDeCuong.xuatDeCuong(id);
+        System.out.printf("%s\n4.THONG TIN GIANG VIEN\n%s",
+                this.quanLyDeCuong.thongTinDeCuong(id), this);
     }
 
     public void thongKeDC() {
@@ -142,6 +144,6 @@ public class GiangVien {
 
     @Override
     public String toString() {
-        return this.ten;
+        return String.format("%s\n%s\n", this.maGV, this.ten);
     }
 }

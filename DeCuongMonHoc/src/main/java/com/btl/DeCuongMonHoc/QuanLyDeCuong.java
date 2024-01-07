@@ -18,8 +18,7 @@ public class QuanLyDeCuong {
         Arrays.stream(deCuongMonHoc).forEach(dc -> {
             if (this.checkDuplicate(dc))
                 throw new IllegalArgumentException("Đề cương cho môn học này đã tồn tại!");
-            else
-                this.deCuongCuaGV.add(dc);
+            else this.deCuongCuaGV.add(dc);
             QuanLyDeCuong.themDeCuongTong(deCuongMonHoc);
         });
     }
@@ -87,7 +86,7 @@ public class QuanLyDeCuong {
     }
 
     public List<MonHoc> getRelatedCoures(int id) {
-        MonHoc m = this.timMonHoc(id);
+        MonHoc m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
         if (m == null) {
             throw new IllegalArgumentException("Mã môn học sai");
         }
@@ -159,14 +158,14 @@ public class QuanLyDeCuong {
         this.deCuongCuaGV = new LinkedHashSet<>(sortedArray);
     }
 
-    public void xuatDeCuong(int id) {
+    public String thongTinDeCuong(int id) {
         DeCuongMonHoc dc = this.deCuongCuaGV.stream()
                 .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
                 .findFirst().orElse(null);
         if (dc == null) {
             throw new IllegalArgumentException("Mã không đúng");
         }
-        System.out.println(dc);
+        return dc.toString();
     }
 
     // thong ke de cuong theo tin chi
@@ -189,4 +188,5 @@ public class QuanLyDeCuong {
             System.out.printf("%d - %s\n", entry.getKey(), courseList);
         }
     }
+
 }

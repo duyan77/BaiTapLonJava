@@ -16,7 +16,9 @@ public class DeCuongMonHoc {
 
     private DanhGia danhGia;
 
-    private GiangVien giangVien;
+    public DeCuongMonHoc() {
+
+    }
 
     public DeCuongMonHoc(MonHoc monHoc) {
         this.monHoc = monHoc;
@@ -27,33 +29,6 @@ public class DeCuongMonHoc {
         this.heDaoTao = heDaoTao;
         this.mucTieu = mucTieu;
         this.danhGia = danhGia;
-    }
-
-    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu, GiangVien giangVien) {
-        this.monHoc = monHoc;
-        this.heDaoTao = heDaoTao;
-        this.mucTieu = mucTieu;
-        this.giangVien = giangVien;
-    }
-
-    public DeCuongMonHoc(GiangVien giangVien) {
-        this.giangVien = giangVien;
-        giangVien.themDeCuong(this);
-    }
-
-    public DeCuongMonHoc(MonHoc monHoc, GiangVien giangVien) {
-        this.monHoc = monHoc;
-        this.giangVien = giangVien;
-        giangVien.themDeCuong(this);
-    }
-
-    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu, DanhGia danhGia, GiangVien giangVien) {
-        this.monHoc = monHoc;
-        this.heDaoTao = heDaoTao;
-        this.mucTieu = mucTieu;
-        this.danhGia = danhGia;
-        this.giangVien = giangVien;
-        giangVien.themDeCuong(this);
     }
 
     //    getter, setter
@@ -87,14 +62,6 @@ public class DeCuongMonHoc {
 
     public void setDanhGia(DanhGia danhGia) {
         this.danhGia = danhGia;
-    }
-
-    public GiangVien getGiangVien() {
-        return giangVien;
-    }
-
-    public void setGiangVien(GiangVien giangVien) {
-        this.giangVien = giangVien;
     }
 
     //    ------------------------------------------------------------------------------------------
@@ -161,14 +128,12 @@ public class DeCuongMonHoc {
         return """
                 1. THÔNG TIN MÔN HỌC
                 %sHệ đào tạo: %s
+                                
                 2. MỤC TIÊU MÔN HỌC
                 %s
                 3. ĐÁNH GIÁ
-                %s
-                4. GIẢNG VIÊN PHỤ TRÁCH
-                %s
-                """.formatted(monHoc.toString(), heDaoTao.tenHeDaoTao(), sb.toString(), danhGia.toString(),
-                this.giangVien.toString());
+                %s""".formatted(monHoc.toString(), heDaoTao.tenHeDaoTao(),
+                sb.toString(), danhGia.toString());
     }
 
     // cach thuc so sanh 2 de cuong bang nhau

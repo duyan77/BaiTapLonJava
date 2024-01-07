@@ -146,10 +146,11 @@ public class MonHoc {
         return """
                 Mã môn học: %d
                 Tên môn học: %s
+                So tin chi: %d
                 Môn học trước: %s
                 Mô tả: %s
                 Khối kiến thức: %s
-                """.formatted(this.ma, this.ten, tenCacMonHocTruoc, this.moTa,
+                """.formatted(this.ma, this.ten, this.soTinChi, tenCacMonHocTruoc, this.moTa,
                 this.khoiKienThuc.tenKhoiKienThuc());
     }
 
