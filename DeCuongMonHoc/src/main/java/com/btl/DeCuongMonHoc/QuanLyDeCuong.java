@@ -42,7 +42,7 @@ public class QuanLyDeCuong {
 
     // tim kiem mon hoc cua de cuong theo ma mon hoc
     public MonHoc timMonHoc(int id) {
-        MonHoc m = this.deCuongCuaGV.stream()
+        MonHoc m = QuanLyDeCuong.DANH_SACH_DE_CUONG.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.getMa() == id)
                 // if a value is present, returns the value otherwise return null
@@ -53,7 +53,7 @@ public class QuanLyDeCuong {
 
     // tim kiem mon hoc cua de cuong theo ten mon hoc
     public List<MonHoc> timMonHoc(String kw) {
-        return this.deCuongCuaGV.stream()
+        return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.getTen().contains(kw))
                 .toList();

@@ -14,7 +14,18 @@ public class CauHinh {
     public static final String danhGiaPath = "./src/main/resources/DanhGia.txt";
 
     public static int getInt() {
-        return Integer.parseInt(sc.nextLine());
+        boolean isRepeated = true;
+        int returnValue = 0;
+        do {
+            try {
+                returnValue = Integer.parseInt(sc.nextLine());
+                isRepeated = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Vui long nhap mot so nguyen");
+                System.out.print("Nhap lai: ");
+            }
+        } while (isRepeated);
+        return returnValue;
     }
 
     public static double getDouble() {
