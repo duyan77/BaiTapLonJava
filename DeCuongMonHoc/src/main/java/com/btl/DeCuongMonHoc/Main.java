@@ -12,7 +12,6 @@ public class Main {
 
     public static void main(String[] args) {
         PhanCong pc = new PhanCong();
-
         GiangVien gv = loginAccount(pc);
 
         // thuc hien chuc nang
@@ -212,7 +211,8 @@ public class Main {
                         switch (choiceInCase5) {
                             // tim kiem mon hoc theo ma mon hoc
                             case 1 -> {
-                                MonHoc monCanTim = handleInput(gv::timMonHoc,
+                                MonHoc monCanTim = handleInput(id ->
+                                                QuanLyDeCuong.findCourseOutline(id).getMonHoc(),
                                         "môn học",
                                         "tìm kiếm môn học theo mã");
 
@@ -260,7 +260,7 @@ public class Main {
                 case 8 -> handleInputWithoutReturn(gv::xuatDeCuong, "đề cương cần xuất",
                         "tìm kiếm theo xuất đề cương");
                 case 9 -> { //Thong ke so luong de cuong theo so tin chi
-                    System.out.println("Thống kê đề cương của giảng viên" + gv.getTen() + " theo " +
+                    System.out.println("Thống kê đề cương của giảng viên " + gv.getTen() + " theo " +
                             "số " +
                             "tín chỉ");
                     gv.thongKeDC();
@@ -269,7 +269,6 @@ public class Main {
                     var dsMonLienQuan = handleInput(gv::dsMonLienQuan, "môn học",
                             "tìm kiếm môn học liên quan");
 
-                    System.out.println("Danh sach nhung mon hoc lien quan");
                     dsMonLienQuan.forEach(monHoc -> System.out.printf("""
                             Mã môn học: %s
                             Tên môn học: %s
@@ -278,10 +277,9 @@ public class Main {
                 }
                 case 0 -> {
                     int isRepeated;
+                    System.out.println("Kết thúc quản lý đề cương của giảng viên " +
+                            gv.getTen());
                     do {
-                        System.out.println("Kết thúc quản lý đề cương của giảng viên " +
-                                gv.getTen());
-
                         System.out.print("""
                                 Bạn có muốn tiếp tục
                                 1.Có
@@ -340,7 +338,7 @@ public class Main {
     // return true if continue to retype and return false when the retype is done
     public static boolean handleRetype(String tenChucNang) {
         System.out.print("""
-                Mã môn học không đúng!
+                Mã môn học không đúng, hoac khong phai de cuong cua giang vien quan ly
                 Bạn có muốn nhập lại?
                 1. Có
                 2. Không

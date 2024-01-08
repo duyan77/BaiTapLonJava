@@ -12,12 +12,15 @@ public class DanhGia {
     private List<CotDiem> cotDiem = new LimitedList<>(soCotDiemToiThieu, soCotDiemToiDa); // cot diem toi thieu
     // 2 va toi da 4
 
+    {
+        CotDiem.setDem(this.cotDiem.size());
+    }
+
     public DanhGia() {
     }
 
     public DanhGia(List<CotDiem> cotDiem) {
         this.cotDiem = cotDiem;
-        CotDiem.setDem(this.cotDiem.size());
     }
 
     // getter, setter

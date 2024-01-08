@@ -119,7 +119,7 @@ public class GiangVien {
     }
 
     public List<MonHoc> dsMonLienQuan(int id) throws IllegalArgumentException {
-        return this.quanLyDeCuong.getRelatedCoures(id);
+        return this.quanLyDeCuong.dsMonLienQuan(id);
     }
 
     public void themMonHocTruoc(int id) {

@@ -106,6 +106,14 @@ public class MonHoc {
         this.khoiKienThuc = KhoiKienThuc.convertIntToKienThuc(k);
     }
 
+    public void themMonDieuKien(MonHoc monHocCanThem, MonDieuKien monDieuKien) {
+        monDieuKien.themMonDieuKien(this, monHocCanThem);
+    }
+
+    public void xoaMonHocDieuKien(MonHoc monCanXoa, MonDieuKien monDieuKien) {
+        monDieuKien.xoaMonDieuKien(this, monCanXoa);
+    }
+
     //    sử dụng cho constructor không tham số
     public void nhapMonHoc() {
         this.nhapThongTinChung();
@@ -116,10 +124,11 @@ public class MonHoc {
             System.out.print("Nhập số môn học trước: ");
             soMon = getInt();
             if (soMon > 3)
-                System.err.println("Số môn học trước tối đa là 3!");
+                System.out.println("Số môn học trước tối đa là 3!");
             else if (soMon < 0)
-                System.err.println("Lựa chọn không hợp lệ!");
+                System.out.println("Lựa chọn không hợp lệ!");
         } while (soMon < 0 || soMon > 3);
+
         for (int i = 0; i < soMon; i++) {
             MonHoc m = new MonHoc();
             m.nhapMonHoc();
@@ -157,13 +166,12 @@ public class MonHoc {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MonHoc monHoc = (MonHoc) o;
-        return Objects.equals(ten, monHoc.ten);
+        if (!(o instanceof MonHoc monHoc)) return false;
+        return ma == monHoc.ma && Objects.equals(ten, monHoc.ten);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ten);
+        return Objects.hash(ma, ten);
     }
 }

@@ -42,12 +42,15 @@ public class QuanLyDeCuong {
 
     // tim kiem mon hoc cua de cuong theo ma mon hoc
     public MonHoc timMonHoc(int id) {
-        MonHoc m = QuanLyDeCuong.DANH_SACH_DE_CUONG.stream()
+        MonHoc m = this.deCuongCuaGV.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.getMa() == id)
                 // if a value is present, returns the value otherwise return null
                 .findFirst().orElse(null);
-        if (m == null) throw new IllegalArgumentException("Mã môn học không đúng");
+        if (m == null)
+            throw new IllegalArgumentException(
+                    "Mã môn học không đúng hoặc không nằm trong de cương của giảng viên"
+            );
         return m;
     }
 
@@ -71,53 +74,31 @@ public class QuanLyDeCuong {
                 .getMa() == id).findFirst().orElse(null);
     }
 
-    // tim kiem mon hoc truoc hoac mon tien quyet khi biet ma mon hoc
-    //    TQ = Tien Quyet
-    public List<MonHoc> getRequiredCourese(int id) {
-        List<MonHoc> ds = new ArrayList<>();
-        MonHoc m = this.timMonHoc(id);
-
-        if (m != null) {
-            ds.addAll(m.dsMonHocTruoc()); // them vao danh sach mon hoc truoc
-            ds.addAll(m.dsMonTienQuyet()); // them vao danh sach mon hoc tien quyet
-        } else throw new IllegalArgumentException("Mã môn học không tồn tại");
-
-        return ds;
-    }
-
-    public List<MonHoc> getRelatedCoures(int id) {
+    public List<MonHoc> dsMonLienQuan(int id) {
         MonHoc m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
         if (m == null) {
             throw new IllegalArgumentException("Mã môn học sai");
         }
+        System.out.println("Danh sach mon hoc lien quan cua mon " + m.getTen());
         return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.dsMonHocTruoc().contains(m) ||
                         monHoc.dsMonTienQuyet().contains(m))
                 .collect(Collectors.toList());
     }
 
-    public List<MonHoc> getRelatedCoures(String nameOfCourse) {
-        MonHoc m = QuanLyDeCuong.findCourse(nameOfCourse);
-        if (m == null) throw new IllegalArgumentException("Tên môn học không đúng");
-
-        return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
-                .filter(monHoc -> monHoc.dsMonHocTruoc().contains(m) ||
-                        monHoc.dsMonTienQuyet().contains(m))
-                .collect(Collectors.toList());
-    }
-
-    public void themMonHocDieuKien(MonHoc m,
-                                   MonHoc monTienQuyet, MonDieuKien monDieuKien) {
+    public void themMonHocDieuKien(MonHoc m, MonHoc monCanThem,
+                                   MonDieuKien monDieuKien) {
         // danh sach mon hoc cua giao vien
         var courseList = this.deCuongCuaGV.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .toList();
-        if (courseList.contains(m)) monDieuKien.themMonDieuKien(m, monTienQuyet);
+        if (courseList.contains(m)) m.themMonDieuKien(monCanThem, monDieuKien);
         else throw new IllegalArgumentException("Mã môn học không đúng");
     }
 
-    public void xoaMonDieuKien(MonHoc m, MonHoc monTienQuyet, MonDieuKien monDieuKien) {
-        monDieuKien.xoaMonDieuKien(m, monTienQuyet);
+    public void xoaMonDieuKien(MonHoc m, MonHoc monCanXoa,
+                               MonDieuKien monDieuKien) {
+        m.xoaMonHocDieuKien(monCanXoa, monDieuKien);
     }
 
     public void xoaMonDieuKien(MonHoc m, int id, MonDieuKien monDieuKien) {
@@ -182,10 +163,12 @@ public class QuanLyDeCuong {
 
         // ket qua thong ke theo so tin chi tang dan
         for (Map.Entry<Integer, List<DeCuongMonHoc>> entry : thongKeDeCuong.entrySet()) {
+            // danh sach mon hoc theo so tin chi
             String courseList = entry.getValue().stream()
                     .map(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getTen())
                     .collect(Collectors.joining(", "));
-            System.out.printf("%d - %s\n", entry.getKey(), courseList);
+
+            System.out.printf("So tin chi: %d - %s\n", entry.getKey(), courseList);
         }
     }
 
