@@ -128,13 +128,69 @@ public class MonHoc {
             else if (soMon < 0)
                 System.out.println("Lựa chọn không hợp lệ!");
         } while (soMon < 0 || soMon > 3);
-
         for (int i = 0; i < soMon; i++) {
-            MonHoc m = new MonHoc();
-            m.nhapMonHoc();
-            this.monHocTruoc.add(m);
+            int choose = 0;
+            do {
+                System.out.print("1.Thêm mới môn học\n2.Thêm môn có sẵn\nBạn chọn: ");
+                choose = Integer.parseInt(sc.nextLine());
+                if (choose == 1) {
+                    MonHoc m = new MonHoc();
+                    m.nhapMonHoc();
+                    this.monHocTruoc.add(m);
+                } else if (choose == 2) {
+                    MonHoc m;
+                    do {
+                        System.out.print("Nhập mã môn học: ");
+                        int id = Integer.parseInt(sc.nextLine());
+                        m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
+                        if (m!=null) {
+                            this.monHocTruoc.add(m);
+                        } else {
+                            System.out.println("Môn học chưa có sẵn");
+                        }
+                    } while (m==null);
+                } else {
+                    System.out.println("Không hợp lệ!! Nhập lại ");
+                }
+            } while (choose > 2 || choose < 1);
         }
+
+
         // nhập thông tin môn học tiên quyết
+        do {
+            System.out.print("Nhập số môn học tiên quyết: ");
+            soMon = getInt();
+            if (soMon > 3)
+                System.err.println("Số môn học tiên quyết tối đa là 3!");
+            else if (soMon < 0)
+                System.err.println("Lựa chọn không hợp lệ!");
+        } while (soMon < 0 || soMon > 3);
+        for (int i = 0; i < soMon; i++) {
+            int choose = 0;
+            do {
+                System.out.print("1.Thêm mới môn học\n2.Thêm môn có sẵn\nBạn chọn: ");
+                choose = Integer.parseInt(sc.nextLine());
+                if (choose == 1) {
+                    MonHoc m = new MonHoc();
+                    m.nhapMonHoc();
+                    this.monTienQuyet.add(m);
+                } else if (choose == 2) {
+                    MonHoc m;
+                    do {
+                        System.out.print("Nhập mã môn học: ");
+                        int id = Integer.parseInt(sc.nextLine());
+                        m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
+                        if (m!=null) {
+                            this.monTienQuyet.add(m);
+                        } else {
+                            System.out.println("Môn học chưa có sẵn");
+                        }
+                    } while (m==null);
+                } else {
+                    System.out.println("Không hợp lệ!! Nhập lại ");
+                }
+            } while (choose > 2 || choose < 1);
+        }
     }
 
     public List<MonHoc> dsMonTienQuyet() {
@@ -147,6 +203,10 @@ public class MonHoc {
 
     @Override
     public String toString() {
+        String tenCacMonHocTienQuyet;
+        tenCacMonHocTienQuyet = this.monTienQuyet.stream().map(MonHoc::getTen)
+                .collect(Collectors.joining(", "));
+        if (tenCacMonHocTienQuyet.isEmpty()) tenCacMonHocTienQuyet = "Không";
         String tenCacMonHocTruoc;
         tenCacMonHocTruoc = this.monHocTruoc.stream().map(MonHoc::getTen)
                 .collect(Collectors.joining(", "));
@@ -156,10 +216,11 @@ public class MonHoc {
                 Mã môn học: %d
                 Tên môn học: %s
                 So tin chi: %d
+                Môn học tiên quyết: %s
                 Môn học trước: %s
                 Mô tả: %s
                 Khối kiến thức: %s
-                """.formatted(this.ma, this.ten, this.soTinChi, tenCacMonHocTruoc, this.moTa,
+                """.formatted(this.ma, this.ten, this.soTinChi, tenCacMonHocTienQuyet, tenCacMonHocTruoc, this.moTa,
                 this.khoiKienThuc.tenKhoiKienThuc());
     }
 
