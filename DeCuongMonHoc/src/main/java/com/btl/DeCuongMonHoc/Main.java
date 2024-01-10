@@ -250,9 +250,9 @@ public class Main {
                 }
                 // danh sach de cuong ma giang vien chiu trach nhiem -> done
                 case 7 -> {
-                    System.out.println("Danh sách đề cương của giảng viên " + gv.getTen());
+                    System.out.println("Danh sách đề cương của giảng viên " + gv.getTen() + "\n");
                     gv.danhSachDeCuong().forEach(deCuongMonHoc ->
-                            System.out.printf("Mã môn học: %s\nTên môn học: %s\n",
+                            System.out.printf("Mã môn học: %s\nTên môn học: %s\n\n",
                                     deCuongMonHoc.getMonHoc().getMa(),
                                     deCuongMonHoc.getMonHoc().getTen()
                             ));
@@ -274,6 +274,12 @@ public class Main {
                             Tên môn học: %s
                                                         
                             """, monHoc.getMa(), monHoc.getTen()));
+                }
+                case 11 -> {
+                    DeCuongMonHoc deCuong = handleInput(gv::timDeCuong,
+                            "de cuong can chinh sua noi dung",
+                            "chinh sua noi dung");
+                    if (deCuong != null) deCuong.chinhSuaNoiDung();
                 }
                 case 0 -> {
                     int isRepeated;
@@ -316,6 +322,7 @@ public class Main {
                 8. Xuất một đề cương hoàn chỉnh
                 9. Thống kê số lượng đề cương theo tín chỉ
                 10. Danh sách những môn học liên quan
+                11. Chinh sua noi dung de cuong
                 0. Thoát
                 Nhập lựa chọn:\s""");
     }

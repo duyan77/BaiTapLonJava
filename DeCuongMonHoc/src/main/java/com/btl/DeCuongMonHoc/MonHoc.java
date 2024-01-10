@@ -129,10 +129,10 @@ public class MonHoc {
                 System.out.println("Lựa chọn không hợp lệ!");
         } while (soMon < 0 || soMon > 3);
         for (int i = 0; i < soMon; i++) {
-            int choose = 0;
+            int choose;
             do {
                 System.out.print("1.Thêm mới môn học\n2.Thêm môn có sẵn\nBạn chọn: ");
-                choose = Integer.parseInt(sc.nextLine());
+                choose = getInt();
                 if (choose == 1) {
                     MonHoc m = new MonHoc();
                     m.nhapMonHoc();
@@ -141,14 +141,14 @@ public class MonHoc {
                     MonHoc m;
                     do {
                         System.out.print("Nhập mã môn học: ");
-                        int id = Integer.parseInt(sc.nextLine());
+                        int id = getInt();
                         m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
-                        if (m!=null) {
+                        if (m != null) {
                             this.monHocTruoc.add(m);
                         } else {
                             System.out.println("Môn học chưa có sẵn");
                         }
-                    } while (m==null);
+                    } while (m == null);
                 } else {
                     System.out.println("Không hợp lệ!! Nhập lại ");
                 }
@@ -166,10 +166,10 @@ public class MonHoc {
                 System.err.println("Lựa chọn không hợp lệ!");
         } while (soMon < 0 || soMon > 3);
         for (int i = 0; i < soMon; i++) {
-            int choose = 0;
+            int choose;
             do {
                 System.out.print("1.Thêm mới môn học\n2.Thêm môn có sẵn\nBạn chọn: ");
-                choose = Integer.parseInt(sc.nextLine());
+                choose = getInt();
                 if (choose == 1) {
                     MonHoc m = new MonHoc();
                     m.nhapMonHoc();
@@ -178,14 +178,14 @@ public class MonHoc {
                     MonHoc m;
                     do {
                         System.out.print("Nhập mã môn học: ");
-                        int id = Integer.parseInt(sc.nextLine());
+                        int id = getInt();
                         m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
-                        if (m!=null) {
+                        if (m != null) {
                             this.monTienQuyet.add(m);
                         } else {
                             System.out.println("Môn học chưa có sẵn");
                         }
-                    } while (m==null);
+                    } while (m == null);
                 } else {
                     System.out.println("Không hợp lệ!! Nhập lại ");
                 }

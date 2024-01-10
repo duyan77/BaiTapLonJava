@@ -12,6 +12,7 @@ public class CauHinh {
     public static final String monDieuKienPath = "./src/main/resources/MHT_MHTQ.txt";
     public static final String giangVienPath = "./src/main/resources/GiangVien.txt";
     public static final String danhGiaPath = "./src/main/resources/DanhGia.txt";
+    public static final String noiDungPath = "./src/main/resources/NoiDung.txt";
 
     public static int getInt() {
         boolean isRepeated = true;

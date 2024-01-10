@@ -139,14 +139,14 @@ public class QuanLyDeCuong {
         this.deCuongCuaGV = new LinkedHashSet<>(sortedArray);
     }
 
-    public String thongTinDeCuong(int id) {
+    public void thongTinDeCuong(int id) {
         DeCuongMonHoc dc = this.deCuongCuaGV.stream()
                 .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
                 .findFirst().orElse(null);
         if (dc == null) {
             throw new IllegalArgumentException("Mã không đúng");
         }
-        return dc.toString();
+        System.out.println(dc);
     }
 
     // thong ke de cuong theo tin chi

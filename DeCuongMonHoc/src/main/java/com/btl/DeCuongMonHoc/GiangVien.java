@@ -56,7 +56,7 @@ public class GiangVien {
     }
 
     public void themDeCuong() throws IllegalArgumentException {
-        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc();
+        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(null, this);
         deCuongMonHoc.nhapDeCuong();
         this.themDeCuong(deCuongMonHoc);
     }
@@ -134,8 +134,7 @@ public class GiangVien {
     }
 
     public void xuatDeCuong(int id) throws IllegalArgumentException {
-        System.out.printf("%s\n4.THONG TIN GIANG VIEN\n%s",
-                this.quanLyDeCuong.thongTinDeCuong(id), this);
+        this.quanLyDeCuong.thongTinDeCuong(id);
     }
 
     public void thongKeDC() {

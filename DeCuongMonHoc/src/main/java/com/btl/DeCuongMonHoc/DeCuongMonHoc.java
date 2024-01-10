@@ -14,7 +14,11 @@ public class DeCuongMonHoc {
 
     private List<MucTieu> mucTieu = new ArrayList<>();
 
+    private NoiDungDeCuong noiDungDeCuong;
+
     private DanhGia danhGia;
+
+    private GiangVien giangVien;
 
     public DeCuongMonHoc() {
 
@@ -24,11 +28,29 @@ public class DeCuongMonHoc {
         this.monHoc = monHoc;
     }
 
-    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu, DanhGia danhGia) {
+    public DeCuongMonHoc(MonHoc monHoc, GiangVien giangVien) {
+        this.monHoc = monHoc;
+        this.giangVien = giangVien;
+        giangVien.themDeCuong(this);
+    }
+
+    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu,
+                         NoiDungDeCuong noiDungDeCuong, DanhGia danhGia) {
         this.monHoc = monHoc;
         this.heDaoTao = heDaoTao;
         this.mucTieu = mucTieu;
+        this.noiDungDeCuong = noiDungDeCuong;
         this.danhGia = danhGia;
+    }
+
+    public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu, NoiDungDeCuong noiDungDeCuong, DanhGia danhGia, GiangVien giangVien) {
+        this.monHoc = monHoc;
+        this.heDaoTao = heDaoTao;
+        this.mucTieu = mucTieu;
+        this.noiDungDeCuong = noiDungDeCuong;
+        this.danhGia = danhGia;
+        this.giangVien = giangVien;
+        giangVien.themDeCuong(this);
     }
 
     //    getter, setter
@@ -86,6 +108,7 @@ public class DeCuongMonHoc {
         } while (k < 1 || k > 2);
         this.heDaoTao = HeDaoTao.convertIntToHeDaoTao(k);
 
+        // nhap muc tieu
         int soLuong;
         System.out.print("Nhập số lượng mục tiêu: ");
         soLuong = getInt();
@@ -96,6 +119,14 @@ public class DeCuongMonHoc {
             this.mucTieu.add(tmp);
         }
 
+        // nhap noi dung de cuong
+        NoiDungDeCuong nd = new NoiDungDeCuong();
+        System.out.print("Nhap so noi dung mon hoc: ");
+        int soChuong = getInt();
+        nd.themNoiDung(soChuong);
+        this.noiDungDeCuong = nd;
+
+        // nhap danh gia
         DanhGia danhGia = new DanhGia();
         danhGia.nhapDanhGia();
         this.danhGia = danhGia;
@@ -120,6 +151,14 @@ public class DeCuongMonHoc {
         } while (isRepeated);
     }
 
+    public void chinhSuaNoiDung() {
+        try {
+            this.noiDungDeCuong.suaNoiDung();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ma de cuong khong hop le!");
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
@@ -131,9 +170,14 @@ public class DeCuongMonHoc {
                                 
                 2. MỤC TIÊU MÔN HỌC
                 %s
-                3. ĐÁNH GIÁ
+                3. NOI DUNG MON HOC
+                %s
+                4. ĐÁNH GIÁ
+                %s
+                5.THONG TIN GIANG VIEN
                 %s""".formatted(monHoc.toString(), heDaoTao.tenHeDaoTao(),
-                sb.toString(), danhGia.toString());
+                sb.toString(), noiDungDeCuong.toString(),
+                danhGia.toString(), giangVien.toString());
     }
 
     // cach thuc so sanh 2 de cuong bang nhau

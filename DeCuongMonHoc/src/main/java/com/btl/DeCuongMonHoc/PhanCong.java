@@ -44,7 +44,7 @@ public class PhanCong {
                 .findFirst().orElseThrow().danhSachDeCuong();
     }
 
-    private static KhoiKienThuc parseStringToKKT(String s) {
+    private static KhoiKienThuc convertStrToKKT(String s) {
         if (s.equalsIgnoreCase("Cơ sở"))
             return CO_SO;
         else if (s.equalsIgnoreCase("Cơ sở ngành"))
@@ -54,7 +54,7 @@ public class PhanCong {
         return null;
     }
 
-    private static HeDaoTao parseStringToHDT(String s) {
+    private static HeDaoTao convertStrToHDT(String s) {
         if (s.equalsIgnoreCase("Chính quy"))
             return CHINH_QUY;
         else if (s.equalsIgnoreCase("Liên thông")) return LIEN_THONG;
@@ -143,12 +143,37 @@ public class PhanCong {
                 String nameCourse = data[1];
                 int soTinChi = parseInt(data[2]);
                 String moTa = data[3];
-                KhoiKienThuc k = parseStringToKKT(data[4]);
+                KhoiKienThuc k = convertStrToKKT(data[4]);
                 MonHoc monHoc = new MonHoc(id, nameCourse, soTinChi, moTa, k);
 
                 // lay thong tin cua de cuong
-                HeDaoTao h = parseStringToHDT(data[5]);
+                HeDaoTao h = convertStrToHDT(data[5]);
                 List<MucTieu> mucTieuList = getMucTieu(data);
+
+                // lay thong tin noi dung
+                Function<Integer, NoiDungDeCuong> getNoiDungById = (courseId) -> {
+                    File fileNoiDung = new File(CauHinh.noiDungPath);
+                    try (Scanner scanner = new Scanner(fileNoiDung)) {
+                        NoiDungDeCuong noiDungDeCuong = new NoiDungDeCuong();
+                        while (scanner.hasNextLine()) {
+                            var dataOfND = scanner.nextLine().split(" \\| ");
+                            if (parseInt(dataOfND[0]) == courseId) {
+                                int soNoiDung = parseInt(dataOfND[1]);
+                                int idxOfND = 1;
+
+                                for (int i = 0; i < soNoiDung; i++) {
+                                    String nd = dataOfND[++idxOfND];
+                                    noiDungDeCuong.themNoiDung(nd);
+                                }
+                            }
+                        }
+                        return noiDungDeCuong;
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                };
+
+                // lay thong tin danh gia
                 Function<Integer, DanhGia> getDanhGiaById = (courseId) -> {
                     File fileDanhGia = new File(CauHinh.danhGiaPath);
                     try (Scanner scanner = new Scanner(fileDanhGia)) {
@@ -173,7 +198,8 @@ public class PhanCong {
                     }
                 };
 
-                list.add(new DeCuongMonHoc(monHoc, h, mucTieuList, getDanhGiaById.apply(id)));
+                list.add(new DeCuongMonHoc(monHoc, h, mucTieuList,
+                        getNoiDungById.apply(id), getDanhGiaById.apply(id)));
             }
             // them thong tin mon hoc tien quyet, mon hoc truoc
             var courseList = list.stream().map(DeCuongMonHoc::getMonHoc)
