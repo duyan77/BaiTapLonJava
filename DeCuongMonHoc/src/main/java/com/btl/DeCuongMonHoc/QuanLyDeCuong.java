@@ -45,7 +45,7 @@ public class QuanLyDeCuong {
                 .findFirst().orElse(null);
         if (m == null)
             throw new IllegalArgumentException(
-                    "Mã môn học không đúng hoặc không nằm trong de cương của giảng viên"
+                    "Mã môn học không đúng hoặc không nằm trong đề cương của giảng viên"
             );
         return m;
     }
@@ -68,7 +68,7 @@ public class QuanLyDeCuong {
         if (m == null) {
             throw new IllegalArgumentException("Mã môn học sai");
         }
-        System.out.println("Danh sach mon hoc lien quan cua mon " + m.getTen());
+        System.out.println("Danh sách môn học liên quan của môn " + m.getTen());
         return QuanLyDeCuong.DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.dsMonHocTruoc().contains(m) ||
                         monHoc.dsMonTienQuyet().contains(m))
@@ -157,7 +157,7 @@ public class QuanLyDeCuong {
                     .map(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getTen())
                     .collect(Collectors.joining(", "));
 
-            System.out.printf("So tin chi: %d - %s\n", entry.getKey(), courseList);
+            System.out.printf("Số tín chỉ: %d - %s\n", entry.getKey(), courseList);
         }
     }
 

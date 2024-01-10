@@ -71,12 +71,12 @@ public class Main {
                                         isRepeated = false;
                                     } catch (IllegalArgumentException e) {
                                         System.out.printf(
-                                                "De cuong cua mon hoc %s khong thuoc quan " +
-                                                        "ly cua giang vien %s",
+                                                "Đề cương của môn học %s không thuộc quản " +
+                                                        "lý của giảng viên %s",
                                                 m.getTen(), gv.getTen());
                                         // tra ve true neu muon nhap lai
                                         boolean isRetype = handleRetype(
-                                                "them mon hoc tien quyet");
+                                                "thêm môn học tiên quyết");
                                         if (!isRetype) isRepeated = false;
                                     }
                                 } while (isRepeated);
@@ -135,12 +135,12 @@ public class Main {
                                         isRepeated = false;
                                     } catch (IllegalArgumentException e) {
                                         System.out.printf(
-                                                "De cuong cua mon hoc %s khong thuoc quan " +
-                                                        "ly cua giang vien %s",
+                                                "Đề cuong của môn học %s không thuộc quản " +
+                                                        "lý của giảng viên %s",
                                                 m.getTen(), gv.getTen());
                                         // tra ve true neu muon nhap lai
                                         boolean isRetype = handleRetype(
-                                                " them mon hoc truoc");
+                                                " thêm môn học trước");
                                         if (!isRetype) isRepeated = false;
                                     }
                                 } while (isRepeated);
@@ -184,8 +184,8 @@ public class Main {
                     // thuc hien cac chuc nang cua case 2
                     if (dc != null) {
                         System.out.print("""
-                                1. Thêm hinh thuc danh gia
-                                2. Xóa hinh thuc danh gia
+                                1. Thêm hình thức đánh giá
+                                2. Xóa hình thức đánh giá
                                 3. Thoát
                                 Chọn:\s""");
                         int choiceInCase2 = getInt();
@@ -277,8 +277,8 @@ public class Main {
                 }
                 case 11 -> {
                     DeCuongMonHoc deCuong = handleInput(gv::timDeCuong,
-                            "de cuong can chinh sua noi dung",
-                            "chinh sua noi dung");
+                            "đề cương cần chỉnh sửa nội dung",
+                            "chỉnh sửa nội dung");
                     if (deCuong != null) deCuong.chinhSuaNoiDung();
                 }
                 case 0 -> {
@@ -312,6 +312,8 @@ public class Main {
     // method
     public static void menu() {
         System.out.print("""
+                
+                =========================MENU=========================
                 1. Tạo đề cương cho môn học
                 2. Cập nhật môn học tiên quyết
                 3. Cập nhật môn học trước
@@ -322,8 +324,9 @@ public class Main {
                 8. Xuất một đề cương hoàn chỉnh
                 9. Thống kê số lượng đề cương theo tín chỉ
                 10. Danh sách những môn học liên quan
-                11. Chinh sua noi dung de cuong
+                11. Chỉnh sửa nội dung đề cương
                 0. Thoát
+                ======================================================\n
                 Nhập lựa chọn:\s""");
     }
 
@@ -345,7 +348,7 @@ public class Main {
     // return true if continue to retype and return false when the retype is done
     public static boolean handleRetype(String tenChucNang) {
         System.out.print("""
-                Mã môn học không đúng, hoac khong phai de cuong cua giang vien quan ly
+                Mã môn học không đúng hoặc không phải đề cương mà giảng viên quản lý
                 Bạn có muốn nhập lại?
                 1. Có
                 2. Không

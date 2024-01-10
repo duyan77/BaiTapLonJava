@@ -66,6 +66,8 @@ public class ChuanDauRa {
     // bổ sung method 2
     @Override
     public String toString() {
-        return "%s: %s\n".formatted(this.tenChuanDauRa, this.moTa);
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%-20s%-80s\n%12s", this.tenChuanDauRa, this.moTa, ""));
+        return sb.toString();
     }
 }

@@ -18,35 +18,35 @@ public class NoiDungDeCuong {
     public void themNoiDung(int soChuong) {
         for (int i = 0; i < soChuong; i++) {
             int demChuong = this.noiDung.size() + 1;
-            System.out.printf("Nhap noi dung chuong thu %d: ", demChuong);
+            System.out.printf("Nhập nội dung chương thứ %d: ", demChuong);
             String noiDungThem = sc.nextLine();
             this.themNoiDung(noiDungThem);
         }
     }
 
     public void suaNoiDung() throws IllegalArgumentException {
-        System.out.println("Noi dung cac chuong");
+        System.out.println("Nội dung các chương");
         System.out.println(this);
         boolean valid = false;
         do {
             try {
-                System.out.print("Nhap chuong can sua: ");
+                System.out.print("Nhập nội dung cần sửa: ");
                 int idx = getInt();
                 if (idx < 1 || idx > this.noiDung.size())
                     throw new IndexOutOfBoundsException();
-                System.out.printf("Nhap lai noi dung chuong %d: ", idx);
+                System.out.printf("Nhập lại nội dung chương %d: ", idx);
                 this.noiDung.set(--idx, sc.nextLine());
                 valid = true;
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Dau vao khong hop le");
+                System.out.println("Đầu vào không hợp lệ!");
                 System.out.print("""
-                        Ban co muon nhap lai ?
-                        1. Co
-                        2. Khong
-                        Chon:\s""");
+                        Bạn có muốn nhập lại ?
+                        1. Có
+                        2. Không
+                        Chọn:\s""");
                 int choice = getInt();
                 switch (choice) {
-                    case 1 -> System.out.println("Nhap lai chuong can chinh sua");
+                    case 1 -> System.out.println("Nhập lại chương cần chỉnh sửa");
                     case 2 -> throw new IllegalArgumentException();
                     default -> announceInvalidValue();
                 }
@@ -56,10 +56,10 @@ public class NoiDungDeCuong {
 
     @Override
     public String toString() {
-        if (this.noiDung.isEmpty()) return "Khong";
+        if (this.noiDung.isEmpty()) return "Không";
         
         return this.noiDung.stream()
-                .map(nd -> "Chuong %d: %s\n".formatted(this.noiDung.indexOf(nd) + 1, nd))
+                .map(nd -> "Chương %d: %s\n".formatted(this.noiDung.indexOf(nd) + 1, nd))
                 .collect(Collectors.joining());
     }
 }

@@ -125,14 +125,14 @@ public class MonHoc {
                 valid = true;
             } catch (IllegalArgumentException e) {
                 System.out.print("""
-                        Mon hoc nay da ton tai
-                        Ban co muon nhap lai?
-                        1. Co
-                        2. Khong
-                        Chon:\s""");
+                        Môn học này đã tồn tại
+                        Bạn có muốn nhập lại?
+                        1. Có
+                        2. Không
+                        Chọn:\s""");
                 int choice = getInt();
                 switch (choice) {
-                    case 1 -> System.out.println("Nhap lai thong tin mon hoc " + this.ten);
+                    case 1 -> System.out.println("Nhập lại thông tin môn học " + this.ten);
                     case 2 -> valid = true;
                     default -> announceInvalidValue();
                 }
@@ -215,7 +215,7 @@ public class MonHoc {
         return """
                 Mã môn học: %d
                 Tên môn học: %s
-                So tin chi: %d
+                Số tín chỉ: %d
                 Môn học tiên quyết: %s
                 Môn học trước: %s
                 Mô tả: %s

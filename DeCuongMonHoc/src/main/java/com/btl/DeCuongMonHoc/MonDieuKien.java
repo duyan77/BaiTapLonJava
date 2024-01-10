@@ -5,8 +5,8 @@ public enum MonDieuKien {
         @Override
         public void themMonDieuKien(MonHoc m, MonHoc monCanThem) {
             if (m.dsMonTienQuyet().contains(monCanThem)) {
-                System.out.println("Mon " + monCanThem.getTen() +
-                        " da co trong danh sach mon tien quyet");
+                System.out.println("Môn " + monCanThem.getTen() +
+                        " đã có trong danh sách môn tiên quyết");
                 return;
             }
             m.dsMonTienQuyet().add(monCanThem);
@@ -21,8 +21,8 @@ public enum MonDieuKien {
         @Override
         public void themMonDieuKien(MonHoc m, MonHoc monCanThem) {
             if (m.dsMonHocTruoc().contains(monCanThem)) {
-                System.out.println("Mon " + monCanThem.getTen() +
-                        " da co trong danh sach mon hoc truoc");
+                System.out.println("Môn " + monCanThem.getTen() +
+                        " đã có trong danh sách môn học trước");
                 return;
             }
             m.dsMonHocTruoc().add(monCanThem);

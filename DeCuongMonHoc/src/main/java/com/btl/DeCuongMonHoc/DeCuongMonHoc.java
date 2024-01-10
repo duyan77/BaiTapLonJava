@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.btl.DeCuongMonHoc.CauHinh.SEPARATOR;
 import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 
 public class DeCuongMonHoc {
@@ -134,7 +135,7 @@ public class DeCuongMonHoc {
 
         // nhap noi dung de cuong
         NoiDungDeCuong nd = new NoiDungDeCuong();
-        System.out.print("Nhap so noi dung mon hoc: ");
+        System.out.print("Nhập số nội dung môn học: ");
         int soChuong = getInt();
         nd.themNoiDung(soChuong);
         this.noiDungDeCuong = nd;
@@ -156,9 +157,9 @@ public class DeCuongMonHoc {
                 this.danhGia.xoaCotDiem();
                 isRepeated = false;
             } catch (IllegalArgumentException e) {
-                System.out.println("Ten cot diem khong dung");
+                System.out.println("Tên cột điểm không đúng");
             } catch (MinSizeExceededException e) {
-                System.out.println("Xoa cot diem khong thanh cong vi so cot diem toi thieu la ");
+                System.out.println("Xóa cột điểm không thành công vì số cột điểm tối thiểu là ");
                 isRepeated = false;
             }
         } while (isRepeated);
@@ -168,27 +169,32 @@ public class DeCuongMonHoc {
         try {
             this.noiDungDeCuong.suaNoiDung();
         } catch (IllegalArgumentException e) {
-            System.out.println("Ma de cuong khong hop le!");
+            System.out.println("Mã đề cương không hợp lệ!");
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
+        sb.append(SEPARATOR).append(String.format("%-12s%-20s%-80s", "Mục tiêu", "Chuẩn đầu ra", "Mô tả")).append(SEPARATOR);
         this.mucTieu.forEach(mucTieu -> sb.append(mucTieu.toString()));
+        sb.append(SEPARATOR);
         if (sb.isEmpty()) sb.append("Không");
         return """
+                \n%35s==========ĐỀ CƯƠNG MÔN HỌC===========
+                %30s==================**********===================
+                
                 1. THÔNG TIN MÔN HỌC
                 %sHệ đào tạo: %s
                                 
                 2. MỤC TIÊU MÔN HỌC
                 %s
-                3. NOI DUNG MON HOC
+                3. NỘI DUNG MÔN HỌC
                 %s
                 4. ĐÁNH GIÁ
                 %s
-                5.THONG TIN GIANG VIEN
-                %s""".formatted(monHoc.toString(), heDaoTao.tenHeDaoTao(),
+                5. GIẢNG VIÊN BIÊN SOẠN
+                %s""".formatted("","",monHoc.toString(), heDaoTao.tenHeDaoTao(),
                 sb.toString(), noiDungDeCuong.toString(),
                 danhGia.toString(), giangVien.toString());
     }

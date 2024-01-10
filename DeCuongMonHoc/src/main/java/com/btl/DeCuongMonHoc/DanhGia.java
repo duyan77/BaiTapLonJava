@@ -38,8 +38,8 @@ public class DanhGia {
         this.handleWeightInput();
 
         while (this.tongDiem() != 100) {
-            System.out.println("Tong ti trong phai la 100!");
-            System.out.println("Vui long nhap lai ti trong phu hop cho cac cot diem");
+            System.out.println("Tổng tỉ trọng phải là 100!");
+            System.out.println("Vui lòng nhập lại tỉ trọng phù hợp với các cột điểm");
             this.retypeOldWeight();
         }
     }
@@ -47,14 +47,14 @@ public class DanhGia {
     private void handleWeightInput() {
         int soCot;
         do {
-            System.out.print("Nhập số cột điểm muon them moi: ");
+            System.out.print("Nhập số cột điểm muốn thêm mới: ");
             soCot = getInt();
             if (soCot + this.soCotDiemHienTai() < soCotDiemToiThieu ||
                     soCot + this.soCotDiemHienTai() > soCotDiemToiDa)
                 System.out.printf("""
                         Số cột điểm tối thiểu %d và tối đa %d!
                         Vui lòng nhập lại
-                        So cot diem hien tai la: %d
+                        Số cột điểm hiện tại là: %d
                         """, soCotDiemToiThieu, soCotDiemToiDa, this.soCotDiemHienTai());
         } while (soCot + this.soCotDiemHienTai() < soCotDiemToiThieu ||
                 soCot + this.soCotDiemHienTai() > soCotDiemToiDa);
@@ -69,7 +69,7 @@ public class DanhGia {
                     this.themCotDiem(cotDiem);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Tỉ trọng điểm phải lớn hơn 0 và nhỏ hơn 100");
-                    System.out.println("Vui long nhap lai gia tri phu hop!");
+                    System.out.println("Vui lòng nhập lại giá trị phù hợp!");
                 }
             } while (isRepeated);
         }
@@ -102,12 +102,7 @@ public class DanhGia {
 
     private void checkWeight() {
         if (this.tongDiem() != 100)
-            throw new InvalidWeightException("Ti trong chua dat du 100!");
-    }
-
-    public void themCotDiem() throws
-            MaxSizeExceededException, IllegalArgumentException, InvalidWeightException {
-
+            throw new InvalidWeightException("Tỉ trọng chưa đạt đủ 100!");
         retypeOldWeight(); // nhap lai nhung cot diem truoc
         handleWeightInput();
         retypeUntilMatch100();
@@ -120,8 +115,8 @@ public class DanhGia {
                 checkWeight(); // kiem tra ti trong tong == 100 chua, neu chua -> throw InvalidWeightException
                 isRepeated = false;
             } catch (InvalidWeightException e) {
-                System.out.println("Tong ti trong phai la 100!");
-                System.out.println("Vui long nhap lai");
+                System.out.println("Tổng tỉ trọng phải là 100!");
+                System.out.println("Vui lòng nhập lại");
                 retypeOldWeight();
             }
         } while (isRepeated);
@@ -139,15 +134,15 @@ public class DanhGia {
 
     public void xoaCotDiem()
             throws MinSizeExceededException, IllegalArgumentException {
-        System.out.println("Danh sach cot diem hien tai");
+        System.out.println("Danh sách cột điểm hiện tại");
         this.cotDiem.forEach(System.out::println);
-        System.out.print("Nhap ten cot diem can xoa: ");
+        System.out.print("Nhập tên cột điểm cần xóa: ");
         String tenCotDiem = sc.nextLine();
         var cotDiemCanXoa = this.cotDiem.stream()
                 .filter(cotDiem1 -> cotDiem1.getTenDiem().equalsIgnoreCase(tenCotDiem))
                 .findFirst().orElse(null);
 
-        if (cotDiemCanXoa == null) throw new IllegalArgumentException("Ten cot diem khong dung");
+        if (cotDiemCanXoa == null) throw new IllegalArgumentException("Tên cột điểm không đúng");
         else {
             this.xoaCotDiem(cotDiemCanXoa);
             retypeOldWeight();
@@ -157,6 +152,8 @@ public class DanhGia {
 
     @Override
     public String toString() {
-        return this.cotDiem.stream().map(CotDiem::toString).collect(Collectors.joining());
+        return SEPARATOR + String.format("|%-12s|%-45s|%-35s|%-10s|\n", "Bài đánh giá", " Nội dung", " Phương pháp", " Tỉ trọng") +
+               this.cotDiem.stream().map(CotDiem::toString).collect(Collectors.joining()) +
+               SEPARATOR;
     }
 }

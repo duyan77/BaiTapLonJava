@@ -1,7 +1,6 @@
 package com.btl.DeCuongMonHoc;
 
-import static com.btl.DeCuongMonHoc.CauHinh.getDouble;
-import static com.btl.DeCuongMonHoc.CauHinh.sc;
+import static com.btl.DeCuongMonHoc.CauHinh.*;
 
 public class CotDiem {
 
@@ -74,7 +73,7 @@ public class CotDiem {
     }
 
     public void nhapCotDiem() throws IllegalArgumentException {
-        System.out.println("Nhap cot diem " + this.getTenDiem());
+        System.out.println("Nhập cột điểm " + this.getTenDiem());
         System.out.print("Nhập nội dung đánh giá: ");
         this.noiDung = sc.nextLine();
         System.out.print("Nhập phương pháp đánh giá: ");
@@ -88,7 +87,9 @@ public class CotDiem {
 
     @Override
     public String toString() {
-        return "Nội dung cột điểm %s\nNội dung: %s\nPhương pháp: %s\nTỉ trọng điểm: %.2f\n"
-                .formatted(this.tenDiem, this.noiDung, this.phuongPhap, this.tiTrong);
+        return SEPARATOR +
+               String.format("|%-12s|%-45s|%-35s|%-10s|\n", this.tenDiem, this.noiDung, this.phuongPhap, this.tiTrong);
     }
+        //return "Nội dung cột điểm %s\nNội dung: %s\nPhương pháp: %s\nTỉ trọng điểm: %.2f\n"
+                //.formatted(this.tenDiem, this.noiDung, this.phuongPhap, this.tiTrong);
 }
