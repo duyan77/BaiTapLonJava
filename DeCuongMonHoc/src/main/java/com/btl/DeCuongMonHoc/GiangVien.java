@@ -58,6 +58,7 @@ public class GiangVien {
     public void themDeCuong() throws IllegalArgumentException {
         DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(null, this);
         deCuongMonHoc.nhapDeCuong();
+        this.themDeCuong(deCuongMonHoc);
     }
 
     public void themDeCuong(MonHoc monHoc) throws IllegalArgumentException {
