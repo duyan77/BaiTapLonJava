@@ -27,10 +27,6 @@ public class QuanLyDeCuong {
         return QuanLyDeCuong.DANH_SACH_DE_CUONG.contains(deCuongMonHoc);
     }
 
-    private boolean checkContain(DeCuongMonHoc deCuongMonHoc) {
-        return this.deCuongCuaGV.contains(deCuongMonHoc);
-    }
-
     public DeCuongMonHoc timDeCuong(int id) {
         var m = this.deCuongCuaGV.stream()
                 .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
@@ -60,13 +56,6 @@ public class QuanLyDeCuong {
                 .map(DeCuongMonHoc::getMonHoc)
                 .filter(monHoc -> monHoc.getTen().contains(kw))
                 .toList();
-    }
-
-    // tim kiem chinh xac mon hoc
-    public static MonHoc findCourse(String name) {
-        return DANH_SACH_DE_CUONG.stream().map(DeCuongMonHoc::getMonHoc)
-                .filter(monHoc -> monHoc.getTen().equalsIgnoreCase(name))
-                .findFirst().orElse(null);
     }
 
     public static DeCuongMonHoc findCourseOutline(int id) {
@@ -139,8 +128,8 @@ public class QuanLyDeCuong {
         this.deCuongCuaGV = new LinkedHashSet<>(sortedArray);
     }
 
-    public void thongTinDeCuong(int id) {
-        DeCuongMonHoc dc = this.deCuongCuaGV.stream()
+    public static void xuatDeCuong(int id) {
+        DeCuongMonHoc dc = QuanLyDeCuong.DANH_SACH_DE_CUONG.stream()
                 .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc().getMa() == id)
                 .findFirst().orElse(null);
         if (dc == null) {

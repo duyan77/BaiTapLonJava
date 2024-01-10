@@ -257,8 +257,8 @@ public class Main {
                                     deCuongMonHoc.getMonHoc().getTen()
                             ));
                 }
-                case 8 -> handleInputWithoutReturn(gv::xuatDeCuong, "đề cương cần xuất",
-                        "tìm kiếm theo xuất đề cương");
+                case 8 -> handleInputWithoutReturn(QuanLyDeCuong::xuatDeCuong,
+                        "đề cương cần xuất", "tìm kiếm theo xuất đề cương");
                 case 9 -> { //Thong ke so luong de cuong theo so tin chi
                     System.out.println("Thống kê đề cương của giảng viên " + gv.getTen() + " theo " +
                             "số " +

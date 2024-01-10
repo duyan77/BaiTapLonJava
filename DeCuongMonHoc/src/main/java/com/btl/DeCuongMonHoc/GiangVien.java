@@ -131,10 +131,6 @@ public class GiangVien {
         return this.quanLyDeCuong.danhSachDeCuong();
     }
 
-    public void xuatDeCuong(int id) throws IllegalArgumentException {
-        this.quanLyDeCuong.thongTinDeCuong(id);
-    }
-
     public void thongKeDC() {
         this.quanLyDeCuong.thongKeTheoTinChi();
     }
