@@ -1,0 +1,14 @@
+1401 | 5 | Tổng quan về máy tính và công nghệ thông tin | Biểu diễn dữ liệu | Phần cứng | Phần mềm | Hệ điều hành
+1504 | 3 | Mạng và Internet | Cấu trúc điều khiển | Mảng 1 chiều
+2504 | 4 | Tổng quan lập trình hướng đối tượng | Lớp và đối tượng | Kế thừa | Đa hình 
+1505 | 4 | Giới thiệu về lập trình | Các kiểu dữ liệu | Phép toán vè biểu thức | Cấu trúc điều khiển
+2401 | 3 | Tổng quan công nghệ .NET | Ngôn ngữ lập trình C# | Hướng đối tượng trong C# 
+3301 | 4 | Giới thiệu về hệ thống thông tin quản lý | Các thành phần cơ bản | Xây dựng và phát triển hệ thống | Các hệ thống thông tin trong doanh nghiệp
+3406 | 3 | Ngôn ngữ T-SQL | ADO.NET | Entity Framework
+2502 | 4 | Tổng quan về cơ sở dữ liệu | Đối tượng SqlConnection | Kiến trúc đa lớp | LINQ
+2503 | 3 | Giới thiệu Mạng máy tính | Cài đặt môi trường cho máy ảo | Thao tác trong máy ảo
+2301 | 5 | Tiến trình & luồng | DeadLock | Quản lý bộ nhớ | Quản lý hệ thống file | Quản lý nhập xuất
+4403 | 3 | Tổng quan về quản trị mạng | Lớp liên kết dữ liệu | Lớp mạng và lớp ứng dụng
+3401 | 3 | Quản lý phát triển thiết kế hệ thống | Khảo sát, hoạch định hệ thống thông tin | Phân tích hệ thống 
+4404 | 4 | Tổng quan về đồ họa 3D | Giao diện OPENGL | Biểu diễn đối tượng 3D | Hiển thị đối tượng #D
+1404 | 5 | Tổng quan về công nghệ web | Ngôn ngữ HTML | CSS | Ngôn ngữ JavaScript | jQuery
