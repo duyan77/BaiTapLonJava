@@ -58,7 +58,6 @@ public class GiangVien {
     public void themDeCuong() throws IllegalArgumentException {
         DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(null, this);
         deCuongMonHoc.nhapDeCuong();
-        this.themDeCuong(deCuongMonHoc);
     }
 
     public void themDeCuong(MonHoc monHoc) throws IllegalArgumentException {
@@ -68,9 +67,7 @@ public class GiangVien {
     }
 
     public void themMonHocDieuKien(MonHoc monCanBoSung, MonDieuKien monDieuKien) throws IllegalArgumentException {
-        MonHoc monTienQuyet = new MonHoc();
-        monTienQuyet.nhapMonHoc();
-        this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monTienQuyet, monDieuKien);
+        this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monDieuKien);
     }
 
     public void xoaMonHocDieuKien(MonHoc m, MonHoc monTienQuyet, MonDieuKien monDieuKien) {

@@ -86,13 +86,13 @@ public class QuanLyDeCuong {
                 .collect(Collectors.toList());
     }
 
-    public void themMonHocDieuKien(MonHoc m, MonHoc monCanThem,
-                                   MonDieuKien monDieuKien) {
+    // m la mon hoc muon bo sung them mon dieu kien
+    public void themMonHocDieuKien(MonHoc m, MonDieuKien monDieuKien) {
         // danh sach mon hoc cua giao vien
         var courseList = this.deCuongCuaGV.stream()
                 .map(DeCuongMonHoc::getMonHoc)
                 .toList();
-        if (courseList.contains(m)) m.themMonDieuKien(monCanThem, monDieuKien);
+        if (courseList.contains(m)) m.themMonDieuKien(1, monDieuKien);
         else throw new IllegalArgumentException("Mã môn học không đúng");
     }
 

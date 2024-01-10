@@ -31,7 +31,7 @@ public class DeCuongMonHoc {
     public DeCuongMonHoc(MonHoc monHoc, GiangVien giangVien) {
         this.monHoc = monHoc;
         this.giangVien = giangVien;
-        giangVien.themDeCuong(this);
+        this.giangVien.themDeCuong(this);
     }
 
     public DeCuongMonHoc(MonHoc monHoc, HeDaoTao heDaoTao, List<MucTieu> mucTieu,
@@ -50,7 +50,7 @@ public class DeCuongMonHoc {
         this.noiDungDeCuong = noiDungDeCuong;
         this.danhGia = danhGia;
         this.giangVien = giangVien;
-        giangVien.themDeCuong(this);
+        this.giangVien.themDeCuong(this);
     }
 
     //    getter, setter
@@ -86,7 +86,22 @@ public class DeCuongMonHoc {
         this.danhGia = danhGia;
     }
 
-    //    ------------------------------------------------------------------------------------------
+    public NoiDungDeCuong getNoiDungDeCuong() {
+        return noiDungDeCuong;
+    }
+
+    public void setNoiDungDeCuong(NoiDungDeCuong noiDungDeCuong) {
+        this.noiDungDeCuong = noiDungDeCuong;
+    }
+
+    public GiangVien getGiangVien() {
+        return giangVien;
+    }
+
+    public void setGiangVien(GiangVien giangVien) {
+        this.giangVien = giangVien;
+    }
+//    ------------------------------------------------------------------------------------------
 
     public void nhapDeCuong() {
 

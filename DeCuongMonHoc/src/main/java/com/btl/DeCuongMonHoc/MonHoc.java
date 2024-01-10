@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import static com.btl.DeCuongMonHoc.CauHinh.getInt;
 import static com.btl.DeCuongMonHoc.CauHinh.sc;
+import static com.btl.DeCuongMonHoc.Main.announceInvalidValue;
+import static com.btl.DeCuongMonHoc.MonDieuKien.MON_HOC_TRUOC;
+import static com.btl.DeCuongMonHoc.MonDieuKien.MON_TIEN_QUYET;
 
 public class MonHoc {
 
@@ -79,9 +82,12 @@ public class MonHoc {
     //---------------------------------------------------------------------------------------------
 
     //    nhập các thông tin chung
-    private void nhapThongTinChung() {
+    private void nhapThongTinChung() throws IllegalArgumentException {
         System.out.print("Nhập mã môn học: ");
         this.ma = getInt();
+
+        if (QuanLyDeCuong.findCourseOutline(ma) != null)
+            throw new IllegalArgumentException();
 
         System.out.print("Nhập tên môn học: ");
         this.ten = sc.nextLine();
@@ -106,17 +112,32 @@ public class MonHoc {
         this.khoiKienThuc = KhoiKienThuc.convertIntToKienThuc(k);
     }
 
-    public void themMonDieuKien(MonHoc monHocCanThem, MonDieuKien monDieuKien) {
-        monDieuKien.themMonDieuKien(this, monHocCanThem);
-    }
-
     public void xoaMonHocDieuKien(MonHoc monCanXoa, MonDieuKien monDieuKien) {
         monDieuKien.xoaMonDieuKien(this, monCanXoa);
     }
 
     //    sử dụng cho constructor không tham số
     public void nhapMonHoc() {
-        this.nhapThongTinChung();
+        boolean valid = false;
+        do {
+            try {
+                this.nhapThongTinChung();
+                valid = true;
+            } catch (IllegalArgumentException e) {
+                System.out.print("""
+                        Mon hoc nay da ton tai
+                        Ban co muon nhap lai?
+                        1. Co
+                        2. Khong
+                        Chon:\s""");
+                int choice = getInt();
+                switch (choice) {
+                    case 1 -> System.out.println("Nhap lai thong tin mon hoc " + this.ten);
+                    case 2 -> valid = true;
+                    default -> announceInvalidValue();
+                }
+            }
+        } while (!valid);
 
         // nhập thông tin môn học trước
         int soMon;
@@ -128,32 +149,7 @@ public class MonHoc {
             else if (soMon < 0)
                 System.out.println("Lựa chọn không hợp lệ!");
         } while (soMon < 0 || soMon > 3);
-        for (int i = 0; i < soMon; i++) {
-            int choose;
-            do {
-                System.out.print("1.Thêm mới môn học\n2.Thêm môn có sẵn\nBạn chọn: ");
-                choose = getInt();
-                if (choose == 1) {
-                    MonHoc m = new MonHoc();
-                    m.nhapMonHoc();
-                    this.monHocTruoc.add(m);
-                } else if (choose == 2) {
-                    MonHoc m;
-                    do {
-                        System.out.print("Nhập mã môn học: ");
-                        int id = getInt();
-                        m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
-                        if (m != null) {
-                            this.monHocTruoc.add(m);
-                        } else {
-                            System.out.println("Môn học chưa có sẵn");
-                        }
-                    } while (m == null);
-                } else {
-                    System.out.println("Không hợp lệ!! Nhập lại ");
-                }
-            } while (choose > 2 || choose < 1);
-        }
+        themMonDieuKien(soMon, MON_HOC_TRUOC);
 
 
         // nhập thông tin môn học tiên quyết
@@ -165,6 +161,10 @@ public class MonHoc {
             else if (soMon < 0)
                 System.err.println("Lựa chọn không hợp lệ!");
         } while (soMon < 0 || soMon > 3);
+        themMonDieuKien(soMon, MON_TIEN_QUYET);
+    }
+
+    public void themMonDieuKien(int soMon, MonDieuKien monDieuKien) {
         for (int i = 0; i < soMon; i++) {
             int choose;
             do {
@@ -173,15 +173,15 @@ public class MonHoc {
                 if (choose == 1) {
                     MonHoc m = new MonHoc();
                     m.nhapMonHoc();
-                    this.monTienQuyet.add(m);
+                    monDieuKien.themMonDieuKien(this, m);
                 } else if (choose == 2) {
-                    MonHoc m;
+                    DeCuongMonHoc m;
                     do {
                         System.out.print("Nhập mã môn học: ");
                         int id = getInt();
-                        m = QuanLyDeCuong.findCourseOutline(id).getMonHoc();
+                        m = QuanLyDeCuong.findCourseOutline(id);
                         if (m != null) {
-                            this.monTienQuyet.add(m);
+                            monDieuKien.themMonDieuKien(this, m.getMonHoc());
                         } else {
                             System.out.println("Môn học chưa có sẵn");
                         }

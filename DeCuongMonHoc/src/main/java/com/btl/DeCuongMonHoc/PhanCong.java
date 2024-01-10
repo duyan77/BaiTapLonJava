@@ -17,7 +17,6 @@ public class PhanCong {
     public final List<GiangVien> phanCongGV = new ArrayList<>();
 
     {
-        new QuanLyDeCuong();
         this.docThongTinGiangVien();
     }
 
@@ -88,6 +87,8 @@ public class PhanCong {
                             .filter(deCuongMonHoc -> deCuongMonHoc.getMonHoc()
                                     .getMa() == maDeCuong)
                             .findFirst().orElse(null);
+                    if (dc != null)
+                        dc.setGiangVien(giangVien);
                     giangVien.themDeCuong(dc);
                 }
                 this.themGiangVien(giangVien);
