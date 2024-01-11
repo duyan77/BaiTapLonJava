@@ -303,8 +303,8 @@ public class Main {
                     do {
                         System.out.print("""
                                 Bạn có muốn tiếp tục
-                                1.Có
-                                2.Không
+                                1. Có
+                                2. Không
                                 Chọn:\s""");
                         isRepeated = getInt();
                         switch (isRepeated) {

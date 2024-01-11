@@ -135,7 +135,7 @@ public class QuanLyDeCuong {
         if (dc == null) {
             throw new IllegalArgumentException("Mã không đúng");
         }
-        System.out.println(dc);
+        System.out.print(dc);
     }
 
     // thong ke de cuong theo tin chi

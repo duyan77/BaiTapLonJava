@@ -137,7 +137,7 @@ public class DeCuongMonHoc {
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
         sb.append(SEPARATOR)
-                .append(String.format("%-12s%-20s%-80s", "Mục tiêu", "Chuẩn đầu ra", "Mô tả"))
+                .append(String.format("%-12s%-20s%-80s\n", "Mục tiêu", "Chuẩn đầu ra", "Mô tả"))
                 .append(SEPARATOR);
         this.mucTieu.forEach(mucTieu -> sb.append(mucTieu.toString()));
         sb.append(SEPARATOR);
