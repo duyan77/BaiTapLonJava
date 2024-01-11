@@ -113,7 +113,7 @@ public class Main {
                                 case 3 -> System.out.println(
                                         "Thoát chức năng chỉnh sửa môn tiên quyết!");
                                 default -> {
-                                    System.out.println("Lua chon khong hop le. Vui long nhap lai!");
+                                    System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại!");
                                     valid = false;
                                 }
                             }
@@ -145,7 +145,7 @@ public class Main {
                                             isRepeated = false;
                                         } catch (IllegalArgumentException e) {
                                             System.out.printf(
-                                                    "Đề cuong của môn học %s không thuộc quản " +
+                                                    "Đề cương của môn học %s không thuộc quản " +
                                                             "lý của giảng viên %s",
                                                     m.getTen(), gv.getTen());
                                             // tra ve true neu muon nhap lai
@@ -184,7 +184,7 @@ public class Main {
                                 case 3 -> System.out.println(
                                         "Thoát chức năng chỉnh sửa môn học trước!");
                                 default -> {
-                                    System.out.println("Lua chon khong hop le. Vui long nhap lai!");
+                                    System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại!");
                                     valid = false;
                                 }
                             }
@@ -193,8 +193,8 @@ public class Main {
                 }
                 case 4 -> {
                     var dc = handleInput(gv::timDeCuong,
-                            "môn học cần chỉnh sửa hinh thuc danh gia",
-                            "cập nhật hinh thuc danh gia");
+                            "môn học cần chỉnh sửa hình thức đánh giá",
+                            "cập nhật hình thức đánh giá");
 
                     // thuc hien cac chuc nang cua case 2
                     if (dc != null) {

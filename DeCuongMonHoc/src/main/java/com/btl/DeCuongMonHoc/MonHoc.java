@@ -149,7 +149,7 @@ public class MonHoc {
                         monDieuKien.themMonDieuKien(this, m);
                     } catch (IllegalArgumentException e) {
                         System.out.printf(
-                                "Mon hoc %s se khong duoc them vao danh sach %s cua mon %s",
+                                "Môn học %s sẽ không được thêm vào danh sách %s của môn %s",
                                 e.getMessage(), monDieuKien.tenHeDaoTao(), this.getTen());
                         return;
                     }
