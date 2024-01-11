@@ -57,44 +57,8 @@ public class DeCuongMonHoc {
         return monHoc;
     }
 
-    public void setMonHoc(MonHoc monHoc) {
-        this.monHoc = monHoc;
-    }
-
-    public HeDaoTao getHeDaoTao() {
-        return heDaoTao;
-    }
-
     public void setHeDaoTao(HeDaoTao heDaoTao) {
         this.heDaoTao = heDaoTao;
-    }
-
-    public List<MucTieu> getMucTieu() {
-        return mucTieu;
-    }
-
-    public void setMucTieu(List<MucTieu> mucTieu) {
-        this.mucTieu = mucTieu;
-    }
-
-    public DanhGia getDanhGia() {
-        return danhGia;
-    }
-
-    public void setDanhGia(DanhGia danhGia) {
-        this.danhGia = danhGia;
-    }
-
-    public NoiDungDeCuong getNoiDungDeCuong() {
-        return noiDungDeCuong;
-    }
-
-    public void setNoiDungDeCuong(NoiDungDeCuong noiDungDeCuong) {
-        this.noiDungDeCuong = noiDungDeCuong;
-    }
-
-    public GiangVien getGiangVien() {
-        return giangVien;
     }
 
     public void setGiangVien(GiangVien giangVien) {

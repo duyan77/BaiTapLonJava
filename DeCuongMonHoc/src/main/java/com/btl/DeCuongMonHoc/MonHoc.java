@@ -37,16 +37,6 @@ public class MonHoc {
         this.khoiKienThuc = khoiKienThuc;
     }
 
-    public MonHoc(int ma, String ten, int soTinChi, String moTa, List<MonHoc> monHocTruoc, List<MonHoc> monTienQuyet, KhoiKienThuc khoiKienThuc) {
-        this.ma = ma;
-        this.ten = ten;
-        this.soTinChi = soTinChi;
-        this.moTa = moTa;
-        this.monHocTruoc = monHocTruoc;
-        this.monTienQuyet = monTienQuyet;
-        this.khoiKienThuc = khoiKienThuc;
-    }
-
     //    getter, setter
     public int getMa() {
         return ma;
@@ -76,9 +66,6 @@ public class MonHoc {
         return ten;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
     //---------------------------------------------------------------------------------------------
 
     //    nhập các thông tin chung
