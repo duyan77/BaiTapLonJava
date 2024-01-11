@@ -1,0 +1,14 @@
+1401 | 3 | Bài tập tổng hợp các chương | Điểm quá trình | 20 | Kiến thức tổng hợp | Bài kiểm tra giữa kỳ trên máy | 20 | Kiến thức tổng hợp | Bài kiểm tra tự luận và trắc nghiệm | 60
+1504 | 2 | Kiến thức từ chương 2 - 4 | Bài kiểm tra giữa kỳ trên máy | 40 | Kiến thức toàn bộ các chương trong đề cương | Bài kiểm tra cuối kỳ trên máy | 60
+2504 | 3 | Điểm danh, phát biểu và làm bài tập trên lớp | Chuyên cần | 10 | Thi thực hành trên máy/ bài tập lớn | Thi thực hành/Bài tập lớn | 30 | Kiến thức toàn bộ các chương | Thi cuối kỳ trên giấy | 60
+1505 | 2 | Kiến thức các chương 1 - 3 | Bài kiểm tra giữa kỳ trên máy | 40 | Kiến thức toàn bộ các chương trong đề cương | Bài kiểm tra cuối kỳ trên máy | 60
+2401 | 3 | Bài tập cá nhân/ nhóm | Điểm quá trình | 15 | Từ chương 2 - 8 | Thi giữa kì trên máy | 35 | Tất cả các chương | Thi cuối kì trắc nghiệm trên giấy | 50
+3301 | 3 | Bài tập các chương 1 - 5 | Điểm quá trình | 25 | Bài tiểu luận nhóm | Bài giữa kỳ | 25 | Kiến thức toàn bộ các chương trong đề cương | Bài kiểm tra tự luận/ Nộp tiểu luận | 50
+3406 | 3 | Các bài tập trong quá trình học | Điểm quá trình | 10 | Kiến thức tổng hợp | Bài giữa kỳ trắc nghiệm trên LMS | 40 | Kiến thức tổng hợp | Đồ án môn học/ Vấn đáp | 50
+2502 | 3 | Bài tập cá nhân | Điểm quá trình | 20 | Kiến thức tổng hợp | Bài giữa kỳ trên máy | 20 | Kiến thức tổng hợp | Bài cuối kỳ trên giấy | 60
+2503 | 3 | Bài tập thực hành từng buổi | Điểm quá trình | 10 | Cài đặt mạng, thiết lập và sử dụng | Thi giữa kì trên máy | 30 | Tất cả các chương | Bài cuối kì trên giấy | 60
+2301 | 2 | Kiến thức các chương 1 - 3 | Bài kiểm tra giữa kỳ trên máy | 30 | Kiến thức toàn bộ các chương trong đề cương | Bài kiểm tra cuối kỳ trên giấy | 70
+4403 | 2 | Kiến thức các chương 1 - 5 | Bài kiểm tra giữa kỳ trên máy | 40 | Kiến thức tổng hợp | Bài kiểm tra cuối kỳ trên giấy | 60
+3401 | 2 | Kiến thức các chương 1, 3, 4, 5 | Bài kiểm tra giữa kỳ trên máy | 30 | Kiến thức toàn bộ các chương trong đề cương | Bài kiểm tra cuối kỳ trên giấy | 70
+4404 | 3 | Điểm danh, phát biểu và làm bài tập trên lớp | Chuyên cần | 10 | Thi thực hành trên máy/ bài tập lớn | Thi thực hành/Bài tập lớn | 30 | Kiến thức tổng hợp | Thi cuối kỳ trên giấy | 60
+1404 | 2 | Bài tập cá nhân/ nhóm | Bài giữa kỳ trên máy | 40 | Kiến thức tổng hợp | Bài cuối kỳ trên giấy | 60
