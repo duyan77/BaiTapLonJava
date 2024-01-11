@@ -7,7 +7,7 @@ import static com.btl.DeCuongMonHoc.CauHinh.sc;
 public class GiangVien {
     private static int dem = 0;
 
-    private String maGV;
+    private final String maGV;
 
     private String ten;
 
@@ -31,16 +31,8 @@ public class GiangVien {
         return maGV;
     }
 
-    public void setMaGV(String maGV) {
-        this.maGV = maGV;
-    }
-
     public String getTen() {
         return ten;
-    }
-
-    public void setTen(String ten) {
-        this.ten = ten;
     }
 
     //    ----------------------------------------------------------------------------------------
@@ -88,20 +80,8 @@ public class GiangVien {
         this.quanLyDeCuong.themDanhGia(dc);
     }
 
-    public void themDanhGia(String tenMonHoc) {
-
-    }
-
     public void xoaDanhGia(DeCuongMonHoc dc) {
         this.quanLyDeCuong.xoaDanhGia(dc);
-    }
-
-    public void suaNoiDung(String tenMonHoc) {
-
-    }
-
-    public void suaNoiDung(DeCuongMonHoc dc) {
-
     }
 
     public DeCuongMonHoc timDeCuong(int id) throws IllegalArgumentException {
@@ -118,9 +98,6 @@ public class GiangVien {
 
     public List<MonHoc> dsMonLienQuan(int id) throws IllegalArgumentException {
         return this.quanLyDeCuong.dsMonLienQuan(id);
-    }
-
-    public void themMonHocTruoc(int id) {
     }
 
     public void sapXepMonHoc() {

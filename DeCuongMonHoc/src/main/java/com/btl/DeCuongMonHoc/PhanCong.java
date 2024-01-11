@@ -2,7 +2,9 @@ package com.btl.DeCuongMonHoc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,23 +26,10 @@ public class PhanCong {
         this.phanCongGV.add(giangVien);
     }
 
-    public void themGiangVien() {
-        GiangVien giangVien = new GiangVien();
-        giangVien.nhapGiangVien();
-        this.themGiangVien(giangVien);
-    }
-
     public GiangVien timGiangVien(String maGV) {
         return this.phanCongGV.stream()
                 .filter(giangVien -> giangVien.getMaGV().equalsIgnoreCase(maGV))
                 .findFirst().orElse(null);
-    }
-
-    // danh sach de cuong cua giang vien
-    public List<DeCuongMonHoc> danhSachDeCuong(String id) {
-        return this.phanCongGV.stream()
-                .filter(giangVien -> giangVien.getMaGV().equals(id))
-                .findFirst().orElseThrow().danhSachDeCuong();
     }
 
     private static KhoiKienThuc convertStrToKKT(String s) {
@@ -58,21 +47,6 @@ public class PhanCong {
             return CHINH_QUY;
         else if (s.equalsIgnoreCase("Liên thông")) return LIEN_THONG;
         return null;
-    }
-
-    public static Map<Integer, String> bangPhanCong() {
-        File f = new File(CauHinh.giangVienPath);
-        try (Scanner scanner = new Scanner(f)) {
-            Map<Integer, String> map = new HashMap<>();
-            while (scanner.hasNextLine()) {
-                var dataOfGiangVien = scanner.nextLine().split(" \\| ");
-                for (int i = 2; i < dataOfGiangVien.length; i++)
-                    map.put(parseInt(dataOfGiangVien[i]), dataOfGiangVien[0]);
-            }
-            return map;
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void docThongTinGiangVien() {
