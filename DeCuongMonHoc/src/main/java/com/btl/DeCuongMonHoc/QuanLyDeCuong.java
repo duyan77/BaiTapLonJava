@@ -101,12 +101,6 @@ public class QuanLyDeCuong {
         this.xoaMonDieuKien(m, requiredCourse, monDieuKien);
     }
 
-    public void themDanhGia(int id)
-            throws MaxSizeExceededException, IllegalArgumentException {
-        var modifiedOutlineCourse = this.timDeCuong(id);
-        modifiedOutlineCourse.themDanhGia();
-    }
-
     public void themDanhGia(DeCuongMonHoc dc)
             throws MaxSizeExceededException {
         dc.themDanhGia();
