@@ -13,7 +13,7 @@ public enum MonDieuKien {
         }
 
         @Override
-        public String tenHeDaoTao() {
+        public String loaiDieuKien() {
             return "môn tiên quyết";
         }
 
@@ -34,7 +34,7 @@ public enum MonDieuKien {
         }
 
         @Override
-        public String tenHeDaoTao() {
+        public String loaiDieuKien() {
             return "môn học trước";
         }
 
@@ -46,7 +46,7 @@ public enum MonDieuKien {
 
     public abstract void themMonDieuKien(MonHoc m, MonHoc monCanThem);
 
-    public abstract String tenHeDaoTao();
+    public abstract String loaiDieuKien();
 
     public abstract void xoaMonDieuKien(MonHoc m, MonHoc monCanXoa);
 }

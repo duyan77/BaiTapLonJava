@@ -150,7 +150,7 @@ public class MonHoc {
                     } catch (IllegalArgumentException e) {
                         System.out.printf(
                                 "Môn học %s sẽ không được thêm vào danh sách %s của môn %s\n",
-                                e.getMessage(), monDieuKien.tenHeDaoTao(), this.getTen());
+                                e.getMessage(), monDieuKien.loaiDieuKien(), this.getTen());
                         return;
                     }
                 } else if (choose == 2) {
