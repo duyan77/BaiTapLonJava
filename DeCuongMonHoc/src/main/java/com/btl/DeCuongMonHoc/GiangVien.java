@@ -2,23 +2,18 @@ package com.btl.DeCuongMonHoc;
 
 import java.util.List;
 
-import static com.btl.DeCuongMonHoc.CauHinh.sc;
-
 public class GiangVien {
     private static int dem = 0;
 
     private final String maGV;
 
-    private String ten;
+    private final String ten;
 
     private final QuanLyDeCuong quanLyDeCuong;
 
     {
         this.maGV = String.format("GV%03d", ++GiangVien.dem);
         this.quanLyDeCuong = new QuanLyDeCuong();
-    }
-
-    public GiangVien() {
     }
 
     public GiangVien(String ten) {
@@ -37,11 +32,6 @@ public class GiangVien {
 
     //    ----------------------------------------------------------------------------------------
 
-    public void nhapGiangVien() {
-        System.out.print("Nhập tên giảng viên: ");
-        this.ten = sc.nextLine();
-    }
-
     public void themDeCuong(DeCuongMonHoc... deCuongMonHocs)
             throws IllegalArgumentException {
         this.quanLyDeCuong.themDeCuong(deCuongMonHocs);
@@ -53,27 +43,13 @@ public class GiangVien {
         this.themDeCuong(deCuongMonHoc);
     }
 
-    public void themDeCuong(MonHoc monHoc) throws IllegalArgumentException {
-        DeCuongMonHoc deCuongMonHoc = new DeCuongMonHoc(monHoc);
-        deCuongMonHoc.nhapDeCuong();
-        this.themDeCuong(deCuongMonHoc);
-    }
-
     public void themMonHocDieuKien(MonHoc monCanBoSung, MonDieuKien monDieuKien) throws IllegalArgumentException {
         this.quanLyDeCuong.themMonHocDieuKien(monCanBoSung, monDieuKien);
-    }
-
-    public void xoaMonHocDieuKien(MonHoc m, MonHoc monTienQuyet, MonDieuKien monDieuKien) {
-        this.quanLyDeCuong.xoaMonDieuKien(m, monTienQuyet, monDieuKien);
     }
 
     public void xoaMonHocDieuKien(MonHoc m, int id, MonDieuKien monDieuKien)
             throws IllegalArgumentException {
         this.quanLyDeCuong.xoaMonDieuKien(m, id, monDieuKien);
-    }
-
-    public void themDanhGia(int id) {
-        this.quanLyDeCuong.themDanhGia(id);
     }
 
     public void themDanhGia(DeCuongMonHoc dc) {
