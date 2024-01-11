@@ -13,6 +13,11 @@ public enum MonDieuKien {
         }
 
         @Override
+        public String tenHeDaoTao() {
+            return "môn tiên quyết";
+        }
+
+        @Override
         public void xoaMonDieuKien(MonHoc m, MonHoc monCanXoa) {
             m.dsMonTienQuyet().remove(monCanXoa);
         }
@@ -29,12 +34,19 @@ public enum MonDieuKien {
         }
 
         @Override
+        public String tenHeDaoTao() {
+            return "môn học trước";
+        }
+
+        @Override
         public void xoaMonDieuKien(MonHoc m, MonHoc monCanXoa) {
             m.dsMonTienQuyet().remove(monCanXoa);
         }
     };
 
     public abstract void themMonDieuKien(MonHoc m, MonHoc monCanThem);
+
+    public abstract String tenHeDaoTao();
 
     public abstract void xoaMonDieuKien(MonHoc m, MonHoc monCanXoa);
 }

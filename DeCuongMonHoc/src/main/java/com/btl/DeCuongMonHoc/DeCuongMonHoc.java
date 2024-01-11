@@ -176,14 +176,16 @@ public class DeCuongMonHoc {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); // muc tieu mon hoc
-        sb.append(SEPARATOR).append(String.format("%-12s%-20s%-80s", "Mục tiêu", "Chuẩn đầu ra", "Mô tả")).append(SEPARATOR);
+        sb.append(SEPARATOR)
+                .append(String.format("%-12s%-20s%-80s", "Mục tiêu", "Chuẩn đầu ra", "Mô tả"))
+                .append(SEPARATOR);
         this.mucTieu.forEach(mucTieu -> sb.append(mucTieu.toString()));
         sb.append(SEPARATOR);
         if (sb.isEmpty()) sb.append("Không");
         return """
                 \n%35s==========ĐỀ CƯƠNG MÔN HỌC===========
                 %30s==================**********===================
-                
+                                
                 1. THÔNG TIN MÔN HỌC
                 %sHệ đào tạo: %s
                                 
@@ -194,7 +196,7 @@ public class DeCuongMonHoc {
                 4. ĐÁNH GIÁ
                 %s
                 5. GIẢNG VIÊN BIÊN SOẠN
-                %s""".formatted("","",monHoc.toString(), heDaoTao.tenHeDaoTao(),
+                %s""".formatted("", "", monHoc.toString(), heDaoTao.tenHeDaoTao(),
                 sb.toString(), noiDungDeCuong.toString(),
                 danhGia.toString(), giangVien.toString());
     }

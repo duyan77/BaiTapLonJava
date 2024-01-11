@@ -86,8 +86,9 @@ public class MonHoc {
         System.out.print("Nhập mã môn học: ");
         this.ma = getInt();
 
-        if (QuanLyDeCuong.findCourseOutline(ma) != null)
-            throw new IllegalArgumentException();
+        DeCuongMonHoc dc = QuanLyDeCuong.findCourseOutline(ma);
+        if (dc != null)
+            throw new IllegalArgumentException(dc.getMonHoc().getTen());
 
         System.out.print("Nhập tên môn học: ");
         this.ten = sc.nextLine();
@@ -117,7 +118,7 @@ public class MonHoc {
     }
 
     //    sử dụng cho constructor không tham số
-    public void nhapMonHoc() {
+    public void nhapMonHoc() throws IllegalArgumentException {
         boolean valid = false;
         do {
             try {
@@ -133,7 +134,7 @@ public class MonHoc {
                 int choice = getInt();
                 switch (choice) {
                     case 1 -> System.out.println("Nhập lại thông tin môn học " + this.ten);
-                    case 2 -> valid = true;
+                    case 2 -> throw new IllegalArgumentException(e.getMessage());
                     default -> announceInvalidValue();
                 }
             }
@@ -172,8 +173,15 @@ public class MonHoc {
                 choose = getInt();
                 if (choose == 1) {
                     MonHoc m = new MonHoc();
-                    m.nhapMonHoc();
-                    monDieuKien.themMonDieuKien(this, m);
+                    try {
+                        m.nhapMonHoc();
+                        monDieuKien.themMonDieuKien(this, m);
+                    } catch (IllegalArgumentException e) {
+                        System.out.printf(
+                                "Mon hoc %s se khong duoc them vao danh sach %s cua mon %s",
+                                e.getMessage(), monDieuKien.tenHeDaoTao(), this.getTen());
+                        return;
+                    }
                 } else if (choose == 2) {
                     DeCuongMonHoc m;
                     do {
