@@ -57,10 +57,6 @@ public class DeCuongMonHoc {
         return monHoc;
     }
 
-    public void setHeDaoTao(HeDaoTao heDaoTao) {
-        this.heDaoTao = heDaoTao;
-    }
-
     public void setGiangVien(GiangVien giangVien) {
         this.giangVien = giangVien;
     }

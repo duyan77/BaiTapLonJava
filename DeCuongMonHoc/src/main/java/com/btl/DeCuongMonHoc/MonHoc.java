@@ -20,9 +20,9 @@ public class MonHoc {
 
     private String moTa;
 
-    private List<MonHoc> monHocTruoc = new LimitedList<>(CauHinh.soLuongMonDieuKien);
+    private final List<MonHoc> monHocTruoc = new LimitedList<>(CauHinh.soLuongMonDieuKien);
 
-    private List<MonHoc> monTienQuyet = new LimitedList<>(CauHinh.soLuongMonDieuKien);
+    private final List<MonHoc> monTienQuyet = new LimitedList<>(CauHinh.soLuongMonDieuKien);
 
     private KhoiKienThuc khoiKienThuc;
 
@@ -42,24 +42,8 @@ public class MonHoc {
         return ma;
     }
 
-    public void setMa(int ma) {
-        this.ma = ma;
-    }
-
     public int getSoTinChi() {
         return soTinChi;
-    }
-
-    public void setSoTinChi(int soTinChi) {
-        this.soTinChi = soTinChi;
-    }
-
-    public String getMoTa() {
-        return moTa;
-    }
-
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
     }
 
     public String getTen() {
