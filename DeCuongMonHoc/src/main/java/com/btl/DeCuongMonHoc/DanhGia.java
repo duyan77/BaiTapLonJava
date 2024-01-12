@@ -1,6 +1,5 @@
 package com.btl.DeCuongMonHoc;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -94,10 +93,16 @@ public class DanhGia {
                 .sum();
     }
 
-    public void themCotDiem(CotDiem... cotDiems)
+    public void themCotDiem(CotDiem cotDiemThem)
             throws MaxSizeExceededException, IllegalArgumentException {
-        this.cotDiem.addAll(Arrays.asList(cotDiems));
+        this.cotDiem.add(cotDiemThem);
         CotDiem.setDem(this.cotDiem.size());
+    }
+
+    public void themCotDiem() {
+        System.out.println("Vui lòng nhập lại tỉ trọng của các cột điểm trước");
+        this.retypeOldWeight();
+        this.nhapDanhGia();
     }
 
     private void checkWeight() {
@@ -112,7 +117,8 @@ public class DanhGia {
         boolean isRepeated = true;
         do {
             try {
-                checkWeight(); // kiem tra ti trong tong == 100 chua, neu chua -> throw InvalidWeightException
+                checkWeight(); // kiem tra ti trong tong == 100 chua,
+                // neu chua -> throw InvalidWeightException
                 isRepeated = false;
             } catch (InvalidWeightException e) {
                 System.out.println("Tổng tỉ trọng phải là 100!");
@@ -153,7 +159,7 @@ public class DanhGia {
     @Override
     public String toString() {
         return SEPARATOR + String.format("|%-12s|%-45s|%-35s|%-10s|\n", "Bài đánh giá", " Nội dung", " Phương pháp", " Tỉ trọng") +
-               this.cotDiem.stream().map(CotDiem::toString).collect(Collectors.joining()) +
-               SEPARATOR;
+                this.cotDiem.stream().map(CotDiem::toString).collect(Collectors.joining()) +
+                SEPARATOR;
     }
 }

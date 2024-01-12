@@ -134,13 +134,14 @@ public class Main {
                                     2. Xóa môn học trước
                                     3. Thoát
                                     Chọn:\s""");
-                            int choiceInCase2 = getInt();
-                            switch (choiceInCase2) {
+                            int choiceInCase3 = getInt();
+                            switch (choiceInCase3) {
                                 case 1 -> {
                                     boolean isRepeated = true;
                                     do {
                                         try {
-                                            System.out.println("Nhập thông tin môn học trước cần thêm");
+                                            System.out.println(
+                                                    "Nhập thông tin môn học trước cần thêm");
                                             gv.themMonHocDieuKien(m, MON_HOC_TRUOC);
                                             isRepeated = false;
                                         } catch (IllegalArgumentException e) {
@@ -203,8 +204,8 @@ public class Main {
                                 2. Xóa hình thức đánh giá
                                 3. Thoát
                                 Chọn:\s""");
-                        int choiceInCase2 = getInt();
-                        switch (choiceInCase2) {
+                        int choiceInCase4 = getInt();
+                        switch (choiceInCase4) {
                             case 1 -> gv.themDanhGia(dc);
                             case 2 -> gv.xoaDanhGia(dc);
                             case 3 ->

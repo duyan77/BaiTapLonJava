@@ -119,7 +119,9 @@ public class DeCuongMonHoc {
             } catch (IllegalArgumentException e) {
                 System.out.println("Tên cột điểm không đúng");
             } catch (MinSizeExceededException e) {
-                System.out.println("Xóa cột điểm không thành công vì số cột điểm tối thiểu là ");
+                System.out.printf(
+                        "Xóa cột điểm không thành công vì số cột điểm tối thiểu là %d",
+                        CauHinh.soCotDiemToiThieu);
                 isRepeated = false;
             }
         } while (isRepeated);
