@@ -22,12 +22,7 @@ public class DanhGia {
         this.cotDiem = cotDiem;
     }
 
-    // getter, setter
-    public List<CotDiem> getCotDiem() {
-        return cotDiem;
-    }
-
-//-------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------
 
     public int soCotDiemHienTai() {
         return this.cotDiem.size();
@@ -132,10 +127,6 @@ public class DanhGia {
     public void xoaCotDiem(CotDiem cotDiem) throws
             MinSizeExceededException {
         this.cotDiem.remove(cotDiem);
-    }
-
-    public void xoaCotDiem(int index) throws MinSizeExceededException {
-        this.cotDiem.remove(index);
     }
 
     public void xoaCotDiem()
